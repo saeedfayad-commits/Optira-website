@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Parents — Optira</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero { padding-top: calc(var(--nav-h) + 70px); padding-bottom: 60px; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2rem,4vw,3rem); font-weight: 800; margin-bottom: 0.75rem; max-width: 640px; }
+    .page-hero p { color: var(--text-muted); max-width: 560px; font-size: 1.05rem; }
+    .info-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; padding: 60px 0; }
+    .info-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; }
+    .info-card h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; margin-bottom: 0.75rem; }
+    .info-card p { color: var(--text-muted); font-size: 0.9rem; }
+    .pathway-table { width: 100%; border-collapse: collapse; margin: 40px 0 80px; }
+    .pathway-table th, .pathway-table td { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); text-align: left; font-size: 0.9rem; }
+    .pathway-table th { font-family: var(--font-display); font-weight: 800; color: var(--accent); }
+    .pathway-table tr:last-child td { border-bottom: none; }
+    .pathway-table td:first-child { font-weight: 600; }
+    @media (max-width: 640px) { .info-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav__inner container">
+      <a href="index.html" class="nav__logo">Optira</a>
+      <nav class="nav__links">
+        <a href="index.html">Home</a><a href="quiz.html">Quiz</a><a href="careers.html">Careers</a>
+        <a href="opportunities.html">Opportunities</a><a href="compare.html">Compare</a>
+        <a href="parents.html">Parents</a><a href="schools.html">Schools</a>
+      </nav>
+      <a href="dashboard.html" class="btn btn--outline">My Dashboard</a>
+      <button class="nav__burger" aria-label="Open menu">&#9776;</button>
+    </div>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu__close" id="menuClose">&#x2715;</button>
+    <nav>
+      <a href="index.html">Home</a><a href="quiz.html">Quiz</a><a href="careers.html">Careers</a>
+      <a href="opportunities.html">Opportunities</a><a href="compare.html">Compare</a>
+      <a href="parents.html">Parents</a><a href="schools.html">Schools</a>
+    </nav>
+  </div>
+
+  <main class="container">
+    <div class="page-hero">
+      <p class="section__eyebrow">For Parents & Caregivers</p>
+      <h1>Support your child's <span class="gradient-text">future decisions</span></h1>
+      <p>Optira helps you start better conversations — without the pressure. Understand the real options available to your child after high school.</p>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>🎓 Understanding study pathways</h3>
+        <p>There's more than just university. TAFE, apprenticeships, traineeships, and online certifications are all legitimate pathways to great careers. Optira explains all of them, clearly.</p>
+      </div>
+      <div class="info-card">
+        <h3>💬 Starting the conversation</h3>
+        <p>Use Optira's career profiles and quiz results as a conversation starter with your teen. Explore careers together without making it feel like a lecture.</p>
+      </div>
+      <div class="info-card">
+        <h3>🤖 AI and future jobs</h3>
+        <p>Every career profile on Optira includes an honest AI impact rating — so you and your child can understand which careers are growing, changing, or under pressure from automation.</p>
+      </div>
+      <div class="info-card">
+        <h3>💰 Salary expectations</h3>
+        <p>Every profile shows realistic Australian salary ranges so your family can plan ahead. Salaries reflect typical ranges across states and experience levels.</p>
+      </div>
+    </div>
+
+    <h2 class="section__title" style="margin-bottom:1.5rem;">Study pathway comparison</h2>
+    <table class="pathway-table">
+      <thead>
+        <tr>
+          <th>Pathway</th>
+          <th>Duration</th>
+          <th>Cost</th>
+          <th>Best for</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>University degree</td>
+          <td>3–5 years</td>
+          <td>HECS-HELP available</td>
+          <td>Professional careers (medicine, law, engineering)</td>
+        </tr>
+        <tr>
+          <td>TAFE / VET</td>
+          <td>6 months – 2 years</td>
+          <td>Lower cost, subsidies available</td>
+          <td>Practical trade and service careers</td>
+        </tr>
+        <tr>
+          <td>Apprenticeship</td>
+          <td>2–4 years</td>
+          <td>Earn while you learn</td>
+          <td>Trades: electrician, plumber, carpenter</td>
+        </tr>
+        <tr>
+          <td>Traineeship</td>
+          <td>1–2 years</td>
+          <td>Earn while you learn</td>
+          <td>Business, retail, hospitality, IT support</td>
+        </tr>
+        <tr>
+          <td>Online certification</td>
+          <td>Weeks – months</td>
+          <td>Varies widely</td>
+          <td>Tech, design, marketing roles</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="text-align:center; padding-bottom:80px;">
+      <a href="careers.html" class="btn btn--primary">Explore careers with your child</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__bottom">
+      <p>© 2026 Optira. Built to help Australian students choose their path with confidence.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Optira helps Australian high school students explore real careers, study pathways, salaries, and future opportunities before making big decisions." />
+  <title>Optira — Explore Careers with Confidence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav__inner container">
+      <a href="index.html" class="nav__logo">Optira</a>
+      <nav class="nav__links">
+        <a href="index.html">Home</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="careers.html">Careers</a>
+        <a href="opportunities.html">Opportunities</a>
+        <a href="compare.html">Compare</a>
+        <a href="parents.html">Parents</a>
+        <a href="schools.html">Schools</a>
+      </nav>
+      <a href="dashboard.html" class="btn btn--outline">My Dashboard</a>
+      <button class="nav__burger" aria-label="Open menu">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu__close" id="menuClose" aria-label="Close menu">&#x2715;</button>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="careers.html">Careers</a>
+      <a href="opportunities.html">Opportunities</a>
+      <a href="compare.html">Compare</a>
+      <a href="parents.html">Parents</a>
+      <a href="schools.html">Schools</a>
+      <a href="dashboard.html" class="btn btn--primary" style="margin-top:1rem;display:inline-block;">My Dashboard</a>
+    </nav>
+  </div>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__bg-orb hero__bg-orb--1"></div>
+      <div class="hero__bg-orb hero__bg-orb--2"></div>
+      <div class="container hero__inner">
+        <div class="hero__badge">Free for all Australian students</div>
+        <h1 class="hero__headline">Choose your path<br /><span class="gradient-text">with more confidence.</span></h1>
+        <p class="hero__sub">Optira helps students explore real careers, study options, salaries, daily work life, and future pathways — before making big decisions.</p>
+        <div class="hero__cta">
+          <a href="careers.html" class="btn btn--primary">Start Exploring</a>
+          <a href="quiz.html" class="btn btn--outline">Take Career Match Quiz</a>
+        </div>
+        <div class="hero__stats">
+          <div class="stat">
+            <span class="stat__num">50+</span>
+            <span class="stat__label">Career profiles</span>
+          </div>
+          <div class="stat__divider"></div>
+          <div class="stat">
+            <span class="stat__num">8</span>
+            <span class="stat__label">Career clusters</span>
+          </div>
+          <div class="stat__divider"></div>
+          <div class="stat">
+            <span class="stat__num">100%</span>
+            <span class="stat__label">Free to use</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section features">
+      <div class="container">
+        <p class="section__eyebrow">Everything you need to explore</p>
+        <h2 class="section__title">Optira gives you the full picture —<br />not just job titles.</h2>
+        <div class="features__grid">
+          <div class="feature-card">
+            <div class="feature-card__icon">🔍</div>
+            <h3>Explore real careers</h3>
+            <p>Detailed profiles written in plain English — what the job actually looks like day-to-day, not just a title.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card__icon">⚖️</div>
+            <h3>Compare pathways</h3>
+            <p>See up to 3 careers side by side — study time, salary, flexibility, AI impact, and more. Make an informed choice.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card__icon">✅</div>
+            <h3>Make confident decisions</h3>
+            <p>Use our quiz, career profiles, and honest pros/cons to figure out what really fits you — not just what sounds good.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY OPTIRA -->
+    <section class="section why">
+      <div class="container why__inner">
+        <div class="why__left">
+          <p class="section__eyebrow">Why Optira</p>
+          <h2 class="section__title">More than just asking ChatGPT.</h2>
+          <p class="why__body">AI chatbots give you generic answers. Optira gives you structured, student-friendly career discovery — built specifically for Australian students making real decisions.</p>
+          <ul class="why__list">
+            <li><span class="why__check">✓</span> Structured career discovery — every profile follows the same format so you can compare fairly.</li>
+            <li><span class="why__check">✓</span> Student-friendly language — plain English written for students aged 14–18.</li>
+            <li><span class="why__check">✓</span> Side-by-side comparisons — salary, study, stability, and more.</li>
+            <li><span class="why__check">✓</span> School-ready insights — TAFE vs uni, apprenticeships, all in one place.</li>
+            <li><span class="why__check">✓</span> Guided decision-making — a quiz that matches your personality and interests.</li>
+          </ul>
+        </div>
+        <div class="why__right">
+          <div class="career-card">
+            <div class="career-card__label">Example career match</div>
+            <h3 class="career-card__title">Software Developer</h3>
+            <div class="career-card__meta">
+              <span class="pill">$80k–$160k</span>
+              <span class="pill">3 yrs study</span>
+            </div>
+            <div class="career-card__tags">
+              <span class="tag tag--green">AI tools helping, not replacing</span>
+              <span class="tag">Remote work standard</span>
+              <span class="tag">Strong demand worldwide</span>
+            </div>
+            <div class="career-card__stats">
+              <div class="cs-row">
+                <span class="cs-label">AI Impact</span>
+                <span class="cs-bar"><span style="width:80%"></span></span>
+                <span class="cs-value">High</span>
+              </div>
+              <div class="cs-row">
+                <span class="cs-label">Job Stability</span>
+                <span class="cs-bar"><span style="width:90%"></span></span>
+                <span class="cs-value">High</span>
+              </div>
+              <div class="cs-row">
+                <span class="cs-label">Study Type</span>
+                <span class="cs-bar"><span style="width:60%"></span></span>
+                <span class="cs-value">Balanced</span>
+              </div>
+              <div class="cs-row">
+                <span class="cs-label">Flexibility</span>
+                <span class="cs-bar"><span style="width:85%"></span></span>
+                <span class="cs-value">High</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLUSTERS -->
+    <section class="section clusters">
+      <div class="container">
+        <p class="section__eyebrow">Find your world</p>
+        <h2 class="section__title">8 career clusters to explore</h2>
+        <p class="clusters__sub">Every career fits into a cluster. Find yours.</p>
+        <div class="clusters__grid">
+          <a href="careers.html" class="cluster-card">
+            <span class="cluster-card__emoji">🩺</span>
+            <span>Health &amp; Care</span>
+          </a>
+          <a href="careers.html" class="cluster-card">
+            <span class="cluster-card__emoji">📈</span>
+            <span>Business &amp; Finance</span>
+          </a>
+          <a href="careers.html" class="cluster-card">
+            <span class="cluster-card__emoji">🔧</span>
+            <span>Trades &amp; Construction</span>
+          </a>
+          <a href="careers.html" class="cluster-card">
+            <span class="cluster-card__emoji">🎨</span>
+            <span>Creative &amp; Digital</span>
+          </a>
+          <a href="careers.html" class="cluster-card">
+            <span class="cluster-card__emoji">💻</span>
+            <span>Technology &amp; Data</span>
+          </a>
+          <a href="careers.html" class="cluster-card">
+            <span class="cluster-card__emoji">⚖️</span>
+            <span>Law &amp; Public Service</span>
+          </a>
+          <a href="careers.html" class="cluster-card">
+            <span class="cluster-card__emoji">📖</span>
+            <span>Education &amp; Community</span>
+          </a>
+          <a href="careers.html" class="cluster-card">
+            <span class="cluster-card__emoji">🌿</span>
+            <span>Science &amp; Environment</span>
+          </a>
+        </div>
+        <div style="text-align:center;margin-top:2.5rem;">
+          <a href="careers.html" class="btn btn--outline">Browse All Careers</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUDIENCE -->
+    <section class="section audience">
+      <div class="container">
+        <p class="section__eyebrow">Built for the whole conversation</p>
+        <h2 class="section__title">Whoever you are, Optira helps.</h2>
+        <div class="audience__grid">
+          <div class="audience-card">
+            <div class="audience-card__tag">Students (14–18)</div>
+            <ul>
+              <li>Explore career options before Year 11 subject choices</li>
+              <li>Understand what a job is really like day-to-day</li>
+              <li>Find out what study pathway suits you best</li>
+            </ul>
+          </div>
+          <div class="audience-card">
+            <div class="audience-card__tag">Parents &amp; Caregivers</div>
+            <ul>
+              <li>Support your child without adding pressure</li>
+              <li>Understand study options: uni, TAFE, apprenticeship</li>
+              <li>Start better conversations about the future</li>
+            </ul>
+            <a href="parents.html" class="btn btn--ghost" style="margin-top:1.25rem;">Learn more →</a>
+          </div>
+          <div class="audience-card">
+            <div class="audience-card__tag">Schools &amp; Advisers</div>
+            <ul>
+              <li>Give students a structured exploration tool</li>
+              <li>Supplement career counselling sessions</li>
+              <li>See what careers students are interested in</li>
+            </ul>
+            <a href="schools.html" class="btn btn--ghost" style="margin-top:1.25rem;">Learn more →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="cta-banner">
+      <div class="cta-banner__orb"></div>
+      <div class="container cta-banner__inner">
+        <h2>Ready to find your path?</h2>
+        <p>Take the 7-question quiz and get matched to 3 career clusters that suit your interests, skills, and personality.</p>
+        <div class="cta-banner__btns">
+          <a href="quiz.html" class="btn btn--primary">Take the Quiz — it's free</a>
+          <a href="careers.html" class="btn btn--outline">Browse Careers</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="index.html" class="nav__logo">Optira</a>
+        <p>Helping Australian students explore careers with confidence.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Explore</h4>
+        <a href="careers.html">Career Explorer</a>
+        <a href="quiz.html">Career Quiz</a>
+        <a href="opportunities.html">Opportunities</a>
+        <a href="compare.html">Compare Careers</a>
+        <a href="dashboard.html">My Dashboard</a>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <a href="parents.html">For Parents</a>
+        <a href="schools.html">For Schools</a>
+        <a href="index.html">About Optira</a>
+        <a href="index.html">Contact</a>
+      </div>
+      <div class="footer__col">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Disclaimer</a>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p class="footer__disclaimer">Optira provides general career information only. It does not replace professional career advice, school counselling, or independent research. Salary figures are approximate ranges for Australian conditions and may vary by state, employer, and experience level.</p>
+      <p>© 2026 Optira. Built to help Australian students choose their path with confidence.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

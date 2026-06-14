@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compare Careers — Optira</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-wrap { padding-top: calc(var(--nav-h) + 80px); padding-bottom: 100px; max-width: 900px; margin: 0 auto; }
+    .page-wrap h1 { font-family: var(--font-display); font-size: clamp(2rem,4vw,3rem); font-weight: 800; margin-bottom: 0.5rem; }
+    .page-wrap .sub { color: var(--text-muted); margin-bottom: 2.5rem; }
+    .compare-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .compare-slot { background: var(--bg-2); border: 1.5px dashed var(--border); border-radius: var(--radius-lg); padding: 2rem; text-align: center; min-height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .compare-slot select { width: 100%; padding: 10px 14px; background: var(--bg-3); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-family: var(--font-body); font-size: 0.9rem; cursor: pointer; }
+    .compare-slot select:focus { outline: 2px solid var(--accent); }
+    .compare-slot .slot-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+    .compare-table { margin-top: 2.5rem; width: 100%; border-collapse: collapse; display: none; }
+    .compare-table th, .compare-table td { padding: 1rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; text-align: left; }
+    .compare-table th { font-family: var(--font-display); font-size: 1rem; font-weight: 800; color: var(--text); }
+    .compare-table td:first-child { color: var(--text-muted); font-size: 0.85rem; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    @media (max-width: 700px) { .compare-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav__inner container">
+      <a href="index.html" class="nav__logo">Optira</a>
+      <nav class="nav__links">
+        <a href="index.html">Home</a><a href="quiz.html">Quiz</a><a href="careers.html">Careers</a>
+        <a href="opportunities.html">Opportunities</a><a href="compare.html">Compare</a>
+        <a href="parents.html">Parents</a><a href="schools.html">Schools</a>
+      </nav>
+      <a href="dashboard.html" class="btn btn--outline">My Dashboard</a>
+      <button class="nav__burger" aria-label="Open menu">&#9776;</button>
+    </div>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu__close" id="menuClose">&#x2715;</button>
+    <nav>
+      <a href="index.html">Home</a><a href="quiz.html">Quiz</a><a href="careers.html">Careers</a>
+      <a href="opportunities.html">Opportunities</a><a href="compare.html">Compare</a>
+      <a href="parents.html">Parents</a><a href="schools.html">Schools</a>
+    </nav>
+  </div>
+
+  <main class="container">
+    <div class="page-wrap">
+      <p class="section__eyebrow">Side-by-side</p>
+      <h1>Compare <span class="gradient-text">up to 3 careers</span></h1>
+      <p class="sub">Pick careers from the dropdowns to compare salary, study pathway, flexibility, AI impact, and more.</p>
+
+      <div class="compare-grid" id="compareGrid">
+        <div class="compare-slot">
+          <div class="slot-label">Career 1</div>
+          <select id="sel1"><option value="">— Choose a career —</option></select>
+        </div>
+        <div class="compare-slot">
+          <div class="slot-label">Career 2</div>
+          <select id="sel2"><option value="">— Choose a career —</option></select>
+        </div>
+        <div class="compare-slot">
+          <div class="slot-label">Career 3</div>
+          <select id="sel3"><option value="">— Choose a career —</option></select>
+        </div>
+      </div>
+
+      <table class="compare-table" id="compareTable">
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th id="th1">—</th>
+            <th id="th2">—</th>
+            <th id="th3">—</th>
+          </tr>
+        </thead>
+        <tbody id="compareTbody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__bottom">
+      <p>© 2026 Optira. Built to help Australian students choose their path with confidence.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    const careers = [
+      { name:'Software Developer', salary:'$80k–$160k', study:'Uni or self-taught (1–3 yrs)', flexibility:'High', stability:'High', ai:'AI is a tool', cluster:'Technology & Data' },
+      { name:'Nurse', salary:'$70k–$110k', study:'3 yr degree', flexibility:'Medium', stability:'Very High', ai:'Low impact', cluster:'Health & Care' },
+      { name:'Graphic Designer', salary:'$55k–$95k', study:'1–3 yr degree/diploma', flexibility:'High', stability:'Medium', ai:'Medium impact', cluster:'Creative & Digital' },
+      { name:'Accountant', salary:'$65k–$130k', study:'3 yr degree + CA/CPA', flexibility:'Medium', stability:'High', ai:'Medium impact', cluster:'Business & Finance' },
+      { name:'Electrician', salary:'$70k–$130k', study:'4 yr apprenticeship', flexibility:'Medium', stability:'High', ai:'Low impact', cluster:'Trades & Construction' },
+      { name:'Data Scientist', salary:'$90k–$170k', study:'Degree + postgrad (3–5 yrs)', flexibility:'High', stability:'High', ai:'AI is core', cluster:'Technology & Data' },
+      { name:'Physiotherapist', salary:'$75k–$120k', study:'4 yr degree', flexibility:'Medium', stability:'High', ai:'Low impact', cluster:'Health & Care' },
+      { name:'UX Designer', salary:'$80k–$130k', study:'Degree or bootcamp (1–3 yrs)', flexibility:'High', stability:'Medium–High', ai:'AI is a tool', cluster:'Creative & Digital' },
+      { name:'Lawyer', salary:'$80k–$200k+', study:'5+ yr degree', flexibility:'Low–Medium', stability:'High', ai:'Medium impact', cluster:'Law & Public Service' },
+      { name:'Teacher', salary:'$70k–$110k', study:'4 yr degree', flexibility:'Medium', stability:'High', ai:'Low impact', cluster:'Education & Community' },
+      { name:'Paramedic', salary:'$65k–$100k', study:'Diploma or degree (2–3 yrs)', flexibility:'Low', stability:'High', ai:'Low impact', cluster:'Health & Care' },
+      { name:'Environmental Scientist', salary:'$65k–$110k', study:'3–4 yr degree', flexibility:'Medium', stability:'Medium', ai:'AI is a tool', cluster:'Science & Environment' },
+    ];
+
+    const rows = ['salary','study','flexibility','stability','ai','cluster'];
+    const labels = { salary:'Salary range', study:'Study path', flexibility:'Flexibility', stability:'Job stability', ai:'AI impact', cluster:'Career cluster' };
+    const sels = [document.getElementById('sel1'), document.getElementById('sel2'), document.getElementById('sel3')];
+
+    sels.forEach(sel => {
+      careers.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.name; opt.textContent = c.name;
+        sel.appendChild(opt);
+      });
+      sel.addEventListener('change', updateTable);
+    });
+
+    function updateTable() {
+      const chosen = sels.map(s => careers.find(c => c.name === s.value) || null);
+      if (chosen.every(c => !c)) return;
+      const table = document.getElementById('compareTable');
+      table.style.display = 'table';
+      ['th1','th2','th3'].forEach((id,i) => {
+        document.getElementById(id).textContent = chosen[i] ? chosen[i].name : '—';
+      });
+      document.getElementById('compareTbody').innerHTML = rows.map(r => `
+        <tr>
+          <td>${labels[r]}</td>
+          ${chosen.map(c => `<td>${c ? c[r] : '—'}</td>`).join('')}
+        </tr>`).join('');
+    }
+  </script>
+</body>
+</html>

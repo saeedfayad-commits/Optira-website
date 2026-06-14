@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Career Match Quiz — Optira</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .quiz-wrap { padding-top: calc(var(--nav-h) + 80px); padding-bottom: 100px; max-width: 680px; margin: 0 auto; }
+    .quiz-wrap h1 { font-family: var(--font-display); font-size: clamp(2rem,4vw,3rem); font-weight: 800; margin-bottom: 0.5rem; }
+    .quiz-wrap .sub { color: var(--text-muted); margin-bottom: 2.5rem; }
+    .question-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; margin-bottom: 1.5rem; }
+    .question-card h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; margin-bottom: 1.25rem; }
+    .options { display: flex; flex-direction: column; gap: 0.6rem; }
+    .option-label { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: var(--radius); border: 1.5px solid var(--border); cursor: pointer; font-size: 0.9rem; transition: border-color 0.15s, background 0.15s; }
+    .option-label:hover { border-color: var(--accent); background: rgba(124,92,252,0.06); }
+    .option-label input[type="radio"] { accent-color: var(--accent); }
+    .quiz-submit { margin-top: 2rem; }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav__inner container">
+      <a href="index.html" class="nav__logo">Optira</a>
+      <nav class="nav__links">
+        <a href="index.html">Home</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="careers.html">Careers</a>
+        <a href="opportunities.html">Opportunities</a>
+        <a href="compare.html">Compare</a>
+        <a href="parents.html">Parents</a>
+        <a href="schools.html">Schools</a>
+      </nav>
+      <a href="dashboard.html" class="btn btn--outline">My Dashboard</a>
+      <button class="nav__burger" aria-label="Open menu">&#9776;</button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu__close" id="menuClose" aria-label="Close menu">&#x2715;</button>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="careers.html">Careers</a>
+      <a href="opportunities.html">Opportunities</a>
+      <a href="compare.html">Compare</a>
+      <a href="parents.html">Parents</a>
+      <a href="schools.html">Schools</a>
+    </nav>
+  </div>
+
+  <main class="container">
+    <div class="quiz-wrap">
+      <p class="section__eyebrow">Career Match Quiz</p>
+      <h1>Find your <span class="gradient-text">career cluster</span></h1>
+      <p class="sub">Answer 7 quick questions and we'll match you to 3 career clusters that suit your interests, skills, and personality.</p>
+
+      <form id="quizForm">
+        <div class="question-card">
+          <h3>1. What kind of work sounds most exciting to you?</h3>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="q1" value="tech" /> Building apps, websites, or digital tools</label>
+            <label class="option-label"><input type="radio" name="q1" value="health" /> Helping people with their health and wellbeing</label>
+            <label class="option-label"><input type="radio" name="q1" value="creative" /> Creating art, design, or media content</label>
+            <label class="option-label"><input type="radio" name="q1" value="business" /> Running projects, managing money, or leading teams</label>
+            <label class="option-label"><input type="radio" name="q1" value="trades" /> Building or fixing things with your hands</label>
+            <label class="option-label"><input type="radio" name="q1" value="science" /> Researching and solving scientific problems</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <h3>2. Which school subject do you enjoy most?</h3>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="q2" value="tech" /> IT, Computing, or Maths</label>
+            <label class="option-label"><input type="radio" name="q2" value="science" /> Biology, Chemistry, or Physics</label>
+            <label class="option-label"><input type="radio" name="q2" value="creative" /> Art, Media, or English</label>
+            <label class="option-label"><input type="radio" name="q2" value="business" /> Business, Economics, or Legal Studies</label>
+            <label class="option-label"><input type="radio" name="q2" value="trades" /> Design & Technology or Wood/Metal work</label>
+            <label class="option-label"><input type="radio" name="q2" value="health" /> Health, PE, or Psychology</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <h3>3. How do you prefer to work?</h3>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="q3" value="solo" /> Independently, focused on a task</label>
+            <label class="option-label"><input type="radio" name="q3" value="team" /> As part of a team on shared goals</label>
+            <label class="option-label"><input type="radio" name="q3" value="people" /> Directly with customers or clients</label>
+            <label class="option-label"><input type="radio" name="q3" value="mixed" /> A mix of all three</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <h3>4. What matters most to you in a future career?</h3>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="q4" value="salary" /> High earning potential</label>
+            <label class="option-label"><input type="radio" name="q4" value="impact" /> Making a positive difference</label>
+            <label class="option-label"><input type="radio" name="q4" value="creativity" /> Creative freedom</label>
+            <label class="option-label"><input type="radio" name="q4" value="stability" /> Job security and stability</label>
+            <label class="option-label"><input type="radio" name="q4" value="flexibility" /> Flexible hours and lifestyle</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <h3>5. How do you feel about technology and AI in the workplace?</h3>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="q5" value="love" /> I love it — I want to work with cutting-edge tech</label>
+            <label class="option-label"><input type="radio" name="q5" value="fine" /> I'm fine with it as a tool</label>
+            <label class="option-label"><input type="radio" name="q5" value="neutral" /> I don't mind either way</label>
+            <label class="option-label"><input type="radio" name="q5" value="avoid" /> I'd prefer a job where it's not central</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <h3>6. What study pathway appeals to you most?</h3>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="q6" value="uni" /> University degree</label>
+            <label class="option-label"><input type="radio" name="q6" value="tafe" /> TAFE or vocational course</label>
+            <label class="option-label"><input type="radio" name="q6" value="apprenticeship" /> Apprenticeship or traineeship</label>
+            <label class="option-label"><input type="radio" name="q6" value="notsure" /> I'm not sure yet</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <h3>7. Where would you ideally work?</h3>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="q7" value="remote" /> From home or remotely</label>
+            <label class="option-label"><input type="radio" name="q7" value="office" /> In an office or studio</label>
+            <label class="option-label"><input type="radio" name="q7" value="outdoor" /> Outdoors or on a site</label>
+            <label class="option-label"><input type="radio" name="q7" value="hospital" /> In a hospital, school, or public facility</label>
+            <label class="option-label"><input type="radio" name="q7" value="anywhere" /> Anywhere — I want variety</label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn--primary quiz-submit">See My Career Matches →</button>
+      </form>
+
+      <div id="quizResult" style="display:none; margin-top:2rem;" class="question-card">
+        <h3 style="margin-bottom:1rem;">Your top career clusters</h3>
+        <div id="resultContent"></div>
+        <div style="margin-top:1.5rem;">
+          <a href="careers.html" class="btn btn--primary">Explore Careers</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+  <script>
+    const clusterMap = {
+      tech: { name: 'Technology & Data 💻', desc: 'Software, IT, cybersecurity, data science, and more.' },
+      health: { name: 'Health & Care 🩺', desc: 'Nursing, medicine, allied health, mental health, and community care.' },
+      creative: { name: 'Creative & Digital 🎨', desc: 'Design, media, film, animation, and content creation.' },
+      business: { name: 'Business & Finance 📈', desc: 'Management, finance, marketing, entrepreneurship, and HR.' },
+      trades: { name: 'Trades & Construction 🔧', desc: 'Electricians, plumbers, builders, and skilled tradespeople.' },
+      science: { name: 'Science & Environment 🌿', desc: 'Research, environmental science, engineering, and lab work.' },
+      law: { name: 'Law & Public Service ⚖️', desc: 'Law, government, defence, justice, and policy.' },
+      education: { name: 'Education & Community 📖', desc: 'Teaching, social work, youth services, and community support.' },
+    };
+
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const data = new FormData(this);
+      const counts = {};
+      for (const [, val] of data) {
+        if (clusterMap[val]) counts[val] = (counts[val] || 0) + 1;
+      }
+      const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+      const top = sorted.slice(0, 3).map(([k]) => clusterMap[k]).filter(Boolean);
+      if (!top.length) top.push(clusterMap.tech, clusterMap.creative, clusterMap.business);
+
+      const html = top.map(c => `
+        <div style="margin-bottom:1rem; padding:1rem; background:var(--bg-3); border-radius:var(--radius);">
+          <strong style="font-family:var(--font-display)">${c.name}</strong>
+          <p style="color:var(--text-muted); font-size:0.88rem; margin-top:0.25rem;">${c.desc}</p>
+        </div>`).join('');
+
+      document.getElementById('resultContent').innerHTML = html;
+      document.getElementById('quizResult').style.display = 'block';
+      document.getElementById('quizResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  </script>
+</body>
+</html>
