@@ -7,289 +7,1081 @@
   <title>Optira — Explore Careers with Confidence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF5C35;
+      --orange-light: #FF7A5A;
+      --white: #F5F5F0;
+      --bg: #0D0D0D;
+      --surface: rgba(245,245,240,0.05);
+      --surface-hover: rgba(245,245,240,0.08);
+      --border: rgba(245,245,240,0.1);
+      --border-strong: rgba(245,245,240,0.18);
+      --muted: rgba(245,245,240,0.5);
+      --muted-strong: rgba(245,245,240,0.65);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── AURORA ── */
+    .aurora {
+      position: fixed;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 500px;
+      background:
+        radial-gradient(ellipse 380px 240px at 30% 55%, rgba(255,92,53,0.13) 0%, transparent 70%),
+        radial-gradient(ellipse 380px 240px at 70% 55%, rgba(180,40,10,0.1) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 48px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--white);
+    }
+    .logo .dot { color: var(--orange); }
+
+    .nav-pills {
+      display: flex;
+      gap: 4px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 4px;
+    }
+
+    .nav-pills a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted-strong);
+      padding: 6px 16px;
+      border-radius: 20px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-pills a:hover,
+    .nav-pills a.active {
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .nav-dashboard {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted-strong);
+      padding: 8px 16px;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .nav-dashboard:hover { background: var(--surface-hover); }
+
+    .btn-orange {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      display: inline-block;
+    }
+    .btn-orange:hover { opacity: 0.88; }
+
+    /* ── MOBILE NAV ── */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px 24px 20px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(13,13,13,0.97);
+    }
+    .mobile-menu a {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--muted-strong);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu.open { display: flex; }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 88px 24px 72px;
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: rgba(255,92,53,0.1);
+      border: 1px solid rgba(255,92,53,0.28);
+      color: var(--orange-light);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(38px, 6vw, 64px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -2.5px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 .accent { color: var(--orange); }
+
+    .hero p {
+      font-size: 17px;
+      color: var(--muted-strong);
+      max-width: 440px;
+      margin: 0 auto 40px;
+      line-height: 1.75;
+      font-weight: 400;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-ghost {
+      background: var(--surface-hover);
+      color: var(--white);
+      border: 1px solid var(--border-strong);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { background: rgba(245,245,240,0.12); }
+
+    .btn-orange-lg {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      display: inline-block;
+    }
+    .btn-orange-lg:hover { opacity: 0.88; }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin: 64px auto 0;
+      max-width: 560px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat {
+      flex: 1;
+      text-align: center;
+      padding: 20px 16px;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -1px;
+    }
+    .stat-num .accent { color: var(--orange); }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 3px;
+      font-weight: 400;
+    }
+
+    /* ── SECTION SHARED ── */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--orange-light);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.05;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: var(--muted-strong);
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    /* ── FEATURE CARDS ── */
+    .features {
+      padding: 80px 0;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .features-header .section-sub { margin: 0 auto; }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 22px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .card:hover {
+      border-color: rgba(255,92,53,0.3);
+      background: rgba(255,92,53,0.04);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .icon-wrap {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .icon-wrap.orange { background: rgba(255,92,53,0.14); color: #FF6B45; }
+    .icon-wrap.warm   { background: rgba(255,140,80,0.14); color: #FFA060; }
+    .icon-wrap.red    { background: rgba(200,50,30,0.16);  color: #E87055; }
+    .icon-wrap.blue   { background: rgba(80,140,255,0.14); color: #709FFF; }
+    .icon-wrap.green  { background: rgba(50,200,120,0.14); color: #40CC80; }
+    .icon-wrap.purple { background: rgba(140,80,255,0.14); color: #AA80FF; }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .card-body {
+      font-size: 13px;
+      color: var(--muted-strong);
+      line-height: 1.65;
+    }
+
+    /* ── WHY OPTIRA ── */
+    .why {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .why-list {
+      list-style: none;
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .why-list li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: 15px;
+      color: var(--muted-strong);
+      line-height: 1.6;
+    }
+
+    .why-list li .check {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(255,92,53,0.12);
+      border: 1px solid rgba(255,92,53,0.3);
+      color: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .example-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .example-card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .example-card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .example-card-meta {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .example-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bar-label {
+      font-size: 12px;
+      color: var(--muted);
+      width: 90px;
+      flex-shrink: 0;
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 6px;
+      background: rgba(245,245,240,0.08);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--orange);
+    }
+
+    .bar-fill.med { background: #FAC775; }
+    .bar-fill.low { background: #40CC80; }
+
+    .bar-value {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--white);
+      width: 36px;
+      text-align: right;
+    }
+
+    /* ── CLUSTERS ── */
+    .clusters {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .clusters-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .clusters-header .section-sub { margin: 0 auto; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .chip {
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      color: rgba(245,245,240,0.85);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 24px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .chip:hover {
+      background: rgba(255,92,53,0.1);
+      border-color: rgba(255,92,53,0.35);
+      color: var(--white);
+    }
+
+    /* ── FOR WHO ── */
+    .for-who {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .for-who-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .audience-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+    }
+
+    .audience-card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--orange-light);
+      margin-bottom: 12px;
+    }
+
+    .audience-card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .audience-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .audience-list li {
+      font-size: 13px;
+      color: var(--muted-strong);
+      line-height: 1.55;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .audience-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--orange);
+      font-size: 11px;
+    }
+
+    .audience-card-link {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--orange-light);
+    }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .cta-band h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .cta-band h2 .accent { color: var(--orange); }
+
+    .cta-band p {
+      font-size: 16px;
+      color: var(--muted-strong);
+      max-width: 400px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    .cta-band-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 32px 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 12px;
+      max-width: 220px;
+      line-height: 1.65;
+    }
+
+    .footer-col-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(245,245,240,0.55);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer-disclaimer {
+      font-size: 11px;
+      color: rgba(245,245,240,0.3);
+      max-width: 560px;
+      text-align: right;
+      line-height: 1.5;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      nav { padding: 16px 24px; }
+      .nav-pills { display: none; }
+      .nav-dashboard { display: none; }
+      .hamburger { display: block; }
+
+      .hero { padding: 60px 20px 48px; }
+      .stats-bar { flex-direction: column; border-radius: 12px; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:last-child { border-bottom: none; }
+
+      .section-inner { padding: 0 20px; }
+
+      .cards-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; gap: 40px; }
+      .audience-grid { grid-template-columns: 1fr; }
+
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-disclaimer { text-align: left; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { letter-spacing: -1.5px; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <header class="nav">
-    <div class="nav__inner container">
-      <a href="index.html" class="nav__logo">Optira</a>
-      <nav class="nav__links">
-        <a href="index.html">Home</a>
-        <a href="quiz.html">Quiz</a>
-        <a href="careers.html">Careers</a>
-        <a href="opportunities.html">Opportunities</a>
-        <a href="compare.html">Compare</a>
-        <a href="parents.html">Parents</a>
-        <a href="schools.html">Schools</a>
-      </nav>
-      <a href="dashboard.html" class="btn btn--outline">My Dashboard</a>
-      <button class="nav__burger" aria-label="Open menu">&#9776;</button>
-    </div>
-  </header>
+  <div class="aurora" aria-hidden="true"></div>
 
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu" id="mobileMenu">
-    <button class="mobile-menu__close" id="menuClose" aria-label="Close menu">&#x2715;</button>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="quiz.html">Quiz</a>
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="logo">OPTIRA<span class="dot">.</span></a>
+
+    <div class="nav-pills">
+      <a href="index.html" class="active">Home</a>
       <a href="careers.html">Careers</a>
-      <a href="opportunities.html">Opportunities</a>
       <a href="compare.html">Compare</a>
-      <a href="parents.html">Parents</a>
-      <a href="schools.html">Schools</a>
-      <a href="dashboard.html" class="btn btn--primary" style="margin-top:1rem;display:inline-block;">My Dashboard</a>
-    </nav>
+      <a href="opportunities.html">Opportunities</a>
+    </div>
+
+    <div class="nav-right">
+      <a href="dashboard.html" class="btn-orange">My Dashboard</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">&#9776;</button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="careers.html">Careers</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="compare.html">Compare</a>
+    <a href="opportunities.html">Opportunities</a>
+    <a href="parents.html">For Parents</a>
+    <a href="schools.html">For Schools</a>
+    <a href="dashboard.html">My Dashboard</a>
   </div>
 
-  <main>
+  <!-- HERO -->
+  <section>
+    <div class="hero">
+      <div class="eyebrow">Free for all Australian students</div>
+      <h1>
+        MAKE CAREER CHOICES<br>
+        WITHOUT THE <span class="accent">GUESSWORK.</span>
+      </h1>
+      <p>Explore 50+ real careers, compare study paths, and understand how AI will shape your choices — all in one place.</p>
+      <div class="hero-btns">
+        <a href="quiz.html" class="btn-orange-lg">Find the career for me</a>
+        <a href="careers.html" class="btn-ghost">Browse careers →</a>
+      </div>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero__bg-orb hero__bg-orb--1"></div>
-      <div class="hero__bg-orb hero__bg-orb--2"></div>
-      <div class="container hero__inner">
-        <div class="hero__badge">Free for all Australian students</div>
-        <h1 class="hero__headline">Choose your path<br /><span class="gradient-text">with more confidence.</span></h1>
-        <p class="hero__sub">Optira helps students explore real careers, study options, salaries, daily work life, and future pathways — before making big decisions.</p>
-        <div class="hero__cta">
-          <a href="careers.html" class="btn btn--primary">Start Exploring</a>
-          <a href="quiz.html" class="btn btn--outline">Take Career Match Quiz</a>
+      <div class="stats-bar">
+        <div class="stat">
+          <div class="stat-num">50<span class="accent">+</span></div>
+          <div class="stat-label">Career profiles</div>
         </div>
-        <div class="hero__stats">
-          <div class="stat">
-            <span class="stat__num">50+</span>
-            <span class="stat__label">Career profiles</span>
-          </div>
-          <div class="stat__divider"></div>
-          <div class="stat">
-            <span class="stat__num">8</span>
-            <span class="stat__label">Career clusters</span>
-          </div>
-          <div class="stat__divider"></div>
-          <div class="stat">
-            <span class="stat__num">100%</span>
-            <span class="stat__label">Free to use</span>
-          </div>
+        <div class="stat">
+          <div class="stat-num">8</div>
+          <div class="stat-label">Career clusters</div>
         </div>
-      </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section class="section features">
-      <div class="container">
-        <p class="section__eyebrow">Everything you need to explore</p>
-        <h2 class="section__title">Optira gives you the full picture —<br />not just job titles.</h2>
-        <div class="features__grid">
-          <div class="feature-card">
-            <div class="feature-card__icon">🔍</div>
-            <h3>Explore real careers</h3>
-            <p>Detailed profiles written in plain English — what the job actually looks like day-to-day, not just a title.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-card__icon">⚖️</div>
-            <h3>Compare pathways</h3>
-            <p>See up to 3 careers side by side — study time, salary, flexibility, AI impact, and more. Make an informed choice.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-card__icon">✅</div>
-            <h3>Make confident decisions</h3>
-            <p>Use our quiz, career profiles, and honest pros/cons to figure out what really fits you — not just what sounds good.</p>
-          </div>
+        <div class="stat">
+          <div class="stat-num">100<span class="accent">%</span></div>
+          <div class="stat-label">Free for students</div>
         </div>
-      </div>
-    </section>
-
-    <!-- WHY OPTIRA -->
-    <section class="section why">
-      <div class="container why__inner">
-        <div class="why__left">
-          <p class="section__eyebrow">Why Optira</p>
-          <h2 class="section__title">More than just asking ChatGPT.</h2>
-          <p class="why__body">AI chatbots give you generic answers. Optira gives you structured, student-friendly career discovery — built specifically for Australian students making real decisions.</p>
-          <ul class="why__list">
-            <li><span class="why__check">✓</span> Structured career discovery — every profile follows the same format so you can compare fairly.</li>
-            <li><span class="why__check">✓</span> Student-friendly language — plain English written for students aged 14–18.</li>
-            <li><span class="why__check">✓</span> Side-by-side comparisons — salary, study, stability, and more.</li>
-            <li><span class="why__check">✓</span> School-ready insights — TAFE vs uni, apprenticeships, all in one place.</li>
-            <li><span class="why__check">✓</span> Guided decision-making — a quiz that matches your personality and interests.</li>
-          </ul>
+        <div class="stat">
+          <div class="stat-num">14<span class="accent">–</span>18</div>
+          <div class="stat-label">Target age group</div>
         </div>
-        <div class="why__right">
-          <div class="career-card">
-            <div class="career-card__label">Example career match</div>
-            <h3 class="career-card__title">Software Developer</h3>
-            <div class="career-card__meta">
-              <span class="pill">$80k–$160k</span>
-              <span class="pill">3 yrs study</span>
-            </div>
-            <div class="career-card__tags">
-              <span class="tag tag--green">AI tools helping, not replacing</span>
-              <span class="tag">Remote work standard</span>
-              <span class="tag">Strong demand worldwide</span>
-            </div>
-            <div class="career-card__stats">
-              <div class="cs-row">
-                <span class="cs-label">AI Impact</span>
-                <span class="cs-bar"><span style="width:80%"></span></span>
-                <span class="cs-value">High</span>
-              </div>
-              <div class="cs-row">
-                <span class="cs-label">Job Stability</span>
-                <span class="cs-bar"><span style="width:90%"></span></span>
-                <span class="cs-value">High</span>
-              </div>
-              <div class="cs-row">
-                <span class="cs-label">Study Type</span>
-                <span class="cs-bar"><span style="width:60%"></span></span>
-                <span class="cs-value">Balanced</span>
-              </div>
-              <div class="cs-row">
-                <span class="cs-label">Flexibility</span>
-                <span class="cs-bar"><span style="width:85%"></span></span>
-                <span class="cs-value">High</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CLUSTERS -->
-    <section class="section clusters">
-      <div class="container">
-        <p class="section__eyebrow">Find your world</p>
-        <h2 class="section__title">8 career clusters to explore</h2>
-        <p class="clusters__sub">Every career fits into a cluster. Find yours.</p>
-        <div class="clusters__grid">
-          <a href="careers.html" class="cluster-card">
-            <span class="cluster-card__emoji">🩺</span>
-            <span>Health &amp; Care</span>
-          </a>
-          <a href="careers.html" class="cluster-card">
-            <span class="cluster-card__emoji">📈</span>
-            <span>Business &amp; Finance</span>
-          </a>
-          <a href="careers.html" class="cluster-card">
-            <span class="cluster-card__emoji">🔧</span>
-            <span>Trades &amp; Construction</span>
-          </a>
-          <a href="careers.html" class="cluster-card">
-            <span class="cluster-card__emoji">🎨</span>
-            <span>Creative &amp; Digital</span>
-          </a>
-          <a href="careers.html" class="cluster-card">
-            <span class="cluster-card__emoji">💻</span>
-            <span>Technology &amp; Data</span>
-          </a>
-          <a href="careers.html" class="cluster-card">
-            <span class="cluster-card__emoji">⚖️</span>
-            <span>Law &amp; Public Service</span>
-          </a>
-          <a href="careers.html" class="cluster-card">
-            <span class="cluster-card__emoji">📖</span>
-            <span>Education &amp; Community</span>
-          </a>
-          <a href="careers.html" class="cluster-card">
-            <span class="cluster-card__emoji">🌿</span>
-            <span>Science &amp; Environment</span>
-          </a>
-        </div>
-        <div style="text-align:center;margin-top:2.5rem;">
-          <a href="careers.html" class="btn btn--outline">Browse All Careers</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- AUDIENCE -->
-    <section class="section audience">
-      <div class="container">
-        <p class="section__eyebrow">Built for the whole conversation</p>
-        <h2 class="section__title">Whoever you are, Optira helps.</h2>
-        <div class="audience__grid">
-          <div class="audience-card">
-            <div class="audience-card__tag">Students (14–18)</div>
-            <ul>
-              <li>Explore career options before Year 11 subject choices</li>
-              <li>Understand what a job is really like day-to-day</li>
-              <li>Find out what study pathway suits you best</li>
-            </ul>
-          </div>
-          <div class="audience-card">
-            <div class="audience-card__tag">Parents &amp; Caregivers</div>
-            <ul>
-              <li>Support your child without adding pressure</li>
-              <li>Understand study options: uni, TAFE, apprenticeship</li>
-              <li>Start better conversations about the future</li>
-            </ul>
-            <a href="parents.html" class="btn btn--ghost" style="margin-top:1.25rem;">Learn more →</a>
-          </div>
-          <div class="audience-card">
-            <div class="audience-card__tag">Schools &amp; Advisers</div>
-            <ul>
-              <li>Give students a structured exploration tool</li>
-              <li>Supplement career counselling sessions</li>
-              <li>See what careers students are interested in</li>
-            </ul>
-            <a href="schools.html" class="btn btn--ghost" style="margin-top:1.25rem;">Learn more →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA BANNER -->
-    <section class="cta-banner">
-      <div class="cta-banner__orb"></div>
-      <div class="container cta-banner__inner">
-        <h2>Ready to find your path?</h2>
-        <p>Take the 7-question quiz and get matched to 3 career clusters that suit your interests, skills, and personality.</p>
-        <div class="cta-banner__btns">
-          <a href="quiz.html" class="btn btn--primary">Take the Quiz — it's free</a>
-          <a href="careers.html" class="btn btn--outline">Browse Careers</a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__brand">
-        <a href="index.html" class="nav__logo">Optira</a>
-        <p>Helping Australian students explore careers with confidence.</p>
-      </div>
-      <div class="footer__col">
-        <h4>Explore</h4>
-        <a href="careers.html">Career Explorer</a>
-        <a href="quiz.html">Career Quiz</a>
-        <a href="opportunities.html">Opportunities</a>
-        <a href="compare.html">Compare Careers</a>
-        <a href="dashboard.html">My Dashboard</a>
-      </div>
-      <div class="footer__col">
-        <h4>Support</h4>
-        <a href="parents.html">For Parents</a>
-        <a href="schools.html">For Schools</a>
-        <a href="index.html">About Optira</a>
-        <a href="index.html">Contact</a>
-      </div>
-      <div class="footer__col">
-        <h4>Legal</h4>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Use</a>
-        <a href="#">Disclaimer</a>
       </div>
     </div>
-    <div class="container footer__bottom">
-      <p class="footer__disclaimer">Optira provides general career information only. It does not replace professional career advice, school counselling, or independent research. Salary figures are approximate ranges for Australian conditions and may vary by state, employer, and experience level.</p>
-      <p>© 2026 Optira. Built to help Australian students choose their path with confidence.</p>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="section-inner">
+      <div class="features-header">
+        <div class="section-label">What Optira gives you</div>
+        <h2 class="section-title">The full picture —<br>not just job titles.</h2>
+        <p class="section-sub">Everything you need to explore your future, written in plain English for students aged 14–18.</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-top">
+            <div class="icon-wrap orange">&#128269;</div>
+            <span class="card-tag">Explore</span>
+          </div>
+          <div class="card-title">Real career profiles</div>
+          <div class="card-body">What the job actually looks like day to day — not a Wikipedia summary. Honest, student-friendly language throughout.</div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <div class="icon-wrap warm">&#9878;</div>
+            <span class="card-tag">Compare</span>
+          </div>
+          <div class="card-title">Side-by-side comparisons</div>
+          <div class="card-body">Salary, study time, flexibility, and AI risk across up to 3 careers at once. Make an informed choice, not a guess.</div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <div class="icon-wrap red">&#10024;</div>
+            <span class="card-tag">Match</span>
+          </div>
+          <div class="card-title">Career match quiz</div>
+          <div class="card-body">Answer 7 questions and get matched to 3 career clusters that fit your interests, skills, and personality.</div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <div class="icon-wrap blue">&#129302;</div>
+            <span class="card-tag">Future-ready</span>
+          </div>
+          <div class="card-title">AI impact scores</div>
+          <div class="card-body">See how automation and AI are likely to affect each career path, so you can plan for a future that's actually ahead of you.</div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <div class="icon-wrap green">&#127891;</div>
+            <span class="card-tag">Pathways</span>
+          </div>
+          <div class="card-title">TAFE, uni & apprenticeships</div>
+          <div class="card-body">Every profile covers all study routes — university, TAFE, apprenticeships, and cadetships — so you see the full picture.</div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <div class="icon-wrap purple">&#128200;</div>
+            <span class="card-tag">Salaries</span>
+          </div>
+          <div class="card-title">Real salary ranges</div>
+          <div class="card-body">Australian salary data for entry-level through to senior roles, so you know what you're actually working towards.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY OPTIRA -->
+  <section class="why">
+    <div class="section-inner">
+      <div class="why-grid">
+        <div>
+          <div class="section-label">Why Optira</div>
+          <h2 class="section-title">More than just asking ChatGPT.</h2>
+          <p class="section-sub">AI chatbots give you generic answers. Optira gives you structured, student-friendly career discovery built specifically for Australian students making real decisions.</p>
+          <ul class="why-list">
+            <li>
+              <span class="check">&#10003;</span>
+              <span>Structured career discovery — every profile follows the same format so you can compare fairly.</span>
+            </li>
+            <li>
+              <span class="check">&#10003;</span>
+              <span>Student-friendly language — plain English written for students aged 14–18, not career counsellors.</span>
+            </li>
+            <li>
+              <span class="check">&#10003;</span>
+              <span>Side-by-side comparisons — salary, study time, stability, AI impact, and more.</span>
+            </li>
+            <li>
+              <span class="check">&#10003;</span>
+              <span>School-ready insights — TAFE vs uni vs apprenticeship, all in one place.</span>
+            </li>
+            <li>
+              <span class="check">&#10003;</span>
+              <span>Guided decision-making — a quiz that matches your personality and interests, not a random list.</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="example-card">
+            <div class="example-card-label">Example career match</div>
+            <div class="example-card-title">Software Developer</div>
+            <div class="example-card-meta">$80k–$160k &nbsp;·&nbsp; 3 yrs study &nbsp;·&nbsp; Remote-friendly</div>
+            <div class="example-bars">
+              <div class="bar-row">
+                <span class="bar-label">AI Impact</span>
+                <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
+                <span class="bar-value">High</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Job Stability</span>
+                <div class="bar-track"><div class="bar-fill" style="width:82%"></div></div>
+                <span class="bar-value">High</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Flexibility</span>
+                <div class="bar-track"><div class="bar-fill" style="width:90%"></div></div>
+                <span class="bar-value">High</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Study Load</span>
+                <div class="bar-track"><div class="bar-fill med" style="width:55%"></div></div>
+                <span class="bar-value">Med</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Entry Ease</span>
+                <div class="bar-track"><div class="bar-fill low" style="width:42%"></div></div>
+                <span class="bar-value">Mod</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLUSTERS -->
+  <section class="clusters">
+    <div class="section-inner">
+      <div class="clusters-header">
+        <div class="section-label">Find your world</div>
+        <h2 class="section-title">8 career clusters to explore.</h2>
+        <p class="section-sub">Every career fits into a cluster. Find yours and start exploring the paths that suit you.</p>
+      </div>
+      <div class="chips">
+        <a href="careers.html" class="chip">&#129658; Health &amp; Care</a>
+        <a href="careers.html" class="chip">&#128200; Business &amp; Finance</a>
+        <a href="careers.html" class="chip">&#128295; Trades &amp; Construction</a>
+        <a href="careers.html" class="chip">&#127912; Creative &amp; Digital</a>
+        <a href="careers.html" class="chip">&#128187; Technology &amp; Data</a>
+        <a href="careers.html" class="chip">&#9878; Law &amp; Public Service</a>
+        <a href="careers.html" class="chip">&#128216; Education &amp; Community</a>
+        <a href="careers.html" class="chip">&#127807; Science &amp; Environment</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR WHO -->
+  <section class="for-who">
+    <div class="section-inner">
+      <div class="for-who-header">
+        <div class="section-label">Built for the whole conversation</div>
+        <h2 class="section-title">Whoever you are,<br>Optira helps.</h2>
+      </div>
+      <div class="audience-grid">
+        <div class="audience-card">
+          <div class="audience-card-label">Students 14–18</div>
+          <div class="audience-card-title">It's your future.</div>
+          <ul class="audience-list">
+            <li>Explore career options before Year 11 subject choices</li>
+            <li>Understand what a job is really like day-to-day</li>
+            <li>Find out which study pathway suits you best</li>
+            <li>Get matched to careers that fit your personality</li>
+          </ul>
+          <a href="quiz.html" class="audience-card-link">Find the career for me →</a>
+        </div>
+        <div class="audience-card">
+          <div class="audience-card-label">Parents &amp; Caregivers</div>
+          <div class="audience-card-title">Support without pressure.</div>
+          <ul class="audience-list">
+            <li>Support your child without adding pressure</li>
+            <li>Understand all study options — uni, TAFE, apprenticeship</li>
+            <li>Start better conversations about the future</li>
+            <li>See salary ranges and career stability data</li>
+          </ul>
+          <a href="parents.html" class="audience-card-link">Learn more →</a>
+        </div>
+        <div class="audience-card">
+          <div class="audience-card-label">Schools &amp; Advisers</div>
+          <div class="audience-card-title">A tool for your sessions.</div>
+          <ul class="audience-list">
+            <li>Give students a structured exploration tool</li>
+            <li>Supplement career counselling sessions</li>
+            <li>Consistent format across all career profiles</li>
+            <li>Free for every student, no login required</li>
+          </ul>
+          <a href="schools.html" class="audience-card-link">Learn more →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <div class="section-inner">
+      <h2>Ready to find<br>your <span class="accent">path?</span></h2>
+      <p>Take the quiz and get matched to 3 career clusters that suit your interests, skills, and personality.</p>
+      <div class="cta-band-btns">
+        <a href="quiz.html" class="btn-orange-lg">Find the career for me</a>
+        <a href="careers.html" class="btn-ghost">Browse all careers</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo">OPTIRA<span class="dot">.</span></div>
+          <p>Helping Australian students explore careers with confidence — built for the students who deserve real answers.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Explore</div>
+          <ul class="footer-links">
+            <li><a href="careers.html">Career Explorer</a></li>
+            <li><a href="quiz.html">Career Quiz</a></li>
+            <li><a href="opportunities.html">Opportunities</a></li>
+            <li><a href="compare.html">Compare Careers</a></li>
+            <li><a href="dashboard.html">My Dashboard</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Support</div>
+          <ul class="footer-links">
+            <li><a href="parents.html">For Parents</a></li>
+            <li><a href="schools.html">For Schools</a></li>
+            <li><a href="index.html">About Optira</a></li>
+            <li><a href="index.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Legal</div>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Optira. Built to help Australian students choose their path with confidence.</p>
+        <p class="footer-disclaimer">Optira provides general career information only. It does not replace professional career advice, school counselling, or independent research. Salary figures are approximate ranges for Australian conditions and may vary by state, employer, and experience level.</p>
+      </div>
     </div>
   </footer>
 
-  <script src="main.js"></script>
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('open');
+    }
+  </script>
+
 </body>
 </html>
