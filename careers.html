@@ -1,1 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Browse 12 career profiles written for Australian students. Explore salary ranges, study pathways, and AI impact for each career." />
+  <title>Career Explorer — Optira</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --orange: #FF5C35;
+      --orange-light: #FF7A5A;
+      --white: #F5F5F0;
+      --bg: #0D0D0D;
+      --surface: rgba(245,245,240,0.05);
+      --surface-hover: rgba(245,245,240,0.08);
+      --border: rgba(245,245,240,0.1);
+      --border-strong: rgba(245,245,240,0.18);
+      --muted: rgba(245,245,240,0.5);
+      --muted-strong: rgba(245,245,240,0.65);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── AURORA ── */
+    .aurora {
+      position: fixed;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 500px;
+      background:
+        radial-gradient(ellipse 380px 240px at 30% 55%, rgba(255,92,53,0.13) 0%, transparent 70%),
+        radial-gradient(ellipse 380px 240px at 70% 55%, rgba(180,40,10,0.1) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 48px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--white);
+    }
+    .logo .dot { color: var(--orange); }
+
+    .nav-pills {
+      display: flex;
+      gap: 4px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 4px;
+    }
+
+    .nav-pills a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted-strong);
+      padding: 6px 16px;
+      border-radius: 20px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-pills a:hover,
+    .nav-pills a.active {
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .btn-orange {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      display: inline-block;
+    }
+    .btn-orange:hover { opacity: 0.88; }
+
+    /* ── MOBILE NAV ── */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px 24px 20px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(13,13,13,0.97);
+    }
+    .mobile-menu a {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--muted-strong);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu.open { display: flex; }
+
+    /* ── SECTION SHARED ── */
+    section { position: relative; z-index: 1; }
+
+    .section-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--orange-light);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.05;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: var(--muted-strong);
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      text-align: center;
+      padding: 72px 24px 56px;
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: rgba(255,92,53,0.1);
+      border: 1px solid rgba(255,92,53,0.28);
+      color: var(--orange-light);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+    }
+
+    .page-hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(36px, 5.5vw, 58px);
+      font-weight: 800;
+      letter-spacing: -2.5px;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1.0;
+      margin-bottom: 20px;
+    }
+
+    .page-hero h1 .accent { color: var(--orange); }
+
+    .page-hero p {
+      font-size: 17px;
+      color: var(--muted-strong);
+      max-width: 420px;
+      margin: 0 auto;
+      line-height: 1.75;
+      font-weight: 400;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-section {
+      position: relative;
+      z-index: 1;
+      padding: 0 0 40px;
+    }
+
+    .filter-bar {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-right: 4px;
+    }
+
+    .filter-btn {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted-strong);
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      padding: 8px 18px;
+      border-radius: 24px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .filter-btn:hover {
+      background: rgba(255,92,53,0.08);
+      border-color: rgba(255,92,53,0.3);
+      color: var(--white);
+    }
+    .filter-btn.active {
+      background: rgba(255,92,53,0.14);
+      border-color: rgba(255,92,53,0.45);
+      color: var(--orange-light);
+    }
+
+    .filter-count {
+      margin-left: auto;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── CAREER GRID ── */
+    .careers-section {
+      padding: 0 0 100px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .careers-grid {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    /* Career card — styled like .card on index.html */
+    .career-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+    .career-card:hover {
+      border-color: rgba(255,92,53,0.3);
+      background: rgba(255,92,53,0.04);
+    }
+
+    .career-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .career-cluster {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .ai-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+    .ai-badge.low  { background: rgba(50,200,120,0.12); color: #40CC80; border: 1px solid rgba(50,200,120,0.25); }
+    .ai-badge.med  { background: rgba(250,199,117,0.12); color: #FAC775; border: 1px solid rgba(250,199,117,0.25); }
+    .ai-badge.high { background: rgba(255,92,53,0.12); color: var(--orange-light); border: 1px solid rgba(255,92,53,0.25); }
+
+    .career-card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .career-card-desc {
+      font-size: 13px;
+      color: var(--muted-strong);
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+
+    .career-card-stats {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .stat-pill {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      background: rgba(245,245,240,0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      flex: 1;
+    }
+
+    .stat-pill-label {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 600;
+    }
+
+    .stat-pill-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .career-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+
+    .skill-tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted-strong);
+      background: rgba(245,245,240,0.06);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .career-card-footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+
+    .view-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--orange-light);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+    .career-card:hover .view-link { gap: 10px; }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .cta-band h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .cta-band h2 .accent { color: var(--orange); }
+
+    .cta-band p {
+      font-size: 16px;
+      color: var(--muted-strong);
+      max-width: 400px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    .cta-band-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-orange-lg {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      display: inline-block;
+    }
+    .btn-orange-lg:hover { opacity: 0.88; }
+
+    .btn-ghost {
+      background: var(--surface-hover);
+      color: var(--white);
+      border: 1px solid var(--border-strong);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { background: rgba(245,245,240,0.12); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 32px 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-inner { max-width: 1080px; margin: 0 auto; }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 12px;
+      max-width: 220px;
+      line-height: 1.65;
+    }
+
+    .footer-col-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(245,245,240,0.55);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p { font-size: 12px; color: var(--muted); }
+
+    .footer-disclaimer {
+      font-size: 11px;
+      color: rgba(245,245,240,0.3);
+      max-width: 560px;
+      text-align: right;
+      line-height: 1.5;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .careers-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-disclaimer { text-align: left; }
+    }
+
+    @media (max-width: 800px) {
+      nav { padding: 16px 24px; }
+      .nav-pills { display: none; }
+      .hamburger { display: block; }
+      .section-inner { padding: 0 20px; }
+    }
+
+    @media (max-width: 600px) {
+      .careers-grid { grid-template-columns: 1fr; padding: 0 20px; }
+      .filter-bar { padding: 0 20px; }
+      .filter-count { display: none; }
+      .page-hero { padding: 48px 20px 40px; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="aurora" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="logo">OPTIRA<span class="dot">.</span></a>
+
+    <div class="nav-pills">
+      <a href="index.html">Home</a>
+      <a href="careers.html" class="active">Careers</a>
+      <a href="compare.html">Compare</a>
+      <a href="opportunities.html">Opportunities</a>
+    </div>
+
+    <div class="nav-right">
+      <a href="dashboard.html" class="btn-orange">My Dashboard</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">&#9776;</button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="careers.html">Careers</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="compare.html">Compare</a>
+    <a href="opportunities.html">Opportunities</a>
+    <a href="parents.html">For Parents</a>
+    <a href="schools.html">For Schools</a>
+    <a href="dashboard.html">My Dashboard</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="eyebrow">Browse career profiles</div>
+    <h1>Career <span class="accent">Explorer.</span></h1>
+    <p>Browse 12 career profiles written for Australian students. Real salaries, real study paths, real futures.</p>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-section">
+    <div class="filter-bar">
+      <span class="filter-label">Filter</span>
+      <button class="filter-btn active" data-filter="all" onclick="filterCareers(this)">All</button>
+      <button class="filter-btn" data-filter="Health & Care" onclick="filterCareers(this)">🩺 Health &amp; Care</button>
+      <button class="filter-btn" data-filter="Business & Finance" onclick="filterCareers(this)">📈 Business &amp; Finance</button>
+      <button class="filter-btn" data-filter="Trades & Construction" onclick="filterCareers(this)">🔧 Trades &amp; Construction</button>
+      <button class="filter-btn" data-filter="Creative & Digital" onclick="filterCareers(this)">🎨 Creative &amp; Digital</button>
+      <button class="filter-btn" data-filter="Technology & Data" onclick="filterCareers(this)">💻 Technology &amp; Data</button>
+      <button class="filter-btn" data-filter="Law & Public Service" onclick="filterCareers(this)">⚖ Law &amp; Public Service</button>
+      <button class="filter-btn" data-filter="Education & Community" onclick="filterCareers(this)">📘 Education &amp; Community</button>
+      <span class="filter-count" id="careerCount">12 careers</span>
+    </div>
+  </div>
+
+  <!-- CAREERS GRID -->
+  <section class="careers-section">
+    <div class="careers-grid" id="careersGrid">
+
+      <!-- Primary School Teacher -->
+      <div class="career-card" data-cluster="Education & Community">
+        <div class="career-card-top">
+          <span class="career-cluster">📘 Education &amp; Community</span>
+          <span class="ai-badge low">AI: Low</span>
+        </div>
+        <div class="career-card-title">Primary School Teacher</div>
+        <div class="career-card-desc">Educate and inspire children aged 5–12 across core subjects, shaping how they think and learn.</div>
+        <div class="career-card-stats">
+          <div class="stat-pill">
+            <span class="stat-pill-label">Salary</span>
+            <span class="stat-pill-value">$65k–$95k</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-pill-label">Study</span>
+            <span class="stat-pill-value">4 yrs</span>
+          </div>
+        </div>
+        <div class="career-skills">
+          <span class="skill-tag">Communication</span>
+          <span class="skill-tag">Patience</span>
+          <span class="skill-tag">Creativity</span>
+        </div>
+        <div class="career-card-footer">
+          <a href="careers/primary-school-teacher.html" class="view-link">View Career →</a>
+        </div>
+      </div>
+
+      <!-- High School Teacher -->
+      <div class="career-card" data-cluster="Education & Community">
+        <div class="career-card-top">
+          <span class="career-cluster">📘 Education &amp; Community</span>
+          <span class="ai-badge low">AI: Low</span>
+        </div>
+        <div class="career-card-title">High School Teacher</div>
+        <div class="career-card-desc">Teach a specialist subject to teenagers aged 12–18, helping them build skills for university and beyond.</div>
+        <div class="career-card-stats">
+          <div class="stat-pill">
+            <span class="stat-pill-label">Salary</span>
+            <span class="stat-pill-value">$70k–$102k</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-pill-label">Study</span>
+            <span class="stat-pill-value">4 yrs</span>
+          </div>
+        </div>
+        <div class="career-skills">
+          <span class="skill-tag">Subject expertise</span>
+          <span class="skill-tag">Communication</span>
+          <span class="skill-tag">Leadership</span>
+        </div>
+        <div class="career-card-footer">
+          <a href="careers/high-school-teacher.html" class="view-link">View Career →</a>
+        </div>
+      </div>
+
+      <!-- Accountant -->
+      <div class="career-card" data-cluster="Business & Finance">
+        <div class="career-card-top">
+          <span class="career-cluster">📈 Business &amp; Finance</span>
+          <span class="ai-badge med">AI: Medium</span>
+        </div>
+        <div class="career-card-title">Accountant</div>
+        <div class="career-card-desc">Help individuals and businesses manage money, minimise tax, and make smart financial decisions.</div>
+        <div class="career-card-stats">
+          <div class="stat-pill">
+            <span class="stat-pill-label">Salary</span>
+            <span class="stat-pill-value">$60k–$130k</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-pill-label">Study</span>
+            <span class="stat-pill-value">3 yrs</span>
+          </div>
+        </div>
+        <div class="career-skills">
+          <span class="skill-tag">Numeracy</span>
+          <span class="skill-tag">Attention to detail</span>
+          <span class="skill-tag">Analytical thinking</span>
+        </div>
+        <div class="career-card-footer">
+          <a href="careers/accountant.html" class="view-link">View Career →</a>
+        </div>
+      </div>
+
+      <!-- Lawyer -->
+      <div class="career-card" data-cluster="Law & Public Service">
+        <div class="career-card-top">
+          <span class="career-cluster">⚖ Law &amp; Public Service</span>
+          <span class="ai-badge med">AI: Medium</span>
+        </div>
+        <div class="career-card-title">Lawyer</div>
+        <div class="career-card-desc">Represent clients, navigate the law, and advocate for justice — in court, in negotiation, or in corporate deals.</div>
+        <div class="career-card-stats">
+          <div class="stat-pill">
+            <span class="stat-pill-label">Salary</span>
+            <span class="stat-pill-value">$70k–$220k</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-pill-label">Study</span>
+            <span class="stat-pill-value">5 yrs</span>
+          </div>
+        </div>
+        <div class="career-skills">
+          <span class="skill-tag">Research</span>
+          <span class="skill-tag">Argumentation</span>
+          <span class="skill-tag">Writing</span>
+        </div>
+        <div class="career-card-footer">
+          <a href="careers/lawyer.html" class="view-link">View Career →</a>
+        </div>
+      </div>
+
+      <!-- Carpenter -->
+      <div class="career-card" data-cluster="Trades & Construction">
+        <div class="career-card-top">
+          <span class="career-cluster">🔧 Trades &amp; Construction</span>
+          <span class="ai-badge low">AI: Low</span>
+        </div>
+        <div class="career-card-title">Carpenter</div>
+        <div class="career-card-desc">Build and install timber structures, fit-outs, and framework for homes, commercial buildings, and renovations.</div>
+        <div class="career-card-stats">
+          <div class="stat-pill">
+            <span class="stat-pill-label">Salary</span>
+            <span class="stat-pill-value">$55k–$100k</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-pill-label">Study</span>
+            <span class="stat-pill-value">4 yrs</span>
+          </div>
+        </div>
+        <div class="career-skills">
+          <span class="skill-tag">Practical skills</span>
+          <span class="skill-tag">Problem-solving</span>
+          <span class="skill-tag">Precision</span>
+        </div>
+        <div class="career-card-footer">
+          <a href="careers/carpenter.html" class="view-link">View Career →</a>
+        </div>
+      </div>
+
+      <!-- Nurse -->
+      <div class="career-card" data-cluster="Health & Care">
+        <div class="career-card-top">
+          <span class="career-cluster">🩺 Health &amp; Care</span>
+          <span class="ai-badge low">AI: Low</span>
+        </div>
+        <div class="career-card-title">Nurse</div>
+        <div class="career-card-desc">Provide direct patient care, coordinate treatments, and support recovery across hospitals, clinics, and community settings.</div>
+        <div class="career-card-stats">
+          <div class="stat-pill">
+            <span class="stat-pill-label">Salary</span>
+            <span class="stat-pill-value">$65k–$105k</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-pill-label">Study</span>
+            <span class="stat-pill-value">3 yrs</span>
+          </div>
+        </div>
+        <div class="career-skills">
+          <span class="skill-tag">Empathy</span>
+          <span class="skill-tag">Clinical skills</span>
+          <span class="skill-tag">Problem-solving</span>
+        </div>
+        <div class="career-card-footer">
+          <a href="careers/nurse.html" class="view-link">View Career →</a>
+        </div>
+      </div>
+
+      <!-- Psychologist -->
+      <div class="career-card" data-cluster="Health & Care">
+        <div class="career-card-top">
+          <span class="career-cluster">🩺 Health &amp; Care</span>
+          <span class="ai-badge low">AI: Low</span>
+        </div>
+        <div class="career-card-title">Psychologist</div>
+        <div class="career-card-desc">Assess and support people with mental health challenges, using evidence-based therapy and psychological testing.</div>
+        <div class="career-card-stats">
+          <div class="stat-pill">
+            <span class="stat-pill-label">Salary</span>
+            <span class="stat-pill-value">$75k–$140k</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-pill-label">Study</span>
+            <span class="stat-pill-value">6 yrs</span>
+          </div>
+        </div>
+        <div class="career-skills">
+          <span class="skill-tag">Empathy</span>
+          <span class="skill-tag">Active listening</span>
+          <span class="skill-tag">Critical thinking</span>
+        </div>
+        <div class="career-card-footer">
+          <a href="careers/psychologist.html" class="view-link">View Career →</a>
+        </div>
+      </div>
+
+      <!-- Real Estate Agent -->
+      <div class="career-card" data-cluster="Business & Finance">
+        <div class="career-card-top">
+          <span class="career-cluster">📈 Business &amp; Finance</span>
+          <span class="ai-badge med">AI: Medium</span>
+        </div>
+        <div class="career-card-title">Real Estate Agent</div>
+        <div class="career-card-desc">Help people buy, sell, and rent properties — combining local market knowledge, negotiation, and relationship skills.</div>
+        <div class="career-card-stats">
+          <div class="stat-pill">
+            <span class="stat-pill-label">Salary</span>
+            <span class="stat-pill-value">$50k–$160k</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-pill-label">Study</span>
+            <span class="stat-pill-value">1 yr</span>
+          </div>
+        </div>
+        <div class="career-skills">
+          <span class="skill-tag">Communication</span>
+          <span class="skill-tag">Negotiation</span>
+          <span class="skill-tag">Local knowledge</span>
+        </div>
+        <div class="career-card-footer">
+          <a href="careers/real-estate-agent.html" class="view-link">View Career →</a>
+        </div>
+      </div>
+
+      <!-- Software Developer -->
+      <div class="career-card" data-cluster="Technology & Data">
+        <div class="career-card-top">
+          <span class="career-cluster">💻 Technology &amp; Data</span>
+          <span class="ai-badge high">AI: High</span>
+        </div>
+        <div class="career-card-title">Software Developer</div>
+        <div class="career-card-desc">Design and build software applications, websites, and digital products that power the modern world.</div>
+        <div class="career-card-stats">
+          <div class="stat-pill">
+            <span class="stat-pill-label">Salary</span>
+            <span class="stat-pill-value">$75k–$160k</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-pill-label">Study</span>
+            <span class="stat-pill-value">3 yrs</span>
+          </div>
+        </div>
+        <div class="career-skills">
+          <span class="skill-tag">Logical thinking</span>
+          <span class="skill-tag">Problem-solving</span>
+          <span class="skill-tag">Creativity</span>
+        </div>
+        <div class="career-card-footer">
+          <a href="careers/software-developer.html" class="view-link">View Career →</a>
+        </div>
+      </div>
+
+      <!-- Electrician -->
+      <div class="career-card" data-cluster="Trades & Construction">
+        <div class="career-card-top">
+          <span class="career-cluster">🔧 Trades &amp; Construction</span>
+          <span class="ai-badge low">AI: Low</span>
+        </div>
+        <div class="career-card-title">Electrician</div>
+        <div class="career-card-desc">Install, maintain, and repair electrical systems in homes, commercial buildings, and industrial facilities.</div>
+        <div class="career-card-stats">
+          <div class="stat-pill">
+            <span class="stat-pill-label">Salary</span>
+            <span class="stat-pill-value">$65k–$105k</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-pill-label">Study</span>
+            <span class="stat-pill-value">4 yrs</span>
+          </div>
+        </div>
+        <div class="career-skills">
+          <span class="skill-tag">Technical precision</span>
+          <span class="skill-tag">Problem-solving</span>
+          <span class="skill-tag">Safety awareness</span>
+        </div>
+        <div class="career-card-footer">
+          <a href="careers/electrician.html" class="view-link">View Career →</a>
+        </div>
+      </div>
+
+      <!-- Marketing Manager -->
+      <div class="career-card" data-cluster="Creative & Digital">
+        <div class="career-card-top">
+          <span class="career-cluster">🎨 Creative &amp; Digital</span>
+          <span class="ai-badge high">AI: High</span>
+        </div>
+        <div class="career-card-title">Marketing Manager</div>
+        <div class="career-card-desc">Lead marketing strategy, campaigns, and brand communications to attract customers and grow organisations.</div>
+        <div class="career-card-stats">
+          <div class="stat-pill">
+            <span class="stat-pill-label">Salary</span>
+            <span class="stat-pill-value">$80k–$150k</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-pill-label">Study</span>
+            <span class="stat-pill-value">3 yrs</span>
+          </div>
+        </div>
+        <div class="career-skills">
+          <span class="skill-tag">Creativity</span>
+          <span class="skill-tag">Strategic thinking</span>
+          <span class="skill-tag">Data analysis</span>
+        </div>
+        <div class="career-card-footer">
+          <a href="careers/marketing-manager.html" class="view-link">View Career →</a>
+        </div>
+      </div>
+
+      <!-- Police Officer -->
+      <div class="career-card" data-cluster="Law & Public Service">
+        <div class="career-card-top">
+          <span class="career-cluster">⚖ Law &amp; Public Service</span>
+          <span class="ai-badge med">AI: Medium</span>
+        </div>
+        <div class="career-card-title">Police Officer</div>
+        <div class="career-card-desc">Protect the community, investigate crime, respond to emergencies, and uphold the law on behalf of the public.</div>
+        <div class="career-card-stats">
+          <div class="stat-pill">
+            <span class="stat-pill-label">Salary</span>
+            <span class="stat-pill-value">$65k–$105k</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-pill-label">Study</span>
+            <span class="stat-pill-value">1 yr</span>
+          </div>
+        </div>
+        <div class="career-skills">
+          <span class="skill-tag">Communication</span>
+          <span class="skill-tag">Physical fitness</span>
+          <span class="skill-tag">Decision-making</span>
+        </div>
+        <div class="career-card-footer">
+          <a href="careers/police-officer.html" class="view-link">View Career →</a>
+        </div>
+      </div>
+
+    </div><!-- /careers-grid -->
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <div class="section-inner">
+      <h2>Want to compare careers<br>side by <span class="accent">side?</span></h2>
+      <p>Use the comparison tool to evaluate up to 3 careers on salary, study, stability, and more.</p>
+      <div class="cta-band-btns">
+        <a href="compare.html" class="btn-orange-lg">Go to Comparison Tool</a>
+        <a href="quiz.html" class="btn-ghost">Take the Career Quiz</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo">OPTIRA<span class="dot">.</span></div>
+          <p>Helping Australian students explore careers with confidence — built for the students who deserve real answers.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Explore</div>
+          <ul class="footer-links">
+            <li><a href="careers.html">Career Explorer</a></li>
+            <li><a href="quiz.html">Career Quiz</a></li>
+            <li><a href="opportunities.html">Opportunities</a></li>
+            <li><a href="compare.html">Compare Careers</a></li>
+            <li><a href="dashboard.html">My Dashboard</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Support</div>
+          <ul class="footer-links">
+            <li><a href="parents.html">For Parents</a></li>
+            <li><a href="schools.html">For Schools</a></li>
+            <li><a href="index.html">About Optira</a></li>
+            <li><a href="index.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Legal</div>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Optira. Built to help Australian students choose their path with confidence.</p>
+        <p class="footer-disclaimer">Optira provides general career information only. It does not replace professional career advice, school counselling, or independent research. Salary figures are approximate ranges for Australian conditions and may vary by state, employer, and experience level.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    function filterCareers(btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+      const cards = document.querySelectorAll('.career-card');
+      let count = 0;
+
+      cards.forEach(card => {
+        const match = filter === 'all' || card.dataset.cluster === filter;
+        card.style.display = match ? 'flex' : 'none';
+        if (match) count++;
+      });
+
+      document.getElementById('careerCount').textContent = count + ' career' + (count !== 1 ? 's' : '');
+    }
+  </script>
+
+</body>
+</html>
