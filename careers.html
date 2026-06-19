@@ -1,27 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Browse 12 career profiles written for Australian students. Explore salary ranges, study pathways, and AI impact for each career." />
   <title>Career Explorer — Optira</title>
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function(){
+      var t = localStorage.getItem('optira-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --orange: #FF5C35;
-      --orange-light: #FF7A5A;
-      --white: #F5F5F0;
-      --bg: #0D0D0D;
-      --surface: rgba(245,245,240,0.05);
-      --surface-hover: rgba(245,245,240,0.08);
-      --border: rgba(245,245,240,0.1);
-      --border-strong: rgba(245,245,240,0.18);
-      --muted: rgba(245,245,240,0.5);
-      --muted-strong: rgba(245,245,240,0.65);
+    /* ── THEME TOKENS ── */
+    :root,
+    [data-theme="dark"] {
+      --bg:             #0F172A;
+      --bg-surface:     #1E293B;
+      --bg-elevated:    #293548;
+      --white:          #F5F5F0;
+      --surface:        rgba(245,245,240,0.05);
+      --surface-hover:  rgba(245,245,240,0.08);
+      --border:         rgba(245,245,240,0.1);
+      --border-strong:  rgba(245,245,240,0.18);
+      --muted:          rgba(245,245,240,0.5);
+      --muted-strong:   rgba(245,245,240,0.65);
+      --orange:         #FF6B47;
+      --orange-light:   #FF8A6E;
+      --amber:          #FFBB38;
+      --amber-text:     #7A4F00;
+      --nav-bg:         rgba(15,23,42,0.88);
+      --aurora-a:       rgba(255,107,71,0.13);
+      --aurora-b:       rgba(180,60,20,0.10);
+    }
+
+    [data-theme="light"] {
+      --bg:             #F8FAFC;
+      --bg-surface:     #FFFFFF;
+      --bg-elevated:    #F1F5F9;
+      --white:          #0F172A;
+      --surface:        rgba(15,23,42,0.04);
+      --surface-hover:  rgba(15,23,42,0.07);
+      --border:         rgba(15,23,42,0.09);
+      --border-strong:  rgba(15,23,42,0.15);
+      --muted:          rgba(15,23,42,0.45);
+      --muted-strong:   rgba(15,23,42,0.65);
+      --orange:         #FF6B47;
+      --orange-light:   #E85530;
+      --amber:          #FFBB38;
+      --amber-text:     #7A4F00;
+      --nav-bg:         rgba(248,250,252,0.92);
+      --aurora-a:       rgba(255,107,71,0.07);
+      --aurora-b:       rgba(255,187,56,0.06);
     }
 
     html { scroll-behavior: smooth; }
@@ -33,11 +71,11 @@
       font-size: 16px;
       line-height: 1.6;
       overflow-x: hidden;
+      transition: background 0.25s ease, color 0.25s ease;
     }
 
     a { color: inherit; text-decoration: none; }
 
-    /* ── AURORA ── */
     .aurora {
       position: fixed;
       top: -120px;
@@ -46,13 +84,12 @@
       width: 900px;
       height: 500px;
       background:
-        radial-gradient(ellipse 380px 240px at 30% 55%, rgba(255,92,53,0.13) 0%, transparent 70%),
-        radial-gradient(ellipse 380px 240px at 70% 55%, rgba(180,40,10,0.1) 0%, transparent 70%);
+        radial-gradient(ellipse 380px 240px at 30% 55%, var(--aurora-a) 0%, transparent 70%),
+        radial-gradient(ellipse 380px 240px at 70% 55%, var(--aurora-b) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
 
-    /* ── NAV ── */
     nav {
       display: flex;
       justify-content: space-between;
@@ -62,9 +99,10 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(13,13,13,0.85);
+      background: var(--nav-bg);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
+      transition: background 0.25s ease, border-color 0.25s ease;
     }
 
     .logo {
@@ -79,8 +117,8 @@
     .nav-pills {
       display: flex;
       gap: 4px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(128,128,128,0.08);
+      border: 1px solid var(--border-strong);
       border-radius: 24px;
       padding: 4px;
     }
@@ -95,14 +133,34 @@
     }
     .nav-pills a:hover,
     .nav-pills a.active {
-      background: rgba(255,255,255,0.12);
+      background: rgba(128,128,128,0.14);
       color: var(--white);
     }
 
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border-strong);
+      border-radius: 20px;
+      padding: 6px 13px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted-strong);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .theme-toggle:hover {
+      border-color: var(--orange);
+      color: var(--white);
     }
 
     .btn-orange {
@@ -120,7 +178,6 @@
     }
     .btn-orange:hover { opacity: 0.88; }
 
-    /* ── MOBILE NAV ── */
     .hamburger {
       display: none;
       background: none;
@@ -137,7 +194,7 @@
       gap: 4px;
       padding: 12px 24px 20px;
       border-bottom: 1px solid var(--border);
-      background: rgba(13,13,13,0.97);
+      background: var(--nav-bg);
     }
     .mobile-menu a {
       font-size: 15px;
@@ -149,7 +206,6 @@
     .mobile-menu a:last-child { border-bottom: none; }
     .mobile-menu.open { display: flex; }
 
-    /* ── SECTION SHARED ── */
     section { position: relative; z-index: 1; }
 
     .section-inner {
@@ -178,14 +234,6 @@
       line-height: 1.05;
     }
 
-    .section-sub {
-      font-size: 16px;
-      color: var(--muted-strong);
-      max-width: 480px;
-      line-height: 1.7;
-    }
-
-    /* ── PAGE HERO ── */
     .page-hero {
       text-align: center;
       padding: 72px 24px 56px;
@@ -197,8 +245,8 @@
 
     .eyebrow {
       display: inline-block;
-      background: rgba(255,92,53,0.1);
-      border: 1px solid rgba(255,92,53,0.28);
+      background: rgba(255,107,71,0.1);
+      border: 1px solid rgba(255,107,71,0.28);
       color: var(--orange-light);
       font-size: 11px;
       font-weight: 700;
@@ -231,7 +279,6 @@
       font-weight: 400;
     }
 
-    /* ── FILTER BAR ── */
     .filter-section {
       position: relative;
       z-index: 1;
@@ -270,13 +317,13 @@
       font-family: 'Inter', sans-serif;
     }
     .filter-btn:hover {
-      background: rgba(255,92,53,0.08);
-      border-color: rgba(255,92,53,0.3);
+      background: rgba(255,107,71,0.08);
+      border-color: rgba(255,107,71,0.3);
       color: var(--white);
     }
     .filter-btn.active {
-      background: rgba(255,92,53,0.14);
-      border-color: rgba(255,92,53,0.45);
+      background: rgba(255,107,71,0.14);
+      border-color: rgba(255,107,71,0.45);
       color: var(--orange-light);
     }
 
@@ -287,7 +334,6 @@
       font-weight: 500;
     }
 
-    /* ── CAREER GRID ── */
     .careers-section {
       padding: 0 0 100px;
       position: relative;
@@ -303,7 +349,6 @@
       gap: 16px;
     }
 
-    /* Career card — styled like .card on index.html */
     .career-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -316,8 +361,8 @@
       cursor: pointer;
     }
     .career-card:hover {
-      border-color: rgba(255,92,53,0.3);
-      background: rgba(255,92,53,0.04);
+      border-color: rgba(255,107,71,0.3);
+      background: rgba(255,107,71,0.04);
     }
 
     .career-card-top {
@@ -344,8 +389,8 @@
       flex-shrink: 0;
     }
     .ai-badge.low  { background: rgba(50,200,120,0.12); color: #40CC80; border: 1px solid rgba(50,200,120,0.25); }
-    .ai-badge.med  { background: rgba(250,199,117,0.12); color: #FAC775; border: 1px solid rgba(250,199,117,0.25); }
-    .ai-badge.high { background: rgba(255,92,53,0.12); color: var(--orange-light); border: 1px solid rgba(255,92,53,0.25); }
+    .ai-badge.med  { background: rgba(255,187,56,0.16); color: var(--amber); border: 1px solid rgba(255,187,56,0.3); }
+    .ai-badge.high { background: rgba(255,107,71,0.12); color: var(--orange-light); border: 1px solid rgba(255,107,71,0.25); }
 
     .career-card-title {
       font-family: 'Syne', sans-serif;
@@ -374,7 +419,7 @@
       display: flex;
       flex-direction: column;
       gap: 2px;
-      background: rgba(245,245,240,0.04);
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 8px 12px;
@@ -407,7 +452,7 @@
       font-size: 11px;
       font-weight: 500;
       color: var(--muted-strong);
-      background: rgba(245,245,240,0.06);
+      background: var(--surface-hover);
       border: 1px solid var(--border);
       padding: 4px 10px;
       border-radius: 20px;
@@ -430,7 +475,6 @@
     }
     .career-card:hover .view-link { gap: 10px; }
 
-    /* ── CTA BAND ── */
     .cta-band {
       padding: 80px 0;
       border-top: 1px solid var(--border);
@@ -494,14 +538,14 @@
       transition: background 0.2s;
       display: inline-block;
     }
-    .btn-ghost:hover { background: rgba(245,245,240,0.12); }
+    .btn-ghost:hover { background: rgba(128,128,128,0.16); }
 
-    /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
       padding: 48px 32px 32px;
       position: relative;
       z-index: 1;
+      background: var(--bg);
     }
 
     .footer-inner { max-width: 1080px; margin: 0 auto; }
@@ -539,7 +583,7 @@
 
     .footer-links a {
       font-size: 13px;
-      color: rgba(245,245,240,0.55);
+      color: var(--muted);
       transition: color 0.2s;
     }
     .footer-links a:hover { color: var(--white); }
@@ -558,13 +602,13 @@
 
     .footer-disclaimer {
       font-size: 11px;
-      color: rgba(245,245,240,0.3);
+      color: var(--muted);
       max-width: 560px;
       text-align: right;
       line-height: 1.5;
+      opacity: 0.6;
     }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .careers-grid { grid-template-columns: repeat(2, 1fr); }
       .footer-top { grid-template-columns: 1fr 1fr; }
@@ -574,6 +618,7 @@
     @media (max-width: 800px) {
       nav { padding: 16px 24px; }
       .nav-pills { display: none; }
+      .theme-toggle .toggle-label { display: none; }
       .hamburger { display: block; }
       .section-inner { padding: 0 20px; }
     }
@@ -603,6 +648,10 @@
     </div>
 
     <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode">
+        <span id="toggleIcon">🌙</span>
+        <span class="toggle-label" id="toggleLabel">Dark</span>
+      </button>
       <a href="dashboard.html" class="btn-orange">My Dashboard</a>
       <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">&#9776;</button>
     </div>
@@ -646,7 +695,6 @@
   <section class="careers-section">
     <div class="careers-grid" id="careersGrid">
 
-      <!-- Primary School Teacher -->
       <div class="career-card" data-cluster="Education & Community">
         <div class="career-card-top">
           <span class="career-cluster">📘 Education &amp; Community</span>
@@ -655,14 +703,8 @@
         <div class="career-card-title">Primary School Teacher</div>
         <div class="career-card-desc">Educate and inspire children aged 5–12 across core subjects, shaping how they think and learn.</div>
         <div class="career-card-stats">
-          <div class="stat-pill">
-            <span class="stat-pill-label">Salary</span>
-            <span class="stat-pill-value">$65k–$95k</span>
-          </div>
-          <div class="stat-pill">
-            <span class="stat-pill-label">Study</span>
-            <span class="stat-pill-value">4 yrs</span>
-          </div>
+          <div class="stat-pill"><span class="stat-pill-label">Salary</span><span class="stat-pill-value">$65k–$95k</span></div>
+          <div class="stat-pill"><span class="stat-pill-label">Study</span><span class="stat-pill-value">4 yrs</span></div>
         </div>
         <div class="career-skills">
           <span class="skill-tag">Communication</span>
@@ -674,7 +716,6 @@
         </div>
       </div>
 
-      <!-- High School Teacher -->
       <div class="career-card" data-cluster="Education & Community">
         <div class="career-card-top">
           <span class="career-cluster">📘 Education &amp; Community</span>
@@ -683,14 +724,8 @@
         <div class="career-card-title">High School Teacher</div>
         <div class="career-card-desc">Teach a specialist subject to teenagers aged 12–18, helping them build skills for university and beyond.</div>
         <div class="career-card-stats">
-          <div class="stat-pill">
-            <span class="stat-pill-label">Salary</span>
-            <span class="stat-pill-value">$70k–$102k</span>
-          </div>
-          <div class="stat-pill">
-            <span class="stat-pill-label">Study</span>
-            <span class="stat-pill-value">4 yrs</span>
-          </div>
+          <div class="stat-pill"><span class="stat-pill-label">Salary</span><span class="stat-pill-value">$70k–$102k</span></div>
+          <div class="stat-pill"><span class="stat-pill-label">Study</span><span class="stat-pill-value">4 yrs</span></div>
         </div>
         <div class="career-skills">
           <span class="skill-tag">Subject expertise</span>
@@ -702,7 +737,6 @@
         </div>
       </div>
 
-      <!-- Accountant -->
       <div class="career-card" data-cluster="Business & Finance">
         <div class="career-card-top">
           <span class="career-cluster">📈 Business &amp; Finance</span>
@@ -711,14 +745,8 @@
         <div class="career-card-title">Accountant</div>
         <div class="career-card-desc">Help individuals and businesses manage money, minimise tax, and make smart financial decisions.</div>
         <div class="career-card-stats">
-          <div class="stat-pill">
-            <span class="stat-pill-label">Salary</span>
-            <span class="stat-pill-value">$60k–$130k</span>
-          </div>
-          <div class="stat-pill">
-            <span class="stat-pill-label">Study</span>
-            <span class="stat-pill-value">3 yrs</span>
-          </div>
+          <div class="stat-pill"><span class="stat-pill-label">Salary</span><span class="stat-pill-value">$60k–$130k</span></div>
+          <div class="stat-pill"><span class="stat-pill-label">Study</span><span class="stat-pill-value">3 yrs</span></div>
         </div>
         <div class="career-skills">
           <span class="skill-tag">Numeracy</span>
@@ -730,7 +758,6 @@
         </div>
       </div>
 
-      <!-- Lawyer -->
       <div class="career-card" data-cluster="Law & Public Service">
         <div class="career-card-top">
           <span class="career-cluster">⚖ Law &amp; Public Service</span>
@@ -739,14 +766,8 @@
         <div class="career-card-title">Lawyer</div>
         <div class="career-card-desc">Represent clients, navigate the law, and advocate for justice — in court, in negotiation, or in corporate deals.</div>
         <div class="career-card-stats">
-          <div class="stat-pill">
-            <span class="stat-pill-label">Salary</span>
-            <span class="stat-pill-value">$70k–$220k</span>
-          </div>
-          <div class="stat-pill">
-            <span class="stat-pill-label">Study</span>
-            <span class="stat-pill-value">5 yrs</span>
-          </div>
+          <div class="stat-pill"><span class="stat-pill-label">Salary</span><span class="stat-pill-value">$70k–$220k</span></div>
+          <div class="stat-pill"><span class="stat-pill-label">Study</span><span class="stat-pill-value">5 yrs</span></div>
         </div>
         <div class="career-skills">
           <span class="skill-tag">Research</span>
@@ -758,7 +779,6 @@
         </div>
       </div>
 
-      <!-- Carpenter -->
       <div class="career-card" data-cluster="Trades & Construction">
         <div class="career-card-top">
           <span class="career-cluster">🔧 Trades &amp; Construction</span>
@@ -767,14 +787,8 @@
         <div class="career-card-title">Carpenter</div>
         <div class="career-card-desc">Build and install timber structures, fit-outs, and framework for homes, commercial buildings, and renovations.</div>
         <div class="career-card-stats">
-          <div class="stat-pill">
-            <span class="stat-pill-label">Salary</span>
-            <span class="stat-pill-value">$55k–$100k</span>
-          </div>
-          <div class="stat-pill">
-            <span class="stat-pill-label">Study</span>
-            <span class="stat-pill-value">4 yrs</span>
-          </div>
+          <div class="stat-pill"><span class="stat-pill-label">Salary</span><span class="stat-pill-value">$55k–$100k</span></div>
+          <div class="stat-pill"><span class="stat-pill-label">Study</span><span class="stat-pill-value">4 yrs</span></div>
         </div>
         <div class="career-skills">
           <span class="skill-tag">Practical skills</span>
@@ -786,7 +800,6 @@
         </div>
       </div>
 
-      <!-- Nurse -->
       <div class="career-card" data-cluster="Health & Care">
         <div class="career-card-top">
           <span class="career-cluster">🩺 Health &amp; Care</span>
@@ -795,14 +808,8 @@
         <div class="career-card-title">Nurse</div>
         <div class="career-card-desc">Provide direct patient care, coordinate treatments, and support recovery across hospitals, clinics, and community settings.</div>
         <div class="career-card-stats">
-          <div class="stat-pill">
-            <span class="stat-pill-label">Salary</span>
-            <span class="stat-pill-value">$65k–$105k</span>
-          </div>
-          <div class="stat-pill">
-            <span class="stat-pill-label">Study</span>
-            <span class="stat-pill-value">3 yrs</span>
-          </div>
+          <div class="stat-pill"><span class="stat-pill-label">Salary</span><span class="stat-pill-value">$65k–$105k</span></div>
+          <div class="stat-pill"><span class="stat-pill-label">Study</span><span class="stat-pill-value">3 yrs</span></div>
         </div>
         <div class="career-skills">
           <span class="skill-tag">Empathy</span>
@@ -814,7 +821,6 @@
         </div>
       </div>
 
-      <!-- Psychologist -->
       <div class="career-card" data-cluster="Health & Care">
         <div class="career-card-top">
           <span class="career-cluster">🩺 Health &amp; Care</span>
@@ -823,14 +829,8 @@
         <div class="career-card-title">Psychologist</div>
         <div class="career-card-desc">Assess and support people with mental health challenges, using evidence-based therapy and psychological testing.</div>
         <div class="career-card-stats">
-          <div class="stat-pill">
-            <span class="stat-pill-label">Salary</span>
-            <span class="stat-pill-value">$75k–$140k</span>
-          </div>
-          <div class="stat-pill">
-            <span class="stat-pill-label">Study</span>
-            <span class="stat-pill-value">6 yrs</span>
-          </div>
+          <div class="stat-pill"><span class="stat-pill-label">Salary</span><span class="stat-pill-value">$75k–$140k</span></div>
+          <div class="stat-pill"><span class="stat-pill-label">Study</span><span class="stat-pill-value">6 yrs</span></div>
         </div>
         <div class="career-skills">
           <span class="skill-tag">Empathy</span>
@@ -842,7 +842,6 @@
         </div>
       </div>
 
-      <!-- Real Estate Agent -->
       <div class="career-card" data-cluster="Business & Finance">
         <div class="career-card-top">
           <span class="career-cluster">📈 Business &amp; Finance</span>
@@ -851,14 +850,8 @@
         <div class="career-card-title">Real Estate Agent</div>
         <div class="career-card-desc">Help people buy, sell, and rent properties — combining local market knowledge, negotiation, and relationship skills.</div>
         <div class="career-card-stats">
-          <div class="stat-pill">
-            <span class="stat-pill-label">Salary</span>
-            <span class="stat-pill-value">$50k–$160k</span>
-          </div>
-          <div class="stat-pill">
-            <span class="stat-pill-label">Study</span>
-            <span class="stat-pill-value">1 yr</span>
-          </div>
+          <div class="stat-pill"><span class="stat-pill-label">Salary</span><span class="stat-pill-value">$50k–$160k</span></div>
+          <div class="stat-pill"><span class="stat-pill-label">Study</span><span class="stat-pill-value">1 yr</span></div>
         </div>
         <div class="career-skills">
           <span class="skill-tag">Communication</span>
@@ -870,7 +863,6 @@
         </div>
       </div>
 
-      <!-- Software Developer -->
       <div class="career-card" data-cluster="Technology & Data">
         <div class="career-card-top">
           <span class="career-cluster">💻 Technology &amp; Data</span>
@@ -879,14 +871,8 @@
         <div class="career-card-title">Software Developer</div>
         <div class="career-card-desc">Design and build software applications, websites, and digital products that power the modern world.</div>
         <div class="career-card-stats">
-          <div class="stat-pill">
-            <span class="stat-pill-label">Salary</span>
-            <span class="stat-pill-value">$75k–$160k</span>
-          </div>
-          <div class="stat-pill">
-            <span class="stat-pill-label">Study</span>
-            <span class="stat-pill-value">3 yrs</span>
-          </div>
+          <div class="stat-pill"><span class="stat-pill-label">Salary</span><span class="stat-pill-value">$75k–$160k</span></div>
+          <div class="stat-pill"><span class="stat-pill-label">Study</span><span class="stat-pill-value">3 yrs</span></div>
         </div>
         <div class="career-skills">
           <span class="skill-tag">Logical thinking</span>
@@ -898,7 +884,6 @@
         </div>
       </div>
 
-      <!-- Electrician -->
       <div class="career-card" data-cluster="Trades & Construction">
         <div class="career-card-top">
           <span class="career-cluster">🔧 Trades &amp; Construction</span>
@@ -907,14 +892,8 @@
         <div class="career-card-title">Electrician</div>
         <div class="career-card-desc">Install, maintain, and repair electrical systems in homes, commercial buildings, and industrial facilities.</div>
         <div class="career-card-stats">
-          <div class="stat-pill">
-            <span class="stat-pill-label">Salary</span>
-            <span class="stat-pill-value">$65k–$105k</span>
-          </div>
-          <div class="stat-pill">
-            <span class="stat-pill-label">Study</span>
-            <span class="stat-pill-value">4 yrs</span>
-          </div>
+          <div class="stat-pill"><span class="stat-pill-label">Salary</span><span class="stat-pill-value">$65k–$105k</span></div>
+          <div class="stat-pill"><span class="stat-pill-label">Study</span><span class="stat-pill-value">4 yrs</span></div>
         </div>
         <div class="career-skills">
           <span class="skill-tag">Technical precision</span>
@@ -926,7 +905,6 @@
         </div>
       </div>
 
-      <!-- Marketing Manager -->
       <div class="career-card" data-cluster="Creative & Digital">
         <div class="career-card-top">
           <span class="career-cluster">🎨 Creative &amp; Digital</span>
@@ -935,14 +913,8 @@
         <div class="career-card-title">Marketing Manager</div>
         <div class="career-card-desc">Lead marketing strategy, campaigns, and brand communications to attract customers and grow organisations.</div>
         <div class="career-card-stats">
-          <div class="stat-pill">
-            <span class="stat-pill-label">Salary</span>
-            <span class="stat-pill-value">$80k–$150k</span>
-          </div>
-          <div class="stat-pill">
-            <span class="stat-pill-label">Study</span>
-            <span class="stat-pill-value">3 yrs</span>
-          </div>
+          <div class="stat-pill"><span class="stat-pill-label">Salary</span><span class="stat-pill-value">$80k–$150k</span></div>
+          <div class="stat-pill"><span class="stat-pill-label">Study</span><span class="stat-pill-value">3 yrs</span></div>
         </div>
         <div class="career-skills">
           <span class="skill-tag">Creativity</span>
@@ -954,7 +926,6 @@
         </div>
       </div>
 
-      <!-- Police Officer -->
       <div class="career-card" data-cluster="Law & Public Service">
         <div class="career-card-top">
           <span class="career-cluster">⚖ Law &amp; Public Service</span>
@@ -963,14 +934,8 @@
         <div class="career-card-title">Police Officer</div>
         <div class="career-card-desc">Protect the community, investigate crime, respond to emergencies, and uphold the law on behalf of the public.</div>
         <div class="career-card-stats">
-          <div class="stat-pill">
-            <span class="stat-pill-label">Salary</span>
-            <span class="stat-pill-value">$65k–$105k</span>
-          </div>
-          <div class="stat-pill">
-            <span class="stat-pill-label">Study</span>
-            <span class="stat-pill-value">1 yr</span>
-          </div>
+          <div class="stat-pill"><span class="stat-pill-label">Salary</span><span class="stat-pill-value">$65k–$105k</span></div>
+          <div class="stat-pill"><span class="stat-pill-label">Study</span><span class="stat-pill-value">1 yr</span></div>
         </div>
         <div class="career-skills">
           <span class="skill-tag">Communication</span>
@@ -1061,6 +1026,34 @@
 
       document.getElementById('careerCount').textContent = count + ' career' + (count !== 1 ? 's' : '');
     }
+
+    (function () {
+      var root   = document.documentElement;
+      var btn    = document.getElementById('themeToggle');
+      var icon   = document.getElementById('toggleIcon');
+      var label  = document.getElementById('toggleLabel');
+
+      var saved = localStorage.getItem('optira-theme') || 'dark';
+      applyTheme(saved);
+
+      btn.addEventListener('click', function () {
+        var current = root.getAttribute('data-theme') || 'dark';
+        var next = current === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        localStorage.setItem('optira-theme', next);
+      });
+
+      function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        if (theme === 'light') {
+          icon.textContent  = '☀️';
+          label.textContent = 'Light';
+        } else {
+          icon.textContent  = '🌙';
+          label.textContent = 'Dark';
+        }
+      }
+    })();
   </script>
 
 </body>
