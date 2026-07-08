@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Represent clients, navigate the law, and advocate for justice — in court, in negotiation, or in corporate deals." />
+  <title>Lawyer — Career Profile — Optira</title>
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function(){
+      var t = localStorage.getItem('optira-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="career.css" />
+</head>
+<body data-slug="lawyer">
+
+  <div class="aurora" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="../index.html" class="logo">OPTIRA<span class="dot">.</span></a>
+
+    <div class="nav-pills">
+      <a href="../index.html">Home</a>
+      <a href="../careers.html" class="active">Careers</a>
+      <a href="../compare.html">Compare</a>
+      <a href="../opportunities.html">Opportunities</a>
+    </div>
+
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode">
+        <span id="toggleIcon">🌙</span>
+        <span class="toggle-label" id="toggleLabel">Dark</span>
+      </button>
+      <a href="../dashboard.html" class="btn-orange">My Dashboard</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">&#9776;</button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a>
+    <a href="../careers.html">Careers</a>
+    <a href="../quiz.html">Quiz</a>
+    <a href="../compare.html">Compare</a>
+    <a href="../opportunities.html">Opportunities</a>
+    <a href="../parents.html">For Parents</a>
+    <a href="../schools.html">For Schools</a>
+    <a href="../dashboard.html">My Dashboard</a>
+  </div>
+
+  <!-- PROFILE CONTENT (rendered by career.js from data.js) -->
+  <main id="app"></main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo">OPTIRA<span class="dot">.</span></div>
+          <p>Helping Australian students explore careers with confidence — built for the students who deserve real answers.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Explore</div>
+          <ul class="footer-links">
+            <li><a href="../careers.html">Career Explorer</a></li>
+            <li><a href="../quiz.html">Career Quiz</a></li>
+            <li><a href="../opportunities.html">Opportunities</a></li>
+            <li><a href="../compare.html">Compare Careers</a></li>
+            <li><a href="../dashboard.html">My Dashboard</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Support</div>
+          <ul class="footer-links">
+            <li><a href="../parents.html">For Parents</a></li>
+            <li><a href="../schools.html">For Schools</a></li>
+            <li><a href="../index.html">About Optira</a></li>
+            <li><a href="../index.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Legal</div>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Optira. Built to help Australian students choose their path with confidence.</p>
+        <p class="footer-disclaimer">Optira provides general career information only. It does not replace professional career advice, school counselling, or independent research. Salary figures are approximate ranges for Australian conditions and may vary by state, employer, and experience level.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="career.js"></script>
+</body>
+</html>
