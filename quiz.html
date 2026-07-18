@@ -1,1 +1,880 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Take the Career Compass — a fast, game-like quiz that matches Australian high school students to real career clusters." />
+<title>Career Compass — Optira</title>
 
+<script>
+  (function(){
+    var t = localStorage.getItem('optira-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root, [data-theme="dark"] {
+    --bg:             #0F172A;
+    --bg-surface:     #1E293B;
+    --bg-elevated:    #293548;
+    --white:          #F5F5F0;
+    --surface:        rgba(245,245,240,0.05);
+    --surface-hover:  rgba(245,245,240,0.08);
+    --border:         rgba(245,245,240,0.1);
+    --border-strong:  rgba(245,245,240,0.18);
+    --muted:          rgba(245,245,240,0.5);
+    --muted-strong:   rgba(245,245,240,0.65);
+    --orange:         #FF6B47;
+    --orange-light:   #FF8A6E;
+    --amber:          #FFBB38;
+    --amber-text:     #7A4F00;
+    --nav-bg:         rgba(15,23,42,0.88);
+    --good:           #40CC80;
+    /* dynamic per-level accent, updated by JS */
+    --accent:         #FF6B47;
+    --accent-2:       #FFBB38;
+    --accent-soft:    rgba(255,107,71,0.14);
+    --card-bg:        rgba(30,41,59,0.65);
+  }
+  [data-theme="light"] {
+    --bg:             #F8FAFC;
+    --bg-surface:     #FFFFFF;
+    --bg-elevated:    #F1F5F9;
+    --white:          #0F172A;
+    --surface:        rgba(15,23,42,0.04);
+    --surface-hover:  rgba(15,23,42,0.07);
+    --border:         rgba(15,23,42,0.09);
+    --border-strong:  rgba(15,23,42,0.15);
+    --muted:          rgba(15,23,42,0.45);
+    --muted-strong:   rgba(15,23,42,0.65);
+    --orange:         #FF6B47;
+    --orange-light:   #E85530;
+    --amber:          #FFBB38;
+    --amber-text:     #7A4F00;
+    --nav-bg:         rgba(248,250,252,0.92);
+    --good:           #22A866;
+    --card-bg:        rgba(255,255,255,0.75);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    transition: background 0.4s ease, color 0.4s ease;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ── LIVING AURORA BACKGROUND ── */
+  .aurora-field { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .aurora-blob {
+    position: absolute; border-radius: 50%; filter: blur(70px);
+    opacity: 0.55; mix-blend-mode: screen;
+    transition: background 1.1s ease;
+    animation: drift 22s ease-in-out infinite;
+  }
+  [data-theme="light"] .aurora-blob { opacity: 0.32; mix-blend-mode: multiply; }
+  .aurora-blob.b1 { width: 520px; height: 520px; top: -180px; left: -120px; background: radial-gradient(circle, var(--accent), transparent 70%); animation-duration: 26s; }
+  .aurora-blob.b2 { width: 460px; height: 460px; top: 40%; right: -160px; background: radial-gradient(circle, var(--accent-2), transparent 70%); animation-duration: 30s; animation-delay: -6s; }
+  .aurora-blob.b3 { width: 380px; height: 380px; bottom: -160px; left: 30%; background: radial-gradient(circle, var(--accent), transparent 70%); animation-duration: 20s; animation-delay: -12s; }
+  @keyframes drift {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(40px,-30px) scale(1.08); }
+    66% { transform: translate(-30px,25px) scale(0.95); }
+  }
+  .grain { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 48px; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+    background: var(--nav-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+  .logo { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -1px; color: var(--white); }
+  .logo .dot { color: var(--orange); }
+  .nav-pills { display: flex; gap: 4px; background: rgba(128,128,128,0.08); border: 1px solid var(--border-strong); border-radius: 24px; padding: 4px; }
+  .nav-pills a { font-size: 13px; font-weight: 500; color: var(--muted-strong); padding: 6px 16px; border-radius: 20px; transition: background 0.2s, color 0.2s; }
+  .nav-pills a:hover, .nav-pills a.active { background: rgba(128,128,128,0.14); color: var(--white); }
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+  .theme-toggle { background: none; border: 1px solid var(--border-strong); border-radius: 20px; padding: 6px 13px; font-size: 12px; font-weight: 500; color: var(--muted-strong); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: border-color 0.2s, color 0.2s; font-family: 'Inter', sans-serif; }
+  .theme-toggle:hover { border-color: var(--orange); color: var(--white); }
+  .btn-orange { background: var(--orange); color: #fff; border: none; padding: 10px 22px; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; transition: opacity 0.2s; display: inline-block; }
+  .btn-orange:hover { opacity: 0.88; }
+  .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 24px; cursor: pointer; padding: 4px; }
+  .mobile-menu { display: none; flex-direction: column; gap: 4px; padding: 12px 24px 20px; border-bottom: 1px solid var(--border); background: var(--nav-bg); }
+  .mobile-menu a { font-size: 15px; font-weight: 500; color: var(--muted-strong); padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu.open { display: flex; }
+
+  section { position: relative; z-index: 2; }
+  .wrap { max-width: 660px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── INTRO ── */
+  .intro { text-align: center; padding: 68px 24px 40px; max-width: 700px; margin: 0 auto; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+    color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase;
+    padding: 7px 18px; border-radius: 20px; margin-bottom: 30px;
+    animation: pulseGlow 2.6s ease-in-out infinite;
+  }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 var(--accent-soft); }
+    50% { box-shadow: 0 0 18px 2px var(--accent-soft); }
+  }
+  .intro h1 {
+    font-family: 'Syne', sans-serif; font-size: clamp(38px, 7vw, 68px); font-weight: 800;
+    line-height: 0.98; letter-spacing: -3px; text-transform: uppercase; color: var(--white); margin-bottom: 20px;
+  }
+  .intro h1 .accent {
+    background: linear-gradient(100deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .intro p { font-size: 16.5px; color: var(--muted-strong); max-width: 460px; margin: 0 auto 34px; line-height: 1.75; }
+
+  .compass-wrap { width: 260px; height: 260px; margin: 0 auto 32px; position: relative; }
+  .compass-wrap svg { width: 100%; height: 100%; overflow: visible; }
+  .compass-glow { position: absolute; inset: 20%; border-radius: 50%; background: var(--accent); filter: blur(50px); opacity: 0.35; z-index: -1; animation: breathe 3.4s ease-in-out infinite; }
+  @keyframes breathe { 0%,100% { opacity: 0.25; transform: scale(0.94); } 50% { opacity: 0.42; transform: scale(1.04); } }
+
+  .levels-preview { display: flex; justify-content: center; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
+  .level-chip {
+    display: flex; align-items: center; gap: 7px; background: var(--card-bg); backdrop-filter: blur(10px);
+    border: 1px solid var(--border); border-radius: 22px; padding: 8px 16px 8px 10px; font-size: 12.5px; font-weight: 600;
+    color: var(--muted-strong); transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  }
+  .level-chip:hover { transform: translateY(-3px); border-color: var(--lc-accent, var(--accent)); box-shadow: 0 6px 18px -6px var(--lc-accent, var(--accent)); color: var(--white); }
+  .level-chip .dot-icon { width: 20px; height: 20px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+
+  .btn-orange-lg {
+    background: linear-gradient(100deg, var(--accent), var(--accent-2)); color: #fff; border: none;
+    padding: 17px 38px; border-radius: 12px; font-family: 'Inter', sans-serif; font-size: 15.5px; font-weight: 800;
+    cursor: pointer; transition: transform 0.18s, box-shadow 0.25s; display: inline-block;
+    box-shadow: 0 10px 30px -8px var(--accent-soft);
+  }
+  .btn-orange-lg:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 16px 36px -8px var(--accent-soft); }
+  .btn-orange-lg:active { transform: translateY(0) scale(0.98); }
+  .btn-ghost { background: var(--surface-hover); color: var(--white); border: 1px solid var(--border-strong); padding: 17px 28px; border-radius: 12px; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.2s; display: inline-block; }
+  .btn-ghost:hover { background: rgba(128,128,128,0.16); }
+
+  .intro-meta { display: flex; justify-content: center; gap: 22px; margin-top: 28px; font-size: 12.5px; color: var(--muted); flex-wrap: wrap; }
+  .intro-meta span { display: flex; align-items: center; gap: 5px; }
+
+  .resume-banner {
+    max-width: 480px; margin: 0 auto 28px; background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+    border-radius: 14px; padding: 15px 20px; font-size: 13px; color: var(--muted-strong); display: flex;
+    align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  .resume-banner strong { color: var(--white); }
+  .resume-banner button { background: var(--accent); color: #fff; border: none; padding: 9px 18px; border-radius: 8px; font-size: 12.5px; font-weight: 800; cursor: pointer; font-family: 'Inter', sans-serif; }
+
+  /* ── QUIZ SCREEN ── */
+  #quizScreen { display: none; padding: 26px 24px 90px; }
+
+  .quiz-top { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+  .segbar { flex: 1; display: flex; gap: 5px; }
+  .seg { flex: 1; height: 9px; border-radius: 5px; background: var(--surface); border: 1px solid var(--border); overflow: hidden; position: relative; }
+  .seg .seg-fill { position: absolute; inset: 0; width: 0%; border-radius: 5px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width 0.4s cubic-bezier(.4,0,.2,1); box-shadow: 0 0 10px var(--accent-soft); }
+  .progress-pct { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; color: var(--white); min-width: 42px; text-align: right; }
+  .save-exit { font-size: 12px; color: var(--muted); cursor: pointer; white-space: nowrap; border: 1px solid var(--border-strong); padding: 7px 14px; border-radius: 20px; transition: color 0.2s, border-color 0.2s; }
+  .save-exit:hover { color: var(--white); border-color: var(--accent); }
+
+  .level-row { display: flex; justify-content: space-between; align-items: center; margin: 0 0 26px; font-size: 12px; color: var(--muted); }
+  .level-row .level-name { font-weight: 800; color: var(--accent); letter-spacing: 0.6px; text-transform: uppercase; font-size: 11.5px; display: flex; align-items: center; gap: 6px; }
+  .streak { display: inline-flex; align-items: center; gap: 4px; color: var(--amber); font-weight: 800; opacity: 0; transform: scale(0.8); transition: opacity 0.25s, transform 0.25s; }
+  .streak.show { opacity: 1; transform: scale(1); }
+
+  .card-stage { position: relative; min-height: 340px; }
+  .q-card {
+    background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-strong); border-radius: 24px;
+    padding: 40px 32px 32px; position: absolute; inset: 0;
+    opacity: 0; transform: translateY(18px) scale(0.97) rotate(-0.6deg); pointer-events: none;
+    transition: opacity 0.36s ease, transform 0.4s cubic-bezier(.34,1.56,.64,1);
+    box-shadow: 0 20px 60px -20px rgba(0,0,0,0.4), 0 0 0 1px var(--accent-soft) inset;
+  }
+  .q-card.active { opacity: 1; transform: translateY(0) scale(1) rotate(0); pointer-events: auto; position: relative; }
+  .q-card.leaving { opacity: 0; transform: translateY(-14px) scale(0.97) rotate(0.6deg); position: absolute; }
+
+  .q-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 800; letter-spacing: 0.6px; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
+  .q-num { color: var(--accent); font-family: 'Syne', sans-serif; }
+  .q-text { font-family: 'Syne', sans-serif; font-size: clamp(21px, 3.6vw, 28px); font-weight: 700; letter-spacing: -0.6px; line-height: 1.24; margin-bottom: 32px; color: var(--white); }
+
+  .opts { display: flex; flex-direction: column; gap: 11px; }
+  .opt {
+    display: flex; align-items: center; gap: 15px; background: var(--surface); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 15px 18px; cursor: pointer; font-size: 14.5px; font-weight: 600; color: var(--muted-strong);
+    transition: border-color 0.15s, background 0.15s, transform 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .opt:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--white); transform: translateX(3px); }
+  .opt:active { transform: scale(0.97); }
+  .opt.selected { border-color: var(--accent); background: var(--accent-soft); color: var(--white); animation: pop 0.32s cubic-bezier(.34,1.56,.64,1); box-shadow: 0 0 0 3px var(--accent-soft); }
+  @keyframes pop { 0% { transform: scale(1); } 45% { transform: scale(1.035); } 100% { transform: scale(1); } }
+  .opt .bubble { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border-strong); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: border-color 0.15s, background 0.15s; }
+  .opt.selected .bubble { border-color: var(--accent); background: var(--accent); }
+  .opt.selected .bubble::after { content: ''; width: 9px; height: 9px; border-radius: 50%; background: #fff; }
+
+  .quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; }
+  .nav-back { font-size: 13px; color: var(--muted); cursor: pointer; font-weight: 600; padding: 10px 4px; }
+  .nav-back:hover { color: var(--white); }
+  .nav-back.hidden { visibility: hidden; }
+
+  .level-toast {
+    position: fixed; top: 90px; left: 50%; transform: translateX(-50%) translateY(-16px) scale(0.9);
+    background: var(--bg-elevated); border: 1px solid var(--accent); border-radius: 16px;
+    padding: 16px 24px; display: flex; align-items: center; gap: 14px; z-index: 200;
+    opacity: 0; pointer-events: none; transition: opacity 0.35s, transform 0.35s cubic-bezier(.34,1.56,.64,1);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 30px -6px var(--accent);
+  }
+  .level-toast.show { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+  .level-toast .badge-icon { width: 38px; height: 38px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 19px; }
+  .level-toast .badge-text b { display: block; font-size: 13.5px; color: var(--white); }
+  .level-toast .badge-text span { font-size: 11.5px; color: var(--muted); }
+
+  /* confetti */
+  .confetti-piece { position: fixed; top: 0; left: 0; width: 8px; height: 8px; z-index: 250; pointer-events: none; border-radius: 2px; }
+
+  /* ── EXIT MODAL ── */
+  .modal-veil { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 300; display: none; align-items: center; justify-content: center; padding: 20px; }
+  .modal-veil.show { display: flex; }
+  .modal-box { background: var(--bg-elevated); border: 1px solid var(--border-strong); border-radius: 20px; padding: 32px 28px; max-width: 360px; text-align: center; box-shadow: 0 0 0 1px var(--accent-soft) inset; }
+  .modal-box .m-icon { font-size: 32px; margin-bottom: 14px; }
+  .modal-box h3 { font-family: 'Syne', sans-serif; font-size: 20px; margin-bottom: 10px; letter-spacing: -0.4px; }
+  .modal-box p { font-size: 13.5px; color: var(--muted-strong); line-height: 1.6; margin-bottom: 24px; }
+  .modal-btns { display: flex; flex-direction: column; gap: 9px; }
+  .modal-btns .btn-orange-lg, .modal-btns .btn-ghost { width: 100%; padding: 14px; font-size: 14px; }
+
+  /* ── RESULTS ── */
+  #resultsScreen { display: none; padding: 64px 24px 90px; }
+  .results-hero { text-align: center; max-width: 580px; margin: 0 auto 50px; }
+  .results-hero .eyebrow { background: rgba(64,204,128,0.1); border-color: rgba(64,204,128,0.35); color: var(--good); animation: none; }
+  .results-hero h2 { font-family: 'Syne', sans-serif; font-size: clamp(30px, 5vw, 46px); font-weight: 800; letter-spacing: -1.8px; text-transform: uppercase; margin: 18px 0 14px; line-height: 1.02; }
+  .results-hero p { color: var(--muted-strong); font-size: 15px; max-width: 420px; margin: 0 auto; line-height: 1.7; }
+
+  .cluster-list { max-width: 660px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+  .cluster-card {
+    display: flex; align-items: center; gap: 18px; background: var(--card-bg); backdrop-filter: blur(12px);
+    border: 1px solid var(--border); border-radius: 20px; padding: 22px 24px;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    opacity: 0; transform: translateY(16px);
+    animation: riseIn 0.55s cubic-bezier(.34,1.56,.64,1) forwards;
+  }
+  .cluster-card:nth-child(1) { animation-delay: 0.05s; }
+  .cluster-card:nth-child(2) { animation-delay: 0.2s; }
+  .cluster-card:nth-child(3) { animation-delay: 0.35s; }
+  @keyframes riseIn { to { opacity: 1; transform: translateY(0); } }
+  .cluster-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px -14px rgba(0,0,0,0.4); }
+  .cluster-card.rank-1 { border-color: var(--amber); box-shadow: 0 0 0 1px rgba(255,187,56,0.3), 0 12px 34px -14px rgba(255,187,56,0.35); }
+  .cluster-card .rank { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: var(--muted); width: 30px; flex-shrink: 0; }
+  .cluster-card.rank-1 .rank { color: var(--amber); }
+  .cluster-card .icon-wrap { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+  .icon-wrap.coral  { background: rgba(255,107,71,0.16); color: #FF6B47; }
+  .icon-wrap.warm   { background: rgba(255,187,56,0.18); color: #FFBB38; }
+  .icon-wrap.ember  { background: rgba(220,80,40,0.18);  color: #E87055; }
+  .icon-wrap.blue   { background: rgba(80,140,255,0.16); color: #709FFF; }
+  .icon-wrap.green  { background: rgba(50,200,120,0.16); color: #40CC80; }
+  .icon-wrap.amber  { background: rgba(255,187,56,0.16); color: #FFBB38; }
+  .icon-wrap.violet { background: rgba(160,110,255,0.16); color: #A66EFF; }
+  .icon-wrap.teal   { background: rgba(45,200,190,0.16); color: #2DC8BE; }
+  .cluster-body { flex: 1; min-width: 0; }
+  .cluster-body .c-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 17px; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .cluster-body .c-bar-track { height: 7px; border-radius: 4px; background: var(--border); overflow: hidden; margin: 9px 0 7px; }
+  .cluster-body .c-bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--orange), var(--amber)); width: 0%; transition: width 1.1s cubic-bezier(.4,0,.2,1); box-shadow: 0 0 8px rgba(255,187,56,0.5); }
+  .cluster-body .c-pct { font-size: 12px; color: var(--muted); font-weight: 700; }
+  .cluster-card .c-cta { font-size: 13px; font-weight: 800; color: var(--orange-light); white-space: nowrap; flex-shrink: 0; }
+  .cluster-card .c-cta:hover { text-decoration: underline; }
+
+  .results-actions { display: flex; justify-content: center; gap: 14px; margin-top: 46px; flex-wrap: wrap; }
+
+  @media (max-width: 640px) {
+    nav { padding: 14px 18px; }
+    .nav-pills { display: none; }
+    .hamburger { display: block; }
+    .intro { padding: 48px 20px 32px; }
+    .q-card { padding: 28px 22px 24px; }
+    .cluster-card { padding: 16px; gap: 12px; }
+    .cluster-card .c-cta { display: none; }
+    .compass-wrap { width: 200px; height: 200px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="aurora-field">
+  <div class="aurora-blob b1"></div>
+  <div class="aurora-blob b2"></div>
+  <div class="aurora-blob b3"></div>
+</div>
+<div class="grain"></div>
+
+<nav>
+  <a href="index.html" class="logo">OPTIRA<span class="dot">.</span></a>
+  <div class="nav-pills">
+    <a href="index.html">Home</a>
+    <a href="careers.html">Careers</a>
+    <a href="compare.html">Compare</a>
+    <a href="opportunities.html">Opportunities</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode">
+      <span id="toggleIcon">🌙</span>
+      <span class="toggle-label" id="toggleLabel">Dark</span>
+    </button>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">&#9776;</button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="careers.html">Careers</a>
+  <a href="quiz.html" class="active">Quiz</a>
+  <a href="compare.html">Compare</a>
+  <a href="opportunities.html">Opportunities</a>
+  <a href="dashboard.html">My Dashboard</a>
+</div>
+
+<!-- ═══════════ INTRO ═══════════ -->
+<section id="introScreen">
+  <div class="intro">
+    <div class="eyebrow">✦ Career Compass</div>
+
+    <div class="compass-wrap">
+      <div class="compass-glow"></div>
+      <svg viewBox="0 0 220 220" id="compassIntroSvg">
+        <defs>
+          <linearGradient id="needleGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--accent)"/>
+            <stop offset="100%" stop-color="var(--accent-2)"/>
+          </linearGradient>
+        </defs>
+        <circle cx="110" cy="110" r="98" fill="none" stroke="var(--border)" stroke-width="1.5"/>
+        <circle cx="110" cy="110" r="98" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 10" opacity="0.5" id="dashRing"/>
+        <circle cx="110" cy="110" r="72" fill="none" stroke="var(--border)" stroke-width="1"/>
+        <circle cx="110" cy="110" r="46" fill="none" stroke="var(--border)" stroke-width="1"/>
+        <g id="needleGroup" style="transform-origin:110px 110px;">
+          <line x1="110" y1="110" x2="110" y2="24" stroke="url(#needleGrad)" stroke-width="4" stroke-linecap="round"/>
+          <line x1="110" y1="110" x2="110" y2="174" stroke="var(--muted-strong)" stroke-width="2.5" stroke-linecap="round"/>
+        </g>
+        <circle cx="110" cy="110" r="8" fill="var(--accent-2)"/>
+      </svg>
+    </div>
+
+    <h1>FIND YOUR<br><span class="accent">CAREER COMPASS.</span></h1>
+    <p>A fast, game-style quiz — not a form. Answer honestly across 6 short levels and unlock your top 3 career clusters.</p>
+
+    <div class="levels-preview" id="levelsPreview"></div>
+
+    <div id="resumeBanner" class="resume-banner" style="display:none">
+      <span><strong id="resumePct">0%</strong> saved from last time — pick up right where you left off.</span>
+      <button onclick="resumeQuiz()">Resume</button>
+    </div>
+
+    <div class="hero-btns" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn-orange-lg" onclick="startQuiz()">Start the Compass →</button>
+      <a href="careers.html" class="btn-ghost">Skip, browse careers</a>
+    </div>
+
+    <div class="intro-meta">
+      <span>⏱ ~4 minutes</span>
+      <span>🎮 6 quick levels</span>
+      <span>💾 Auto-saves as you go</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ QUIZ ═══════════ -->
+<section id="quizScreen">
+  <div class="wrap">
+    <div class="quiz-top">
+      <div class="segbar" id="segbar"></div>
+      <div class="progress-pct" id="progressPct">0%</div>
+      <div class="save-exit" id="saveExitBtn">Save &amp; exit</div>
+    </div>
+    <div class="level-row">
+      <span class="level-name" id="levelName"><span id="levelIcon">🧭</span> Level 1 · Interests</span>
+      <span class="streak" id="streakEl">🔥 On a roll</span>
+      <span id="levelCount">Q1 of 48</span>
+    </div>
+
+    <div class="card-stage" id="cardStage"></div>
+
+    <div class="quiz-nav">
+      <div class="nav-back hidden" id="backBtn">← Back</div>
+      <div></div>
+    </div>
+  </div>
+</section>
+
+<div class="level-toast" id="levelToast">
+  <div class="badge-icon">🏅</div>
+  <div class="badge-text"><b id="toastTitle">Level complete!</b><span id="toastSub">Explorer badge unlocked</span></div>
+</div>
+
+<div class="modal-veil" id="exitModal">
+  <div class="modal-box">
+    <div class="m-icon">🧭</div>
+    <h3>Leaving already?</h3>
+    <p id="exitCopy">You're closer than you think. Your progress is saved — come back any time and pick up exactly here.</p>
+    <div class="modal-btns">
+      <button class="btn-orange-lg" onclick="closeExitModal()">Keep going</button>
+      <button class="btn-ghost" onclick="confirmExit()">Save &amp; exit anyway</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ RESULTS ═══════════ -->
+<section id="resultsScreen">
+  <div class="results-hero">
+    <div class="eyebrow">✓ Compass complete</div>
+    <h2>Your top career <span style="color:var(--good)">clusters.</span></h2>
+    <p>Based on your interests, values, work style, and environment fit. Explore any cluster to see real careers inside it.</p>
+  </div>
+  <div class="cluster-list" id="clusterList"></div>
+  <div class="results-actions">
+    <a href="careers.html" class="btn-orange-lg">Browse matching careers →</a>
+    <button class="btn-ghost" onclick="restartQuiz()">Retake the compass</button>
+  </div>
+</section>
+
+<script>
+/* ══════════════════════ DATA ══════════════════════ */
+const CLUSTERS = {
+  health:    { name: "Health & Care",            icon: "🩺", cls: "coral",  href: "careers.html" },
+  business:  { name: "Business & Finance",       icon: "📈", cls: "amber",  href: "careers.html" },
+  trades:    { name: "Trades & Construction",    icon: "🔧", cls: "ember",  href: "careers.html" },
+  creative:  { name: "Creative & Digital",       icon: "🎨", cls: "violet", href: "careers.html" },
+  tech:      { name: "Technology & Data",        icon: "💻", cls: "blue",   href: "careers.html" },
+  law:       { name: "Law & Public Service",     icon: "⚖", cls: "teal",   href: "careers.html" },
+  education: { name: "Education & Community",    icon: "📘", cls: "green",  href: "careers.html" },
+  science:   { name: "Science & Environment",    icon: "🌿", cls: "warm",   href: "careers.html" },
+};
+
+const LEVELS = [
+  { key: "interests",   name: "Interests",     icon: "🧭", accent: "#FF6B47", accent2: "#FF8A6E" },
+  { key: "values",      name: "Work Values",   icon: "💎", accent: "#FFBB38", accent2: "#FFD97A" },
+  { key: "style",       name: "Work Style",    icon: "⚡", accent: "#709FFF", accent2: "#9CC0FF" },
+  { key: "anchors",     name: "Career Anchors",icon: "⚓", accent: "#2DC8BE", accent2: "#6FE0D8" },
+  { key: "environment", name: "Environment",   icon: "🏙", accent: "#A66EFF", accent2: "#C6A0FF" },
+  { key: "subjects",    name: "Subject Lens",  icon: "📚", accent: "#40CC80", accent2: "#7EE0AA" },
+];
+
+const SCALE = [
+  { v: 1, label: "Not me at all" },
+  { v: 2, label: "Not really me" },
+  { v: 3, label: "Somewhat me" },
+  { v: 4, label: "Mostly me" },
+  { v: 5, label: "Totally me" },
+];
+
+const QUESTIONS = [
+  { level:"interests", cluster:"trades",    text:"I'd rather be building or fixing something with my hands than sitting through a lecture." },
+  { level:"interests", cluster:"science",   text:"I get curious about why things work the way they do and want to test it myself." },
+  { level:"interests", cluster:"creative",  text:"I lose track of time when I'm drawing, filming, designing, or making music." },
+  { level:"interests", cluster:"health",    text:"I feel genuinely good after helping someone who's stressed or unwell." },
+  { level:"interests", cluster:"business",  text:"I like the idea of pitching an idea and convincing people to back it." },
+  { level:"interests", cluster:"tech",      text:"I enjoy figuring out how apps, games, or systems are put together." },
+  { level:"interests", cluster:"law",       text:"I care about fairness and find myself arguing both sides of a debate." },
+  { level:"interests", cluster:"education", text:"I like explaining something until a friend finally 'gets it'." },
+
+  { level:"values", cluster:"health",    text:"Knowing my work directly improves someone's life matters more to me than the pay." },
+  { level:"values", cluster:"business",  text:"Financial security and clear progression matter a lot to me in a future job." },
+  { level:"values", cluster:"creative",  text:"I need my work to let me express original ideas, not just follow a template." },
+  { level:"values", cluster:"law",       text:"I want a job with clear rules and structure, not constant ambiguity." },
+  { level:"values", cluster:"tech",      text:"I'm drawn to jobs where I'm always learning the newest tools or techniques." },
+  { level:"values", cluster:"trades",    text:"I want to finish a shift and see something real I actually made or fixed." },
+  { level:"values", cluster:"education", text:"Making a difference in my local community matters more to me than prestige." },
+  { level:"values", cluster:"science",   text:"Contributing to bigger questions — climate, health, discovery — feels important to me." },
+
+  { level:"style", cluster:"business",  text:"I work best with clear targets and a bit of competitive pressure." },
+  { level:"style", cluster:"health",    text:"I stay calm and think clearly even when things get urgent or emotional." },
+  { level:"style", cluster:"tech",      text:"I'm happy spending hours alone solving one tricky problem." },
+  { level:"style", cluster:"creative",  text:"I'd rather improvise and experiment than follow a strict step-by-step process." },
+  { level:"style", cluster:"trades",    text:"I like physical, hands-on tasks more than sitting at a screen all day." },
+  { level:"style", cluster:"law",       text:"I'm comfortable being precise and detail-focused, even when it's repetitive." },
+  { level:"style", cluster:"education", text:"I naturally take the lead when a group needs organising." },
+  { level:"style", cluster:"science",   text:"I like carefully testing an idea step by step rather than guessing." },
+
+  { level:"anchors", cluster:"trades",    text:"Having a stable, always-in-demand skill matters more to me than chasing trends." },
+  { level:"anchors", cluster:"business",  text:"I want the freedom to eventually run my own thing, not just follow orders." },
+  { level:"anchors", cluster:"tech",      text:"Becoming genuinely expert at a technical skill excites me more than managing people." },
+  { level:"anchors", cluster:"health",    text:"I want a job where 'helping people' is the actual core of what I do daily." },
+  { level:"anchors", cluster:"creative",  text:"I'd take less job security for work that actually feels like self-expression." },
+  { level:"anchors", cluster:"law",       text:"Being the person who upholds fairness or order appeals to me." },
+  { level:"anchors", cluster:"education", text:"I want a role connected to a community I actually care about, not just a paycheque." },
+  { level:"anchors", cluster:"science",   text:"I'd enjoy a career built around ongoing research or discovery, even if it's slow." },
+
+  { level:"environment", cluster:"trades",    text:"A workshop, site, or garage sounds more appealing than an office." },
+  { level:"environment", cluster:"health",    text:"A hospital, clinic, or care setting doesn't intimidate me — it feels okay to be there." },
+  { level:"environment", cluster:"creative",  text:"A studio full of screens, cameras, or design tools sounds exciting to work in." },
+  { level:"environment", cluster:"tech",      text:"I'd be happy at a desk with dual monitors for most of the day." },
+  { level:"environment", cluster:"law",       text:"An office built around meetings, case files, and structure sounds fine to me." },
+  { level:"environment", cluster:"science",   text:"A lab or the outdoors doing fieldwork sounds more appealing than an office." },
+  { level:"environment", cluster:"education", text:"A classroom or community space full of people energises me, not drains me." },
+  { level:"environment", cluster:"business",  text:"A fast-paced office with meetings and deadlines sounds motivating, not stressful." },
+
+  { level:"subjects", cluster:"science",   text:"Science subjects (Biology, Chemistry, Physics) are ones I actually enjoy, not just tolerate." },
+  { level:"subjects", cluster:"business",  text:"Maths, Business Studies, or Economics come pretty naturally to me." },
+  { level:"subjects", cluster:"health",    text:"PDHPE or Biology topics about the human body genuinely interest me." },
+  { level:"subjects", cluster:"trades",    text:"Woodwork, engineering, or design & technology classes are ones I look forward to." },
+  { level:"subjects", cluster:"creative",  text:"Art, Music, Drama, or Media classes are where I feel most myself." },
+  { level:"subjects", cluster:"law",       text:"Legal Studies, History, or debating topics grab my attention more than most subjects." },
+  { level:"subjects", cluster:"education", text:"I enjoy peer tutoring, mentoring, or helping younger students at school." },
+  { level:"subjects", cluster:"tech",      text:"IT, Computing, or coding classes are subjects I'd choose even if not required." },
+];
+
+/* ══════════════════════ STATE ══════════════════════ */
+const STORAGE_KEY = "optira-compass-progress";
+let state = { index: 0, answers: {}, streak: 0 };
+let exitConfirmed = false;
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const saved = JSON.parse(raw);
+      if (saved && typeof saved.index === "number") return saved;
+    }
+  } catch (e) {}
+  return null;
+}
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+}
+
+/* ══════════════════════ ACCENT THEMING ══════════════════════ */
+function setAccent(levelIdx) {
+  const l = LEVELS[levelIdx];
+  const root = document.documentElement;
+  root.style.setProperty("--accent", l.accent);
+  root.style.setProperty("--accent-2", l.accent2);
+  root.style.setProperty("--accent-soft", hexToRgba(l.accent, 0.16));
+}
+function hexToRgba(hex, a) {
+  const v = hex.replace("#", "");
+  const r = parseInt(v.substring(0,2), 16), g = parseInt(v.substring(2,4), 16), b = parseInt(v.substring(4,6), 16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+/* ══════════════════════ CONFETTI ══════════════════════ */
+function burstConfetti(count, colors) {
+  const cx = window.innerWidth / 2, cy = 140;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement("div");
+    p.className = "confetti-piece";
+    p.style.background = colors[i % colors.length];
+    p.style.left = cx + "px";
+    p.style.top = cy + "px";
+    const angle = (Math.random() * Math.PI) - Math.PI / 2 - Math.PI / 2;
+    const dist = 120 + Math.random() * 220;
+    const dx = Math.cos(angle) * dist * (Math.random() > 0.5 ? 1 : -1);
+    const dy = -(150 + Math.random() * 180);
+    const rot = Math.random() * 720 - 360;
+    const dur = 900 + Math.random() * 500;
+    document.body.appendChild(p);
+    p.animate([
+      { transform: `translate(0,0) rotate(0deg)`, opacity: 1 },
+      { transform: `translate(${dx}px, ${dy * -1}px) rotate(${rot}deg)`, opacity: 1, offset: 0.5 },
+      { transform: `translate(${dx * 1.4}px, 260px) rotate(${rot * 1.6}deg)`, opacity: 0 }
+    ], { duration: dur, easing: "cubic-bezier(.2,.7,.4,1)" });
+    setTimeout(() => p.remove(), dur + 50);
+  }
+}
+
+/* ══════════════════════ INTRO SETUP ══════════════════════ */
+function buildLevelsPreview() {
+  const wrap = document.getElementById("levelsPreview");
+  wrap.innerHTML = LEVELS.map((l) => `
+    <div class="level-chip" style="--lc-accent:${l.accent}">
+      <span class="dot-icon" style="background:${hexToRgba(l.accent,0.16)};color:${l.accent}">${l.icon}</span>
+      ${l.name}
+    </div>
+  `).join("");
+}
+buildLevelsPreview();
+setAccent(0);
+
+const existing = loadState();
+if (existing && Object.keys(existing.answers).length > 0 && existing.index < QUESTIONS.length) {
+  document.getElementById("resumeBanner").style.display = "flex";
+  document.getElementById("resumePct").textContent = Math.round((existing.index / QUESTIONS.length) * 100) + "%";
+}
+
+function resumeQuiz() { state = existing; launchQuiz(); }
+function startQuiz() {
+  state = { index: 0, answers: {}, streak: 0 };
+  saveState();
+  launchQuiz();
+}
+function launchQuiz() {
+  document.getElementById("introScreen").style.display = "none";
+  document.getElementById("quizScreen").style.display = "block";
+  buildSegbar();
+  renderStage();
+}
+
+/* ══════════════════════ QUIZ ENGINE ══════════════════════ */
+function currentLevelIndex() {
+  const q = QUESTIONS[state.index];
+  return LEVELS.findIndex(l => l.key === q.level);
+}
+
+function buildSegbar() {
+  const bar = document.getElementById("segbar");
+  bar.innerHTML = LEVELS.map((l, i) => `<div class="seg" data-i="${i}"><div class="seg-fill"></div></div>`).join("");
+}
+
+function questionsInLevel(levelKey) {
+  return QUESTIONS.filter(q => q.level === levelKey).length;
+}
+
+function renderStage() {
+  const q = QUESTIONS[state.index];
+  const stage = document.getElementById("cardStage");
+  stage.innerHTML = "";
+
+  const levelIdx = currentLevelIndex();
+  setAccent(levelIdx);
+  const answered = state.answers[state.index];
+
+  const card = document.createElement("div");
+  card.className = "q-card active";
+  card.innerHTML = `
+    <div class="q-tag"><span class="q-num">Q${state.index + 1}</span> · ${LEVELS[levelIdx].icon} ${LEVELS[levelIdx].name}</div>
+    <div class="q-text">${q.text}</div>
+    <div class="opts">
+      ${SCALE.map(s => `
+        <div class="opt ${answered === s.v ? "selected" : ""}" data-val="${s.v}">
+          <span class="bubble"></span>${s.label}
+        </div>
+      `).join("")}
+    </div>
+  `;
+  stage.appendChild(card);
+
+  card.querySelectorAll(".opt").forEach(opt => {
+    opt.addEventListener("click", () => selectAnswer(parseInt(opt.dataset.val, 10)));
+  });
+
+  document.getElementById("levelIcon").textContent = LEVELS[levelIdx].icon;
+  document.getElementById("levelName").innerHTML = `<span id="levelIcon">${LEVELS[levelIdx].icon}</span> Level ${levelIdx + 1} · ${LEVELS[levelIdx].name}`;
+  document.getElementById("levelCount").textContent = `Q${state.index + 1} of ${QUESTIONS.length}`;
+  document.getElementById("backBtn").classList.toggle("hidden", state.index === 0);
+  document.getElementById("backBtn").onclick = goBack;
+
+  updateProgress();
+}
+
+function updateProgress() {
+  const pct = Math.round((state.index / QUESTIONS.length) * 100);
+  document.getElementById("progressPct").textContent = pct + "%";
+
+  let seen = 0;
+  LEVELS.forEach((l, i) => {
+    const count = questionsInLevel(l.key);
+    const seg = document.querySelector(`.seg[data-i="${i}"] .seg-fill`);
+    if (!seg) return;
+    const answeredInLevel = Math.min(Math.max(state.index - seen, 0), count);
+    seg.style.width = (answeredInLevel / count) * 100 + "%";
+    seg.style.background = `linear-gradient(90deg, ${l.accent}, ${l.accent2})`;
+    seen += count;
+  });
+}
+
+function selectAnswer(val) {
+  const wasAnswered = state.answers[state.index] !== undefined;
+  state.answers[state.index] = val;
+
+  if (!wasAnswered) {
+    state.streak += 1;
+    if (state.streak >= 3) showStreak();
+  }
+  saveState();
+
+  const prevLevel = currentLevelIndex();
+  const isLastQuestion = state.index === QUESTIONS.length - 1;
+  const nextLevel = isLastQuestion ? -1 : LEVELS.findIndex(l => l.key === QUESTIONS[state.index + 1].level);
+  const levelJustFinished = nextLevel !== prevLevel;
+
+  const stage = document.getElementById("cardStage");
+  const activeCard = stage.querySelector(".q-card");
+  activeCard.classList.add("leaving");
+  activeCard.classList.remove("active");
+  updateProgress();
+
+  setTimeout(() => {
+    if (levelJustFinished) showLevelToast(prevLevel);
+    if (isLastQuestion) {
+      finishQuiz();
+    } else {
+      state.index += 1;
+      saveState();
+      renderStage();
+    }
+  }, levelJustFinished ? 680 : 260);
+}
+
+function goBack() {
+  if (state.index === 0) return;
+  state.index -= 1;
+  saveState();
+  renderStage();
+}
+
+function showStreak() {
+  const el = document.getElementById("streakEl");
+  el.classList.add("show");
+  clearTimeout(showStreak._t);
+  showStreak._t = setTimeout(() => el.classList.remove("show"), 1800);
+}
+
+function showLevelToast(levelIdx) {
+  const toast = document.getElementById("levelToast");
+  const level = LEVELS[levelIdx];
+  document.getElementById("toastTitle").textContent = `${level.name} complete!`;
+  document.getElementById("toastSub").textContent = `${level.icon} Level ${levelIdx + 1} of ${LEVELS.length} unlocked`;
+  toast.classList.add("show");
+  burstConfetti(18, [level.accent, level.accent2, "#FFBB38"]);
+  setTimeout(() => toast.classList.remove("show"), 1600);
+}
+
+/* ══════════════════════ EXIT / SAVE ══════════════════════ */
+document.getElementById("saveExitBtn").addEventListener("click", openExitModal);
+function openExitModal() {
+  const remaining = QUESTIONS.length - state.index;
+  const secs = Math.max(10, remaining * 6);
+  const mins = Math.round(secs / 60);
+  document.getElementById("exitCopy").textContent =
+    remaining <= 6
+      ? `You're almost done — just ${remaining} question${remaining === 1 ? "" : "s"} left (about ${secs}s). Your progress is saved either way.`
+      : `You're ${Math.round((state.index / QUESTIONS.length) * 100)}% through. Your answers are saved — you can finish in about ${mins} minute${mins === 1 ? "" : "s"} whenever you're ready.`;
+  document.getElementById("exitModal").classList.add("show");
+}
+function closeExitModal() { document.getElementById("exitModal").classList.remove("show"); }
+function confirmExit() {
+  exitConfirmed = true;
+  saveState();
+  window.location.href = "index.html";
+}
+
+window.addEventListener("beforeunload", function (e) {
+  const quizVisible = document.getElementById("quizScreen").style.display === "block";
+  const inProgress = state.index > 0 && state.index < QUESTIONS.length;
+  if (quizVisible && inProgress && !exitConfirmed) {
+    e.preventDefault();
+    e.returnValue = "";
+    return "";
+  }
+});
+
+/* ══════════════════════ RESULTS ══════════════════════ */
+function finishQuiz() {
+  document.getElementById("quizScreen").style.display = "none";
+  const scores = {};
+  Object.keys(CLUSTERS).forEach(k => scores[k] = { total: 0, count: 0 });
+
+  QUESTIONS.forEach((q, i) => {
+    const val = state.answers[i];
+    if (val === undefined) return;
+    scores[q.cluster].total += val;
+    scores[q.cluster].count += 1;
+  });
+
+  const ranked = Object.entries(scores)
+    .map(([key, s]) => ({ key, pct: s.count ? Math.round((s.total / (s.count * 5)) * 100) : 0 }))
+    .sort((a, b) => b.pct - a.pct)
+    .slice(0, 3);
+
+  const list = document.getElementById("clusterList");
+  list.innerHTML = ranked.map((r, i) => {
+    const c = CLUSTERS[r.key];
+    return `
+      <div class="cluster-card ${i === 0 ? "rank-1" : ""}">
+        <div class="rank">${i === 0 ? "🏆" : `#${i + 1}`}</div>
+        <div class="icon-wrap ${c.cls}">${c.icon}</div>
+        <div class="cluster-body">
+          <div class="c-name">${c.name}</div>
+          <div class="c-bar-track"><div class="c-bar-fill" data-pct="${r.pct}" style="width:0%"></div></div>
+          <div class="c-pct">${r.pct}% match</div>
+        </div>
+        <a class="c-cta" href="${c.href}">Explore →</a>
+      </div>
+    `;
+  }).join("");
+
+  try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+
+  document.documentElement.style.setProperty("--accent", "#FF6B47");
+  document.documentElement.style.setProperty("--accent-2", "#FFBB38");
+  document.getElementById("resultsScreen").style.display = "block";
+  setTimeout(() => {
+    document.querySelectorAll(".c-bar-fill").forEach(el => { el.style.width = el.dataset.pct + "%"; });
+    burstConfetti(36, ["#FF6B47", "#FFBB38", "#40CC80", "#709FFF", "#A66EFF"]);
+  }, 300);
+}
+
+function restartQuiz() {
+  state = { index: 0, answers: {}, streak: 0 };
+  saveState();
+  document.getElementById("resultsScreen").style.display = "none";
+  document.getElementById("introScreen").style.display = "block";
+  document.getElementById("resumeBanner").style.display = "none";
+  setAccent(0);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ══════════════════════ SHARED NAV / THEME ══════════════════════ */
+function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+(function () {
+  var root = document.documentElement;
+  var btn = document.getElementById('themeToggle');
+  var icon = document.getElementById('toggleIcon');
+  var label = document.getElementById('toggleLabel');
+  var saved = localStorage.getItem('optira-theme') || 'dark';
+  applyTheme(saved);
+  btn.addEventListener('click', function () {
+    var current = root.getAttribute('data-theme') || 'dark';
+    var next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    localStorage.setItem('optira-theme', next);
+  });
+  function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    icon.textContent = theme === 'light' ? '☀️' : '🌙';
+    label.textContent = theme === 'light' ? 'Light' : 'Dark';
+  }
+})();
+
+/* idle needle sway + slow ring rotation for a living intro */
+(function () {
+  let deg = 0, ring = 0;
+  setInterval(() => {
+    if (document.getElementById("introScreen").style.display === "none") return;
+    deg += 6; ring += 0.3;
+    const g = document.getElementById("needleGroup");
+    const r = document.getElementById("dashRing");
+    if (g) g.style.transform = `rotate(${Math.sin(deg / 40) * 20}deg)`;
+    if (r) r.style.transform = `rotate(${ring}deg)`;
+    if (r) r.style.transformOrigin = "110px 110px";
+  }, 60);
+})();
+</script>
+
+</body>
+</html>
