@@ -1,0 +1,848 @@
+{
+  "accountant": {
+    "slug": "accountant",
+    "title": "Accountant",
+    "cluster": "Business & Finance",
+    "clusterEmoji": "📈",
+    "iconEmoji": "📈",
+    "iconClass": "green",
+    "lede": "Help individuals and businesses manage money, minimise tax, and make smart financial decisions.",
+    "salary": "$60k–$130k",
+    "studyTime": "3 yrs",
+    "aiImpact": "Medium",
+    "jobStability": "80/100",
+    "dayInLife": [
+      "Prepare financial statements, tax returns and budgets",
+      "Advise clients or management on financial decisions",
+      "Audit records for accuracy and compliance",
+      "Use accounting software to track and forecast cash flow"
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "body": "Mathematics (Standard or Advanced), Economics or Business Studies (recommended, not required)"
+      },
+      {
+        "label": "Step 2 — Study",
+        "body": "Bachelor of Commerce or Bachelor of Business (Accounting major) — 3 years"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "body": "Complete CA (Chartered Accountant) or CPA Australia professional program after your degree to become fully qualified"
+      }
+    ],
+    "skills": [
+      "Numeracy",
+      "Attention to detail",
+      "Analytical thinking"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "med",
+        "width": 58,
+        "value": "Medium"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 80,
+        "value": "80/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 70,
+        "value": "70/100"
+      }
+    },
+    "aiNote": "Medium AI exposure — software already automates a lot of routine data entry and reconciliation, so the job is shifting toward advice, judgement and interpreting numbers for clients rather than crunching them by hand."
+  },
+  "butcher": {
+    "slug": "butcher",
+    "title": "Butcher",
+    "cluster": "Trades & Construction",
+    "clusterEmoji": "🔧",
+    "iconEmoji": "🔧",
+    "iconClass": "amber",
+    "lede": "Cut, bone and prepare meat products for sale, advising customers on cuts and cooking in retail and wholesale settings.",
+    "salary": "$50k–$92k",
+    "studyTime": "3–4 yrs",
+    "aiImpact": "Low",
+    "jobStability": "68/100",
+    "dayInLife": [
+      "Cut, bone and prepare meat products",
+      "Advise customers on cuts and cooking methods",
+      "Maintain hygiene and cold-chain standards",
+      "Manage stock ordering and display",
+      "Operate cutting and mincing equipment safely"
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "body": "Not required; Food Technology or PDHPE are useful"
+      },
+      {
+        "label": "Step 2 — Study",
+        "body": "Certificate III in Meat Processing (Retail Butcher) through TAFE NSW, completed as an apprenticeship (around 3–4 years)"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "body": "Complete the apprenticeship and hold a Food Safety Supervisor certificate to work in NSW"
+      }
+    ],
+    "skills": [
+      "Manual dexterity",
+      "Physical stamina",
+      "Customer service",
+      "Food safety knowledge"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "low",
+        "width": 30,
+        "value": "Low"
+      },
+      "Job stability": {
+        "level_class": "med",
+        "width": 68,
+        "value": "68/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 50,
+        "value": "50/100"
+      }
+    },
+    "aiNote": "Low AI exposure — precise meat cutting and customer advice remain a hands-on trade skill. Large-scale meat processing is increasingly automated, but retail butchery keeps a strong human, customer-facing element."
+  },
+  "carpenter": {
+    "slug": "carpenter",
+    "title": "Carpenter",
+    "cluster": "Trades & Construction",
+    "clusterEmoji": "🔧",
+    "iconEmoji": "🔧",
+    "iconClass": "amber",
+    "lede": "Build and install timber structures, fit-outs, and framework for homes, commercial buildings, and renovations.",
+    "salary": "$55k–$100k",
+    "studyTime": "4 yrs",
+    "aiImpact": "Low",
+    "jobStability": "85/100",
+    "dayInLife": [
+      "Read plans and measure, cut and shape timber and other materials",
+      "Frame, fit and install structures on site",
+      "Work alongside other trades on building sites",
+      "Check work meets safety and building code standards"
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "body": "No specific HSC subjects required — Construction (VET) and Maths are useful if offered at school"
+      },
+      {
+        "label": "Step 2 — Study",
+        "body": "Certificate III in Carpentry via a 4-year apprenticeship (paid, on-the-job training through TAFE NSW or a private provider)"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "body": "Once qualified, apply for a NSW contractor licence if you want to run your own jobs"
+      }
+    ],
+    "skills": [
+      "Practical skills",
+      "Problem-solving",
+      "Precision"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "low",
+        "width": 28,
+        "value": "Low"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 85,
+        "value": "85/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 75,
+        "value": "75/100"
+      }
+    },
+    "aiNote": "Low AI exposure — hands-on physical work on unpredictable sites is very hard to automate, though digital plans and design software are becoming more common tools of the trade."
+  },
+  "dentist": {
+    "slug": "dentist",
+    "title": "Dentist",
+    "cluster": "Health & Care",
+    "clusterEmoji": "🩺",
+    "iconEmoji": "🩺",
+    "iconClass": "coral",
+    "lede": "Diagnose and treat oral health conditions, from routine check-ups to fillings, extractions and cosmetic procedures.",
+    "salary": "$150k–$250k+",
+    "studyTime": "5 yrs",
+    "aiImpact": "Low",
+    "jobStability": "75/100",
+    "dayInLife": [
+      "Examine and diagnose oral health issues",
+      "Perform fillings, extractions and root canals",
+      "Take and interpret dental X-rays",
+      "Advise patients on preventive oral care",
+      "Manage a clinical team or practice"
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "body": "Biology, Chemistry and Mathematics"
+      },
+      {
+        "label": "Step 2 — Study",
+        "body": "Bachelor of Dental Surgery or Doctor of Dental Medicine (5 years, or a 4-year postgraduate program)"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "body": "Registration with the Dental Board of Australia via AHPRA"
+      }
+    ],
+    "skills": [
+      "Manual dexterity",
+      "Attention to detail",
+      "Communication",
+      "Business sense"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "low",
+        "width": 25,
+        "value": "Low"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 75,
+        "value": "75/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 60,
+        "value": "60/100"
+      }
+    },
+    "aiNote": "Low AI exposure — clinical dental procedures require hands-on precision AI cannot replicate. AI-assisted imaging and diagnostics are emerging, but treatment itself stays with the dentist."
+  },
+  "electrician": {
+    "slug": "electrician",
+    "title": "Electrician",
+    "cluster": "Trades & Construction",
+    "clusterEmoji": "🔧",
+    "iconEmoji": "🔧",
+    "iconClass": "amber",
+    "lede": "Install, maintain, and repair electrical systems in homes, commercial buildings, and industrial facilities.",
+    "salary": "$65k–$105k",
+    "studyTime": "4 yrs",
+    "aiImpact": "Low",
+    "jobStability": "90/100",
+    "dayInLife": [
+      "Install and wire electrical systems in new builds or renovations",
+      "Diagnose and repair faults safely",
+      "Test circuits and equipment for compliance",
+      "Read technical plans and follow safety regulations"
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "body": "No specific HSC subjects required — Maths and Physics (if offered) are useful"
+      },
+      {
+        "label": "Step 2 — Study",
+        "body": "Certificate III in Electrotechnology via a 4-year apprenticeship (paid, on-the-job training through TAFE NSW or a private provider)"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "body": "Obtain a NSW electrician licence from NSW Fair Trading after completing your apprenticeship"
+      }
+    ],
+    "skills": [
+      "Technical precision",
+      "Problem-solving",
+      "Safety awareness"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "low",
+        "width": 28,
+        "value": "Low"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 90,
+        "value": "90/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 75,
+        "value": "75/100"
+      }
+    },
+    "aiNote": "Low AI exposure — physical installation and fault-finding on real sites is hard to automate, though smart-home and industrial systems are adding a growing digital/diagnostic component to the trade."
+  },
+  "high-school-teacher": {
+    "slug": "high-school-teacher",
+    "title": "High School Teacher",
+    "cluster": "Education & Community",
+    "clusterEmoji": "📘",
+    "iconEmoji": "📘",
+    "iconClass": "blue",
+    "lede": "Teach a specialist subject to teenagers aged 12–18, helping them build skills for university and beyond.",
+    "salary": "$70k–$102k",
+    "studyTime": "4 yrs",
+    "aiImpact": "Low",
+    "jobStability": "88/100",
+    "dayInLife": [
+      "Deliver subject-specific lessons to different year groups",
+      "Prepare students for assessments and the HSC",
+      "Mentor students on subject choices and pathways",
+      "Collaborate with other teachers on curriculum and extracurricular programs"
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "body": "Strong result in the subject(s) you want to teach (e.g. Maths, Science, English, History)"
+      },
+      {
+        "label": "Step 2 — Study",
+        "body": "Bachelor of Education (Secondary) in a teaching subject — 4 years, or a subject degree + Master of Teaching (2 years)"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "body": "Register with NESA to gain accreditation and teach in NSW secondary schools"
+      }
+    ],
+    "skills": [
+      "Subject expertise",
+      "Communication",
+      "Leadership"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "low",
+        "width": 28,
+        "value": "Low"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 88,
+        "value": "88/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 55,
+        "value": "55/100"
+      }
+    },
+    "aiNote": "Low AI exposure — subject mastery, mentoring and classroom leadership stay firmly human, though AI can help with resource creation and personalised practice materials."
+  },
+  "lawyer": {
+    "slug": "lawyer",
+    "title": "Lawyer",
+    "cluster": "Law & Public Service",
+    "clusterEmoji": "⚖",
+    "iconEmoji": "⚖",
+    "iconClass": "warm",
+    "lede": "Represent clients, navigate the law, and advocate for justice — in court, in negotiation, or in corporate deals.",
+    "salary": "$70k–$220k",
+    "studyTime": "5 yrs",
+    "aiImpact": "Medium",
+    "jobStability": "78/100",
+    "dayInLife": [
+      "Research case law and legislation to build arguments",
+      "Draft contracts, letters and court documents",
+      "Meet with clients to advise on their legal position",
+      "Negotiate settlements or represent clients in court"
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "body": "English (Advanced), Legal Studies (recommended, not required), Strong overall ATAR for competitive entry"
+      },
+      {
+        "label": "Step 2 — Study",
+        "body": "Bachelor of Laws (LLB) or a combined degree (e.g. Law/Arts) — 5 years, or JD (postgraduate, 3 years) after another degree"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "body": "Complete Practical Legal Training (PLT) and be admitted as a solicitor by the NSW Legal Profession Admission Board"
+      }
+    ],
+    "skills": [
+      "Research",
+      "Argumentation",
+      "Writing"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "med",
+        "width": 58,
+        "value": "Medium"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 78,
+        "value": "78/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 55,
+        "value": "55/100"
+      }
+    },
+    "aiNote": "Medium AI exposure — AI is speeding up legal research and document drafting, but advocacy, negotiation and client judgement remain human-led, so the role is shifting rather than disappearing."
+  },
+  "marketing-manager": {
+    "slug": "marketing-manager",
+    "title": "Marketing Manager",
+    "cluster": "Creative & Digital",
+    "clusterEmoji": "🎨",
+    "iconEmoji": "🎨",
+    "iconClass": "ember",
+    "lede": "Lead marketing strategy, campaigns, and brand communications to attract customers and grow organisations.",
+    "salary": "$80k–$150k",
+    "studyTime": "3 yrs",
+    "aiImpact": "High",
+    "jobStability": "70/100",
+    "dayInLife": [
+      "Plan and run marketing campaigns across digital and traditional channels",
+      "Analyse data to see what is working and adjust strategy",
+      "Manage budgets, agencies and creative teams",
+      "Oversee brand messaging and positioning"
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "body": "English, Business Studies or Economics (recommended, not required)"
+      },
+      {
+        "label": "Step 2 — Study",
+        "body": "Bachelor of Marketing, Business or Communications — 3 years"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "body": "No formal registration required — most marketers build up from entry-level roles (coordinator, executive) into management"
+      }
+    ],
+    "skills": [
+      "Creativity",
+      "Strategic thinking",
+      "Data analysis"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "high",
+        "width": 85,
+        "value": "High"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 70,
+        "value": "70/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 85,
+        "value": "85/100"
+      }
+    },
+    "aiNote": "High AI exposure — AI tools now generate content, ads and audience analysis quickly, so the role is moving toward strategy, brand judgement and overseeing AI-produced work rather than manual content creation."
+  },
+  "nurse": {
+    "slug": "nurse",
+    "title": "Nurse",
+    "cluster": "Health & Care",
+    "clusterEmoji": "🩺",
+    "iconEmoji": "🩺",
+    "iconClass": "coral",
+    "lede": "Provide direct patient care, coordinate treatments, and support recovery across hospitals, clinics, and community settings.",
+    "salary": "$65k–$105k",
+    "studyTime": "3 yrs",
+    "aiImpact": "Low",
+    "jobStability": "95/100",
+    "dayInLife": [
+      "Monitor patients and administer medication and treatments",
+      "Support doctors during procedures and rounds",
+      "Educate patients and families on care and recovery",
+      "Keep accurate clinical records"
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "body": "Biology (recommended), English, A second science if possible"
+      },
+      {
+        "label": "Step 2 — Study",
+        "body": "Bachelor of Nursing — 3 years"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "body": "Register with AHPRA (Australian Health Practitioner Regulation Agency) to practise as a Registered Nurse"
+      }
+    ],
+    "skills": [
+      "Empathy",
+      "Clinical skills",
+      "Problem-solving"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "low",
+        "width": 28,
+        "value": "Low"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 95,
+        "value": "95/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 65,
+        "value": "65/100"
+      }
+    },
+    "aiNote": "Low AI exposure — direct patient care, hands-on procedures and emotional support cannot be automated, even as AI helps with diagnostics and admin in the background."
+  },
+  "police-officer": {
+    "slug": "police-officer",
+    "title": "Police Officer",
+    "cluster": "Law & Public Service",
+    "clusterEmoji": "⚖",
+    "iconEmoji": "⚖",
+    "iconClass": "warm",
+    "lede": "Protect the community, investigate crime, respond to emergencies, and uphold the law on behalf of the public.",
+    "salary": "$65k–$105k",
+    "studyTime": "1 yr",
+    "aiImpact": "Medium",
+    "jobStability": "92/100",
+    "dayInLife": [
+      "Patrol communities and respond to incidents and emergencies",
+      "Investigate crimes and gather evidence",
+      "Write reports and give evidence in court",
+      "Work with the community to prevent crime"
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "body": "No specific HSC subjects required — a reasonable ATAR and good physical fitness help with entry"
+      },
+      {
+        "label": "Step 2 — Study",
+        "body": "Diploma of Policing Practice through the NSW Police Force Academy (around 6 months full-time, paid while training)"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "body": "Apply directly to the NSW Police Force; entry involves fitness tests, medical and psychological assessment, and background checks"
+      }
+    ],
+    "skills": [
+      "Communication",
+      "Physical fitness",
+      "Decision-making"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "med",
+        "width": 58,
+        "value": "Medium"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 92,
+        "value": "92/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 50,
+        "value": "50/100"
+      }
+    },
+    "aiNote": "Medium AI exposure — AI helps with data analysis and pattern-spotting behind the scenes, but frontline policing depends on human judgement, presence and public trust."
+  },
+  "primary-school-teacher": {
+    "slug": "primary-school-teacher",
+    "title": "Primary School Teacher",
+    "cluster": "Education & Community",
+    "clusterEmoji": "📘",
+    "iconEmoji": "📘",
+    "iconClass": "blue",
+    "lede": "Educate and inspire children aged 5–12 across core subjects, shaping how they think and learn.",
+    "salary": "$65k–$95k",
+    "studyTime": "4 yrs",
+    "aiImpact": "Low",
+    "jobStability": "90/100",
+    "dayInLife": [
+      "Plan and deliver lessons across subjects like literacy, numeracy and science",
+      "Manage classroom behaviour and adapt teaching to different learning needs",
+      "Mark work, track student progress and write reports",
+      "Communicate with parents/carers about how each child is going"
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "body": "English, plus any two other subjects — breadth matters more than a specific pattern."
+      },
+      {
+        "label": "Step 2 — Study",
+        "body": "Bachelor of Education (Primary) — 4 years, or a relevant degree + Master of Teaching (2 years)."
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "body": "Register with NESA (NSW Education Standards Authority) to gain accreditation and work in NSW schools."
+      }
+    ],
+    "skills": [
+      "Communication",
+      "Patience",
+      "Creativity"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "low",
+        "width": 28,
+        "value": "Low"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 90,
+        "value": "90/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 55,
+        "value": "55/100"
+      }
+    },
+    "aiNote": "Low AI exposure — teaching is built on relationships, classroom management and emotional support, which AI cannot replicate. AI tools may help with lesson planning and marking, but the core job stays human."
+  },
+  "psychologist": {
+    "slug": "psychologist",
+    "title": "Psychologist",
+    "cluster": "Health & Care",
+    "clusterEmoji": "🩺",
+    "iconEmoji": "🩺",
+    "iconClass": "coral",
+    "lede": "Assess and support people with mental health challenges, using evidence-based therapy and psychological testing.",
+    "salary": "$75k–$140k",
+    "studyTime": "6 yrs",
+    "aiImpact": "Low",
+    "jobStability": "88/100",
+    "dayInLife": [
+      "Meet with clients to assess and treat mental health concerns",
+      "Deliver evidence-based therapy (e.g. CBT)",
+      "Conduct psychological testing and write reports",
+      "Refer clients to psychiatrists or other specialists when needed"
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "body": "English, A science subject such as Biology or Psychology-adjacent electives if offered"
+      },
+      {
+        "label": "Step 2 — Study",
+        "body": "Bachelor of Psychology (accredited, 3 years) + Honours (1 year) + postgraduate training or supervised internship (2 years)"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "body": "Register with AHPRA and the Psychology Board of Australia to practise as a psychologist"
+      }
+    ],
+    "skills": [
+      "Empathy",
+      "Active listening",
+      "Critical thinking"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "low",
+        "width": 28,
+        "value": "Low"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 88,
+        "value": "88/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 70,
+        "value": "70/100"
+      }
+    },
+    "aiNote": "Low AI exposure — therapeutic relationships rely on trust and human judgement, so this stays a strongly human-centred role even as AI-assisted screening tools emerge."
+  },
+  "real-estate-agent": {
+    "slug": "real-estate-agent",
+    "title": "Real Estate Agent",
+    "cluster": "Business & Finance",
+    "clusterEmoji": "📈",
+    "iconEmoji": "📈",
+    "iconClass": "green",
+    "lede": "Help people buy, sell, and rent properties — combining local market knowledge, negotiation, and relationship skills.",
+    "salary": "$50k–$160k",
+    "studyTime": "1 yr",
+    "aiImpact": "Medium",
+    "jobStability": "60/100",
+    "dayInLife": [
+      "List properties and arrange inspections or auctions",
+      "Advise clients on pricing and market conditions",
+      "Negotiate offers between buyers and sellers",
+      "Build a network of local contacts and repeat clients"
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "body": "No specific HSC subjects required — English and Business Studies are useful"
+      },
+      {
+        "label": "Step 2 — Study",
+        "body": "Certificate IV in Real Estate Practice (around 6–12 months) to get started, often while working under a licensed agent"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "body": "Obtain a NSW Real Estate Class 2 Licence via NSW Fair Trading, upgradeable to a full licence with experience"
+      }
+    ],
+    "skills": [
+      "Communication",
+      "Negotiation",
+      "Local knowledge"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "med",
+        "width": 58,
+        "value": "Medium"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 60,
+        "value": "60/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 90,
+        "value": "90/100"
+      }
+    },
+    "aiNote": "Medium AI exposure — online listings and valuation tools already automate parts of the search process, so success increasingly depends on relationships, negotiation and local expertise rather than access to information."
+  },
+  "software-developer": {
+    "slug": "software-developer",
+    "title": "Software Developer",
+    "cluster": "Technology & Data",
+    "clusterEmoji": "💻",
+    "iconEmoji": "💻",
+    "iconClass": "blue",
+    "lede": "Design and build software applications, websites, and digital products that power the modern world.",
+    "salary": "$75k–$160k",
+    "studyTime": "3 yrs",
+    "aiImpact": "High",
+    "jobStability": "82/100",
+    "dayInLife": [
+      "Write, test and debug code for apps, websites or systems",
+      "Collaborate with designers and other developers on features",
+      "Review and improve existing code",
+      "Keep learning new languages, frameworks and tools"
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "body": "Mathematics (Advanced or Extension recommended), Software Design and Development (if offered)"
+      },
+      {
+        "label": "Step 2 — Study",
+        "body": "Bachelor of Computer Science, Software Engineering or IT — 3–4 years (bootcamps and self-teaching are also common entry paths)"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "body": "No formal registration required — a portfolio of projects and practical skills matter more than credentials alone"
+      }
+    ],
+    "skills": [
+      "Logical thinking",
+      "Problem-solving",
+      "Creativity"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "high",
+        "width": 85,
+        "value": "High"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 82,
+        "value": "82/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 90,
+        "value": "90/100"
+      }
+    },
+    "aiNote": "High AI exposure — AI coding assistants are changing how developers work day to day, automating boilerplate code. The role is shifting toward system design, problem-solving and reviewing AI-generated code rather than disappearing."
+  },
+  "veterinarian": {
+    "slug": "veterinarian",
+    "title": "Veterinarian",
+    "cluster": "Health & Care",
+    "clusterEmoji": "🩺",
+    "iconEmoji": "🩺",
+    "iconClass": "coral",
+    "lede": "Diagnose, treat and prevent illness and injury in animals, from household pets to livestock and wildlife.",
+    "salary": "$70k–$130k",
+    "studyTime": "5–6 yrs",
+    "aiImpact": "Low",
+    "jobStability": "70/100",
+    "dayInLife": [
+      "Diagnose and treat sick or injured animals",
+      "Perform surgery and dental procedures",
+      "Advise owners on animal health and welfare",
+      "Administer vaccinations and preventive care",
+      "Manage clinical records and lab results"
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "body": "Biology and Chemistry"
+      },
+      {
+        "label": "Step 2 — Study",
+        "body": "Bachelor of Veterinary Science or Doctor of Veterinary Medicine, AVBC-accredited (5–6 years full-time)"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "body": "Registration with the NSW Veterinary Practitioners Board"
+      }
+    ],
+    "skills": [
+      "Animal handling",
+      "Diagnostic reasoning",
+      "Communication",
+      "Resilience"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "low",
+        "width": 27,
+        "value": "Low"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 70,
+        "value": "70/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 55,
+        "value": "55/100"
+      }
+    },
+    "aiNote": "Low AI exposure — veterinary diagnosis and surgery require hands-on skill and animal handling that AI cannot perform. AI may assist with record-keeping or diagnostic imaging review, but clinical care stays human."
+  }
+}
