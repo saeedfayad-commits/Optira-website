@@ -58,8 +58,8 @@
   "butcher": {
     "slug": "butcher",
     "title": "Butcher",
-    "cluster": "Trades & Construction",
-    "clusterEmoji": "🔧",
+    "cluster": "Business & Finance",
+    "clusterEmoji": "📈",
     "iconEmoji": "🔧",
     "iconClass": "amber",
     "lede": "Cut, bone and prepare meat products for sale, advising customers on cuts and cooking in retail and wholesale settings.",
@@ -844,5 +844,63 @@
       }
     },
     "aiNote": "Low AI exposure — veterinary diagnosis and surgery require hands-on skill and animal handling that AI cannot perform. AI may assist with record-keeping or diagnostic imaging review, but clinical care stays human."
+  },
+  "mining-engineer": {
+    "slug": "mining-engineer",
+    "title": "Mining Engineer",
+    "cluster": "Science & Environment",
+    "clusterEmoji": "🌿",
+    "iconEmoji": "⛏️",
+    "iconClass": "amber",
+    "lede": "Plan, design and oversee the safe extraction of coal, metals and minerals — from open-cut pits to underground mines across NSW.",
+    "salary": "$95k–$180k",
+    "studyTime": "4 yrs",
+    "aiImpact": "Low",
+    "jobStability": "80/100",
+    "dayInLife": [
+      "Design and plan mine layouts, shafts and extraction sequences",
+      "Monitor ground stability, ventilation and site safety systems",
+      "Work with geologists to assess ore bodies and plan resource recovery",
+      "Coordinate with surveyors, technicians and site operators",
+      "Prepare technical reports and production forecasts"
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "body": "Mathematics Advanced or Extension 1, Physics and Chemistry recommended"
+      },
+      {
+        "label": "Step 2 — Study",
+        "body": "Bachelor of Engineering (Mining), accredited by Engineers Australia — 4 years full-time (e.g. UNSW, University of Wollongong)"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "body": "Register as a Professional Engineer with NSW Fair Trading; supervisory roles require a Certificate of Competence (e.g. Mining Engineering Manager) from the NSW Resources Regulator, which requires the degree plus verified site experience and passing written and oral exams"
+      }
+    ],
+    "skills": [
+      "Technical problem-solving",
+      "Spatial reasoning",
+      "Safety leadership",
+      "Communication"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "low",
+        "width": 22,
+        "value": "Low"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 80,
+        "value": "80/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 45,
+        "value": "45/100"
+      }
+    },
+    "aiNote": "Low AI exposure — mine design, ground safety judgement and on-site decision-making rely on physical inspection and accountability that AI can support with data but not replace. AI is increasingly used for ore-body modelling and predictive maintenance, but statutory safety sign-off stays human."
   }
 }
