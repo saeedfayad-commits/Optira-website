@@ -1,1 +1,597 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Track your career exploration from Year 7 to Year 12 — shortlisted careers, subject readiness, and your quiz results, all in one place. Brought to you by Optira." />
+  <title>My Dashboard — Optira</title>
 
+  <script>
+    (function(){
+      var t = localStorage.getItem('optira-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root, [data-theme="dark"] {
+      --bg: #0F172A; --bg-surface: #1E293B; --bg-elevated: #293548;
+      --white: #F5F5F0; --surface: rgba(245,245,240,0.05); --surface-hover: rgba(245,245,240,0.08);
+      --border: rgba(245,245,240,0.1); --border-strong: rgba(245,245,240,0.18);
+      --muted: rgba(245,245,240,0.5); --muted-strong: rgba(245,245,240,0.65);
+      --orange: #FF6B47; --orange-light: #FF8A6E; --amber: #FFBB38; --amber-text: #7A4F00;
+      --nav-bg: rgba(15,23,42,0.88);
+      --aurora-a: rgba(255,107,71,0.13); --aurora-b: rgba(180,60,20,0.10);
+      --green: #40CC80; --blue: #709FFF;
+    }
+    [data-theme="light"] {
+      --bg: #F8FAFC; --bg-surface: #FFFFFF; --bg-elevated: #F1F5F9;
+      --white: #0F172A; --surface: rgba(15,23,42,0.04); --surface-hover: rgba(15,23,42,0.07);
+      --border: rgba(15,23,42,0.09); --border-strong: rgba(15,23,42,0.15);
+      --muted: rgba(15,23,42,0.45); --muted-strong: rgba(15,23,42,0.65);
+      --orange: #FF6B47; --orange-light: #E85530; --amber: #FFBB38; --amber-text: #7A4F00;
+      --nav-bg: rgba(248,250,252,0.92);
+      --aurora-a: rgba(255,107,71,0.07); --aurora-b: rgba(255,187,56,0.06);
+      --green: #1F9C5A; --blue: #3868C7;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; transition: background 0.25s ease, color 0.25s ease; }
+    a { color: inherit; text-decoration: none; }
+
+    .aurora { position: fixed; top: -120px; left: 50%; transform: translateX(-50%); width: 900px; height: 500px;
+      background: radial-gradient(ellipse 380px 240px at 30% 55%, var(--aurora-a) 0%, transparent 70%), radial-gradient(ellipse 380px 240px at 70% 55%, var(--aurora-b) 0%, transparent 70%);
+      pointer-events: none; z-index: 0; }
+
+    /* ── NAV (shared across site) ── */
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 48px; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100; background: var(--nav-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      transition: background 0.25s ease, border-color 0.25s ease; }
+    .logo { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -1px; color: var(--white); }
+    .logo .dot { color: var(--orange); }
+    .nav-pills { display: flex; gap: 4px; background: rgba(128,128,128,0.08); border: 1px solid var(--border-strong); border-radius: 24px; padding: 4px; }
+    .nav-pills a { font-size: 13px; font-weight: 500; color: var(--muted-strong); padding: 6px 16px; border-radius: 20px; transition: background 0.2s, color 0.2s; }
+    .nav-pills a:hover, .nav-pills a.active { background: rgba(128,128,128,0.14); color: var(--white); }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .theme-toggle { background: none; border: 1px solid var(--border-strong); border-radius: 20px; padding: 6px 13px; font-size: 12px; font-weight: 500;
+      color: var(--muted-strong); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: border-color 0.2s, color 0.2s; font-family: 'Inter', sans-serif; }
+    .theme-toggle:hover { border-color: var(--orange); color: var(--white); }
+    .btn-orange { background: var(--orange); color: #fff; border: none; padding: 10px 22px; border-radius: 8px; font-family: 'Inter', sans-serif;
+      font-size: 13px; font-weight: 700; cursor: pointer; transition: opacity 0.2s; display: inline-block; }
+    .btn-orange:hover { opacity: 0.88; }
+    .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 24px; cursor: pointer; padding: 4px; }
+    .mobile-menu { display: none; flex-direction: column; gap: 4px; padding: 12px 24px 20px; border-bottom: 1px solid var(--border); background: var(--nav-bg); }
+    .mobile-menu a { font-size: 15px; font-weight: 500; color: var(--muted-strong); padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu.open { display: flex; }
+
+    main { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 48px 32px 100px; }
+
+    /* ── DASH HEADER ── */
+    .dash-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+    .dash-header h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px, 3.4vw, 36px); font-weight: 800; letter-spacing: -1px; margin-bottom: 6px; }
+    .dash-header p { font-size: 15px; color: var(--muted-strong); max-width: 46ch; }
+
+    .year-picker { display: flex; gap: 4px; background: rgba(128,128,128,0.08); border: 1px solid var(--border-strong); border-radius: 24px; padding: 4px; }
+    .year-picker button { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: var(--muted-strong); background: none; border: none; padding: 8px 14px;
+      border-radius: 20px; cursor: pointer; transition: background 0.2s, color 0.2s; }
+    .year-picker button:hover { color: var(--white); }
+    .year-picker button.active { background: var(--orange); color: #fff; }
+
+    /* ── SIGNATURE: JOURNEY ROADMAP ── */
+    .roadmap-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 20px; padding: 32px 28px 24px; margin-bottom: 40px; }
+    .roadmap-card-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 28px; flex-wrap: wrap; gap: 8px; }
+    .roadmap-card-top h2 { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; }
+    .roadmap-card-top span { font-size: 12px; color: var(--muted); }
+
+    .roadmap { display: flex; align-items: flex-start; position: relative; }
+    .roadmap-track { position: absolute; top: 15px; left: 6%; right: 6%; height: 2px; background: var(--border-strong); z-index: 0; }
+    .roadmap-track-fill { position: absolute; top: 15px; left: 6%; height: 2px; background: var(--orange); z-index: 0; transition: width 0.3s ease; }
+
+    .roadmap-step { flex: 1; text-align: center; position: relative; z-index: 1; cursor: pointer; background: none; border: none; font-family: 'Inter', sans-serif; padding: 0; }
+    .roadmap-dot { width: 32px; height: 32px; border-radius: 50%; background: var(--bg-elevated); border: 2px solid var(--border-strong); margin: 0 auto 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--muted-strong); transition: all 0.2s; }
+    .roadmap-step.done .roadmap-dot { background: var(--green); border-color: var(--green); color: #08240F; }
+    .roadmap-step.current .roadmap-dot { background: var(--orange); border-color: var(--orange); color: #fff; box-shadow: 0 0 0 5px rgba(255,107,71,0.18); }
+    .roadmap-year { font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+    .roadmap-step.current .roadmap-year { color: var(--orange); }
+    .roadmap-label { font-size: 11.5px; color: var(--muted); line-height: 1.4; max-width: 110px; margin: 0 auto; }
+
+    @media (max-width: 720px) {
+      .roadmap { flex-direction: column; gap: 18px; align-items: stretch; }
+      .roadmap-track, .roadmap-track-fill { display: none; }
+      .roadmap-step { display: flex; align-items: center; gap: 14px; text-align: left; }
+      .roadmap-dot { margin: 0; flex: none; }
+      .roadmap-label { max-width: none; }
+    }
+
+    /* ── STAT ROW (reuses career-page stat-box pattern) ── */
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-bottom: 40px; }
+    .stat-box { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+    .stat-box .num { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; }
+    .stat-box .num.accent { color: var(--orange); }
+    .stat-box .label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    /* ── MAIN GRID ── */
+    .dash-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; align-items: start; margin-bottom: 20px; }
+    @media (max-width: 860px) { .dash-grid { grid-template-columns: 1fr; } }
+
+    .panel { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 20px; padding: 26px; }
+    .panel h2 { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+    .panel .panel-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+
+    /* Shortlist cards */
+    .shortlist-list { display: flex; flex-direction: column; gap: 12px; }
+    .shortlist-card { display: flex; align-items: center; gap: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; transition: border-color 0.2s; }
+    .shortlist-card:hover { border-color: rgba(255,107,71,0.3); }
+    .shortlist-card .icon-wrap { width: 44px; height: 44px; min-width: 44px; border-radius: 12px; font-size: 20px; }
+    .icon-wrap.coral { background: rgba(255,107,71,0.14); color: #FF6B47; }
+    .icon-wrap.blue  { background: rgba(80,140,255,0.14); color: #709FFF; }
+    .icon-wrap.amber { background: rgba(255,187,56,0.14); color: #FFBB38; }
+    .shortlist-body { flex: 1; min-width: 0; }
+    .shortlist-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; }
+    .shortlist-cluster { font-size: 12px; color: var(--muted); margin-top: 1px; }
+    .match-pill { font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 12px; white-space: nowrap; }
+    .match-pill.ready { background: rgba(64,204,128,0.14); color: var(--green); }
+    .match-pill.partial { background: rgba(255,187,56,0.16); color: var(--amber-text); }
+    [data-theme="dark"] .match-pill.partial { color: var(--amber); }
+    .shortlist-view { font-size: 12px; font-weight: 600; color: var(--orange); white-space: nowrap; }
+
+    .add-shortlist-link { display: block; text-align: center; font-size: 13px; font-weight: 600; color: var(--muted-strong); border: 1px dashed var(--border-strong);
+      border-radius: 14px; padding: 14px; margin-top: 12px; transition: border-color 0.2s, color 0.2s; }
+    .add-shortlist-link:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* Sidebar cards */
+    .side-stack { display: flex; flex-direction: column; gap: 20px; }
+    .focus-card p { font-size: 14px; color: var(--muted-strong); line-height: 1.7; }
+
+    .quiz-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .quiz-row:last-of-type { border-bottom: none; }
+    .quiz-row-name { font-size: 13px; font-weight: 600; }
+    .quiz-bar-track { flex: 1; height: 6px; background: var(--surface); border-radius: 3px; margin: 0 12px; overflow: hidden; }
+    .quiz-bar-fill { height: 100%; background: var(--orange); border-radius: 3px; }
+    .quiz-row-pct { font-size: 12px; color: var(--muted); width: 34px; text-align: right; flex: none; }
+    .quiz-cta { display: block; text-align: center; margin-top: 16px; font-size: 13px; font-weight: 600; color: var(--orange); }
+
+    /* ── SUBJECT READINESS ── */
+    .subject-panel { margin-top: 20px; }
+    .subject-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
+    .subject-chip { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 20px;
+      padding: 9px 14px 9px 10px; font-size: 13px; cursor: pointer; user-select: none; transition: border-color 0.2s, background 0.2s; }
+    .subject-chip:hover { border-color: rgba(255,107,71,0.3); }
+    .subject-chip input { accent-color: var(--orange); width: 15px; height: 15px; }
+    .subject-chip.checked { background: rgba(255,107,71,0.08); border-color: rgba(255,107,71,0.35); }
+
+    .readiness-list { display: flex; flex-direction: column; gap: 10px; }
+    .readiness-row { display: grid; grid-template-columns: 1fr 2fr auto; align-items: center; gap: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; }
+    @media (max-width: 640px) { .readiness-row { grid-template-columns: 1fr; gap: 8px; } }
+    .readiness-name { font-size: 13px; font-weight: 700; }
+    .readiness-subjects { display: flex; flex-wrap: wrap; gap: 6px; }
+    .req-tag { font-size: 11px; padding: 3px 9px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border-strong); color: var(--muted-strong); }
+    .req-tag.met { color: var(--green); border-color: rgba(64,204,128,0.35); background: rgba(64,204,128,0.08); }
+    .req-tag.missing { color: var(--orange); border-color: rgba(255,107,71,0.35); background: rgba(255,107,71,0.08); }
+
+    /* ── CTA BAND (shared pattern from career pages) ── */
+    .cta-band { margin-top: 44px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 20px; padding: 36px; text-align: center; }
+    .cta-band h2 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+    .cta-band p { color: var(--muted-strong); margin-bottom: 22px; }
+    .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-orange-lg { background: var(--orange); color: #fff; font-size: 14px; font-weight: 600; padding: 12px 24px; border-radius: 24px; border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
+    .btn-ghost { background: transparent; border: 1px solid var(--border-strong); color: var(--white); font-size: 14px; font-weight: 600; padding: 12px 24px; border-radius: 24px; cursor: pointer; font-family: 'Inter', sans-serif; }
+    .btn-ghost:hover { background: rgba(128,128,128,0.16); }
+
+    .demo-note { font-size: 12px; color: var(--muted); text-align: center; margin-top: 28px; padding: 12px; border: 1px dashed var(--border-strong); border-radius: 12px; }
+
+    footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 56px 48px 32px; }
+    .footer-inner { max-width: 1080px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; margin-bottom: 40px; }
+    .footer-brand p { font-size: 13px; color: var(--muted); margin-top: 12px; max-width: 34ch; }
+    .footer-col-title { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 14px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 13px; color: var(--muted); }
+    .footer-links a:hover { color: var(--white); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; flex-direction: column; gap: 8px; }
+    .footer-bottom p { font-size: 12px; color: var(--muted); }
+    .footer-disclaimer { max-width: 70ch; }
+
+    @media (max-width: 720px) {
+      .nav-pills { display: none; }
+      .hamburger { display: block; }
+      nav { padding: 14px 20px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .dash-header { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="aurora" aria-hidden="true"></div>
+
+  <nav>
+    <a href="index.html" class="logo">OPTIRA<span class="dot">.</span></a>
+    <div class="nav-pills">
+      <a href="index.html">Home</a>
+      <a href="careers.html">Careers</a>
+      <a href="compare.html">Compare</a>
+      <a href="opportunities.html">Opportunities</a>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode">
+        <span id="toggleIcon">🌙</span>
+        <span class="toggle-label" id="toggleLabel">Dark</span>
+      </button>
+      <a href="dashboard.html" class="btn-orange">My Dashboard</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">&#9776;</button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="careers.html">Careers</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="compare.html">Compare</a>
+    <a href="opportunities.html">Opportunities</a>
+    <a href="parents.html">For Parents</a>
+    <a href="schools.html">For Schools</a>
+    <a href="dashboard.html">My Dashboard</a>
+  </div>
+
+  <main>
+
+    <!-- HEADER + YEAR PICKER -->
+    <div class="dash-header">
+      <div>
+        <h1>My Dashboard</h1>
+        <p>Track your career exploration year by year — see what you've shortlisted, whether your subjects line up, and what to focus on next.</p>
+      </div>
+      <div class="year-picker" id="yearPicker" role="group" aria-label="Select your current year level">
+        <button data-year="7">Yr 7</button>
+        <button data-year="8">Yr 8</button>
+        <button data-year="9">Yr 9</button>
+        <button data-year="10">Yr 10</button>
+        <button data-year="11">Yr 11</button>
+        <button data-year="12">Yr 12</button>
+      </div>
+    </div>
+
+    <!-- SIGNATURE: JOURNEY ROADMAP -->
+    <div class="roadmap-card">
+      <div class="roadmap-card-top">
+        <h2>Your Year 7–12 journey</h2>
+        <span>Tap a year to preview that stage</span>
+      </div>
+      <div class="roadmap" id="roadmap">
+        <div class="roadmap-track"></div>
+        <div class="roadmap-track-fill" id="roadmapFill"></div>
+        <button class="roadmap-step" data-year="7">
+          <div class="roadmap-dot">7</div>
+          <div class="roadmap-year">Year 7</div>
+          <div class="roadmap-label">Explore widely</div>
+        </button>
+        <button class="roadmap-step" data-year="8">
+          <div class="roadmap-dot">8</div>
+          <div class="roadmap-year">Year 8</div>
+          <div class="roadmap-label">Keep exploring</div>
+        </button>
+        <button class="roadmap-step" data-year="9">
+          <div class="roadmap-dot">9</div>
+          <div class="roadmap-year">Year 9</div>
+          <div class="roadmap-label">Choose electives</div>
+        </button>
+        <button class="roadmap-step" data-year="10">
+          <div class="roadmap-dot">10</div>
+          <div class="roadmap-year">Year 10</div>
+          <div class="roadmap-label">Pick HSC subjects</div>
+        </button>
+        <button class="roadmap-step" data-year="11">
+          <div class="roadmap-dot">11</div>
+          <div class="roadmap-year">Year 11</div>
+          <div class="roadmap-label">Preliminary HSC</div>
+        </button>
+        <button class="roadmap-step" data-year="12">
+          <div class="roadmap-dot">12</div>
+          <div class="roadmap-year">Year 12</div>
+          <div class="roadmap-label">HSC &amp; applications</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-box"><div class="num accent">12</div><div class="label">Careers explored</div></div>
+      <div class="stat-box"><div class="num">3</div><div class="label">Careers shortlisted</div></div>
+      <div class="stat-box"><div class="num">1</div><div class="label">Quiz taken</div></div>
+      <div class="stat-box"><div class="num" id="subjectsOnTrackStat">5/8</div><div class="label">Subject requirements met</div></div>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="dash-grid">
+
+      <!-- SHORTLIST -->
+      <div class="panel">
+        <h2>Your shortlisted careers</h2>
+        <p class="panel-sub">Careers you've saved from the Career Explorer</p>
+        <div class="shortlist-list">
+          <div class="shortlist-card">
+            <div class="icon-wrap coral">🩺</div>
+            <div class="shortlist-body">
+              <div class="shortlist-title">Nurse</div>
+              <div class="shortlist-cluster">Health &amp; Care</div>
+            </div>
+            <span class="match-pill ready" id="pill-nurse">2/2 subjects</span>
+            <a href="careers/nurse.html" class="shortlist-view">View →</a>
+          </div>
+          <div class="shortlist-card">
+            <div class="icon-wrap blue">💻</div>
+            <div class="shortlist-body">
+              <div class="shortlist-title">Software Developer</div>
+              <div class="shortlist-cluster">Technology &amp; Data</div>
+            </div>
+            <span class="match-pill partial" id="pill-software-developer">1/2 subjects</span>
+            <a href="careers/software-developer.html" class="shortlist-view">View →</a>
+          </div>
+          <div class="shortlist-card">
+            <div class="icon-wrap amber">⛏️</div>
+            <div class="shortlist-body">
+              <div class="shortlist-title">Mining Engineer</div>
+              <div class="shortlist-cluster">Science &amp; Environment</div>
+            </div>
+            <span class="match-pill partial" id="pill-mining-engineer">2/3 subjects</span>
+            <a href="careers/mining-engineer.html" class="shortlist-view">View →</a>
+          </div>
+        </div>
+        <a href="careers.html" class="add-shortlist-link">+ Explore more careers to shortlist</a>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="side-stack">
+
+        <div class="panel focus-card">
+          <h2>This year's focus</h2>
+          <p class="panel-sub" id="focusYearLabel">Year 10</p>
+          <p id="focusText">Time to lock in your HSC subjects. Check the subject readiness panel below to see whether your shortlisted careers need subjects you haven't picked yet.</p>
+        </div>
+
+        <div class="panel">
+          <h2>Career Quiz</h2>
+          <p class="panel-sub">Your top matches from your last quiz</p>
+          <div class="quiz-row">
+            <span class="quiz-row-name">Nurse</span>
+            <div class="quiz-bar-track"><div class="quiz-bar-fill" style="width:88%"></div></div>
+            <span class="quiz-row-pct">88%</span>
+          </div>
+          <div class="quiz-row">
+            <span class="quiz-row-name">Psychologist</span>
+            <div class="quiz-bar-track"><div class="quiz-bar-fill" style="width:74%"></div></div>
+            <span class="quiz-row-pct">74%</span>
+          </div>
+          <div class="quiz-row">
+            <span class="quiz-row-name">Software Developer</span>
+            <div class="quiz-bar-track"><div class="quiz-bar-fill" style="width:61%"></div></div>
+            <span class="quiz-row-pct">61%</span>
+          </div>
+          <a href="quiz.html" class="quiz-cta">Retake the quiz →</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SUBJECT READINESS -->
+    <div class="panel subject-panel">
+      <h2>Subject readiness</h2>
+      <p class="panel-sub">Tick the subjects you're currently taking (or plan to pick) — your shortlist updates automatically</p>
+
+      <div class="subject-chips" id="subjectChips">
+        <label class="subject-chip"><input type="checkbox" data-subject="English Advanced" checked> English Advanced</label>
+        <label class="subject-chip"><input type="checkbox" data-subject="Mathematics Advanced" checked> Mathematics Advanced</label>
+        <label class="subject-chip"><input type="checkbox" data-subject="Biology" checked> Biology</label>
+        <label class="subject-chip"><input type="checkbox" data-subject="Chemistry"> Chemistry</label>
+        <label class="subject-chip"><input type="checkbox" data-subject="Physics"> Physics</label>
+        <label class="subject-chip"><input type="checkbox" data-subject="Software Design and Development"> Software Design &amp; Development</label>
+      </div>
+
+      <div class="readiness-list" id="readinessList">
+        <!-- rows rendered by JS -->
+      </div>
+    </div>
+
+    <div class="cta-band">
+      <h2>Missing a subject your dream career needs?</h2>
+      <p>It's not too late to talk to your careers advisor about changing electives, or compare a career with a lower subject requirement.</p>
+      <div class="cta-btns">
+        <a href="compare.html" class="btn-orange-lg">Compare careers</a>
+        <a href="schools.html" class="btn-ghost">Talk to your school</a>
+      </div>
+    </div>
+
+    <p class="demo-note">This dashboard shows example data so you can see how it works. Once "Save to dashboard" is added to each career page, your shortlist, quiz results and subject check will update automatically as you use the site.</p>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo">OPTIRA<span class="dot">.</span></div>
+          <p>Helping Australian students explore careers with confidence — built for the students who deserve real answers.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Explore</div>
+          <ul class="footer-links">
+            <li><a href="careers.html">Career Explorer</a></li>
+            <li><a href="quiz.html">Career Quiz</a></li>
+            <li><a href="opportunities.html">Opportunities</a></li>
+            <li><a href="compare.html">Compare Careers</a></li>
+            <li><a href="dashboard.html">My Dashboard</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Support</div>
+          <ul class="footer-links">
+            <li><a href="parents.html">For Parents</a></li>
+            <li><a href="schools.html">For Schools</a></li>
+            <li><a href="index.html">About Optira</a></li>
+            <li><a href="index.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Legal</div>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Optira. Built to help Australian students choose their path with confidence.</p>
+        <p class="footer-disclaimer">Optira provides general career information only. It does not replace professional career advice, school counselling, or independent research. Salary figures are approximate ranges for Australian conditions and may vary by state, employer, and experience level.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    // ── THEME (shared pattern) ──
+    (function () {
+      var root = document.documentElement;
+      var btn = document.getElementById('themeToggle');
+      var icon = document.getElementById('toggleIcon');
+      var label = document.getElementById('toggleLabel');
+      var saved = localStorage.getItem('optira-theme') || 'dark';
+      applyTheme(saved);
+      btn.addEventListener('click', function () {
+        var current = root.getAttribute('data-theme') || 'dark';
+        var next = current === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        localStorage.setItem('optira-theme', next);
+      });
+      function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        if (theme === 'light') { icon.textContent = '☀️'; label.textContent = 'Light'; }
+        else { icon.textContent = '🌙'; label.textContent = 'Dark'; }
+      }
+    })();
+
+    // ── YEAR LEVEL: roadmap + focus text, persisted like theme ──
+    (function () {
+      var focusByYear = {
+        7:  { label: 'Year 7',  text: 'Explore broadly. Read a few career pages each term — nothing to lock in yet, just build a list of what looks interesting.' },
+        8:  { label: 'Year 8',  text: 'Keep exploring. Notice which subjects you enjoy — that\'s often the first real clue about a career direction.' },
+        9:  { label: 'Year 9',  text: 'Elective choices this year start shaping what HSC subjects are realistic for you next year. Check your shortlist\'s subject requirements before you pick.' },
+        10: { label: 'Year 10', text: 'Time to lock in your HSC subjects. Check the subject readiness panel below to see whether your shortlisted careers need subjects you haven\'t picked yet.' },
+        11: { label: 'Year 11', text: 'You\'re studying your Preliminary courses now. Start researching university or TAFE entry requirements for your shortlisted careers.' },
+        12: { label: 'Year 12', text: 'HSC year. Check ATAR requirements and early entry programs for your shortlisted careers, and confirm your university preferences.' }
+      };
+
+      var yearButtons = document.querySelectorAll('#yearPicker button');
+      var roadmapSteps = document.querySelectorAll('.roadmap-step');
+      var roadmapFill = document.getElementById('roadmapFill');
+      var focusYearLabel = document.getElementById('focusYearLabel');
+      var focusText = document.getElementById('focusText');
+
+      function setYear(year) {
+        year = String(year);
+        localStorage.setItem('optira-year-level', year);
+
+        yearButtons.forEach(function (b) { b.classList.toggle('active', b.dataset.year === year); });
+
+        roadmapSteps.forEach(function (step) {
+          var y = parseInt(step.dataset.year, 10);
+          step.classList.toggle('done', y < parseInt(year, 10));
+          step.classList.toggle('current', y === parseInt(year, 10));
+        });
+
+        var idx = parseInt(year, 10) - 7; // 0-5
+        var pct = (idx / 5) * 88; // leave room inside the 6%-94% track
+        roadmapFill.style.width = pct + '%';
+
+        var f = focusByYear[year];
+        focusYearLabel.textContent = f.label;
+        focusText.textContent = f.text;
+      }
+
+      yearButtons.forEach(function (b) {
+        b.addEventListener('click', function () { setYear(b.dataset.year); });
+      });
+      roadmapSteps.forEach(function (step) {
+        step.addEventListener('click', function () { setYear(step.dataset.year); });
+      });
+
+      var savedYear = localStorage.getItem('optira-year-level') || '10';
+      setYear(savedYear);
+    })();
+
+    // ── SUBJECT READINESS: recompute shortlist match as subjects are toggled ──
+    (function () {
+      var careers = [
+        { slug: 'nurse', name: 'Nurse', subjects: ['English Advanced', 'Biology'] },
+        { slug: 'software-developer', name: 'Software Developer', subjects: ['Mathematics Advanced', 'Software Design and Development'] },
+        { slug: 'mining-engineer', name: 'Mining Engineer', subjects: ['Mathematics Advanced', 'Physics', 'Chemistry'] }
+      ];
+
+      var chipInputs = document.querySelectorAll('#subjectChips input[type="checkbox"]');
+      var readinessList = document.getElementById('readinessList');
+      var subjectsOnTrackStat = document.getElementById('subjectsOnTrackStat');
+
+      function getSelectedSubjects() {
+        var selected = [];
+        chipInputs.forEach(function (input) {
+          input.closest('.subject-chip').classList.toggle('checked', input.checked);
+          if (input.checked) selected.push(input.dataset.subject);
+        });
+        return selected;
+      }
+
+      function render() {
+        var selected = getSelectedSubjects();
+        readinessList.innerHTML = '';
+        var totalReq = 0, totalMet = 0;
+
+        careers.forEach(function (career) {
+          var met = career.subjects.filter(function (s) { return selected.indexOf(s) !== -1; });
+          totalReq += career.subjects.length;
+          totalMet += met.length;
+
+          var row = document.createElement('div');
+          row.className = 'readiness-row';
+
+          var tagsHtml = career.subjects.map(function (s) {
+            var isMet = selected.indexOf(s) !== -1;
+            return '<span class="req-tag ' + (isMet ? 'met' : 'missing') + '">' + s + (isMet ? ' ✓' : '') + '</span>';
+          }).join('');
+
+          row.innerHTML =
+            '<span class="readiness-name">' + career.name + '</span>' +
+            '<span class="readiness-subjects">' + tagsHtml + '</span>' +
+            '<span class="match-pill ' + (met.length === career.subjects.length ? 'ready' : 'partial') + '">' + met.length + '/' + career.subjects.length + ' subjects</span>';
+
+          readinessList.appendChild(row);
+
+          var pill = document.getElementById('pill-' + career.slug);
+          if (pill) {
+            pill.textContent = met.length + '/' + career.subjects.length + ' subjects';
+            pill.classList.toggle('ready', met.length === career.subjects.length);
+            pill.classList.toggle('partial', met.length !== career.subjects.length);
+          }
+        });
+
+        subjectsOnTrackStat.textContent = totalMet + '/' + totalReq;
+      }
+
+      chipInputs.forEach(function (input) { input.addEventListener('change', render); });
+      render();
+    })();
+  </script>
+
+</body>
+</html>
