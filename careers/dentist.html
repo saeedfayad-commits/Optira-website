@@ -29,7 +29,6 @@
       --nav-bg: rgba(15,23,42,0.88);
       --aurora-a: rgba(255,107,71,0.13); --aurora-b: rgba(180,60,20,0.10);
       --green: #40CC80; --blue: #709FFF;
-      --navy-accent: #94A3B8;
     }
     [data-theme="light"] {
       --bg: #F8FAFC; --bg-surface: #FFFFFF; --bg-elevated: #F1F5F9;
@@ -40,7 +39,6 @@
       --nav-bg: rgba(248,250,252,0.92);
       --aurora-a: rgba(255,107,71,0.07); --aurora-b: rgba(255,187,56,0.06);
       --green: #1F9C5A; --blue: #3868C7;
-      --navy-accent: #475569;
     }
 
     html { scroll-behavior: smooth; }
@@ -91,77 +89,53 @@
     h1 { font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; }
     .lede { font-size: 16px; color: var(--muted-strong); max-width: 62ch; }
 
+    /* ---------- STATS ROW (upgraded to gauges) ---------- */
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin: 36px 0; }
+    .stat-box { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+    .stat-box .num { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--white); }
+    .stat-box .label { font-size: 12px; color: var(--muted); margin-top: 4px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
+
+    .stat-gauge-track { height: 6px; background: var(--surface); border-radius: 4px; overflow: hidden; }
+    .stat-gauge-fill { height: 100%; border-radius: 4px; width: 0%; transition: width 1.1s cubic-bezier(.22,1,.36,1); }
+    .stat-gauge-fill.coral { background: linear-gradient(90deg, var(--orange), var(--orange-light)); }
+    .stat-gauge-fill.amber { background: linear-gradient(90deg, var(--amber), #ffd27a); }
+    .stat-gauge-fill.blue  { background: linear-gradient(90deg, var(--blue), #a9c2ff); }
+    .stat-gauge-fill.green { background: linear-gradient(90deg, var(--green), #86e6b3); }
+    .stat-context { font-size: 11.5px; color: var(--muted); margin-top: 8px; line-height: 1.4; }
+
     section.block { margin: 44px 0; }
     .block h2 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 16px; }
 
-    /* ============ 1. GAUGE STAT CARDS ============ */
-    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin: 36px 0; }
-    .gauge-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px 14px 14px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-    .gauge-svg-wrap { position: relative; width: 100%; max-width: 108px; }
-    .gauge-svg { width: 100%; display: block; }
-    .gauge-arc-bg { fill: none; stroke: var(--surface); stroke-width: 10; }
-    .gauge-arc-fill { fill: none; stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset 1.3s cubic-bezier(.16,1,.3,1); }
-    .gauge-fill-orange { stroke: var(--orange); }
-    .gauge-fill-amber  { stroke: var(--amber); }
-    .gauge-fill-blue   { stroke: var(--blue); }
-    .gauge-fill-green  { stroke: var(--green); }
-    .gauge-value { position: absolute; left: 0; right: 0; bottom: 2px; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; color: var(--white); line-height: 1; }
-    .gauge-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; margin-top: 6px; }
-    .gauge-note { font-size: 12px; color: var(--muted-strong); margin-top: 6px; line-height: 1.35; }
+    /* ---------- DAY IN THE LIFE (colour-coded timeline) ---------- */
+    .day-timeline { display: flex; flex-direction: column; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .day-block { display: grid; grid-template-columns: 74px 3px 1fr; align-items: stretch; }
+    .day-time { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 12.5px; color: var(--muted-strong); padding: 16px 0 16px 16px; white-space: nowrap; }
+    .day-rail { position: relative; background: var(--border); }
+    .day-rail::before { content: ''; position: absolute; left: 50%; top: 20px; width: 10px; height: 10px; transform: translateX(-50%); border-radius: 50%; border: 2px solid var(--bg-surface); }
+    .day-block.energy-high .day-rail::before { background: var(--orange); }
+    .day-block.energy-mid  .day-rail::before { background: var(--amber); }
+    .day-block.energy-low  .day-rail::before { background: var(--blue); }
+    .day-content { padding: 14px 16px 14px 20px; border-bottom: 1px solid var(--border); }
+    .day-block:last-child .day-content { border-bottom: none; }
+    .day-title { font-weight: 700; font-size: 14px; margin-bottom: 3px; color: var(--white); }
+    .day-desc { font-size: 13px; color: var(--muted-strong); line-height: 1.5; }
+    .day-legend { display: flex; gap: 18px; margin-top: 14px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--muted); font-weight: 600; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
 
-    @media (prefers-reduced-motion: reduce) {
-      .gauge-arc-fill { transition: none; }
-    }
+    /* ---------- PATHWAY (upgraded with node icons) ---------- */
+    .pathway { display: flex; flex-direction: column; gap: 0; border-left: 2px solid var(--border-strong); margin-left: 15px; }
+    .pathway-step { position: relative; padding: 0 0 28px 32px; }
+    .pathway-step:last-child { padding-bottom: 0; }
+    .step-node { position: absolute; left: -17px; top: -4px; width: 30px; height: 30px; border-radius: 50%; background: var(--bg-surface); border: 2px solid var(--orange); display: flex; align-items: center; justify-content: center; font-size: 14px; z-index: 1; }
+    .pathway-step .step-label { font-size: 12px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .pathway-step .step-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+    .pathway-step .step-body { font-size: 15px; color: var(--muted-strong); }
 
-    /* ============ 2. PATHWAY TIMELINE ============ */
-    .pathway-timeline { position: relative; display: flex; margin-top: 12px; }
-    .pathway-track { position: absolute; top: 23px; left: 46px; right: 46px; height: 2px; background: var(--border-strong); overflow: hidden; z-index: 0; }
-    .pathway-track-fill { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--orange); transition: width 1.4s cubic-bezier(.16,1,.3,1); }
-    .pathway-node { flex: 1; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 10px; }
-    .pathway-dot { width: 46px; height: 46px; min-width: 46px; border-radius: 50%; background: var(--bg-surface); border: 2px solid var(--border-strong); color: var(--muted-strong);
-      display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 14px;
-      transition: background 0.5s ease, border-color 0.5s ease, color 0.5s ease; }
-    .pathway-node.lit .pathway-dot { background: var(--orange); border-color: var(--orange); color: #fff; }
-    .pathway-node .step-label { font-size: 11px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-    .pathway-node .step-body { font-size: 14px; color: var(--muted-strong); max-width: 22ch; }
-
-    @media (max-width: 720px) {
-      .pathway-timeline { flex-direction: column; margin-left: 8px; padding-left: 26px; border-left: 2px solid var(--border-strong); gap: 26px; }
-      .pathway-track { display: none; }
-      .pathway-node { align-items: flex-start; text-align: left; padding: 0; }
-      .pathway-node .step-body { max-width: none; }
-      .pathway-dot { position: absolute; left: -49px; width: 32px; height: 32px; min-width: 32px; font-size: 12px; margin-bottom: 0; }
-      .pathway-node .step-label { margin-bottom: 4px; }
-    }
-
-    /* ============ 3. SKILL PILLS ============ */
-    .skills-row { display: flex; gap: 10px; flex-wrap: wrap; }
-    .skill-chip { display: inline-flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border-strong); padding: 8px 16px 8px 12px; border-radius: 20px; font-size: 13px; font-weight: 500; color: var(--white); transition: background 0.2s, transform 0.2s; }
-    .skill-chip:hover { background: var(--surface-hover); transform: translateY(-1px); }
-    .skill-chip .chip-dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
-    .skill-chip:nth-child(3n+1) .chip-dot { background: var(--orange); }
-    .skill-chip:nth-child(3n+2) .chip-dot { background: var(--amber); }
-    .skill-chip:nth-child(3n+3) .chip-dot { background: var(--blue); }
-
-    /* ============ 4. DAY-IN-THE-LIFE HOURLY TIMELINE ============ */
-    .dayflow-legend { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 20px; }
-    .dayflow-legend span { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted-strong); }
-    .dayflow-legend .chip-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
-    .legend-people .chip-dot { background: var(--orange); }
-    .legend-mixed .chip-dot { background: var(--amber); }
-    .legend-solo .chip-dot { background: var(--navy-accent); }
-
-    .dayflow { list-style: none; display: flex; flex-direction: column; border-left: 2px solid var(--border-strong); margin-left: 6px; }
-    .dayflow-item { position: relative; padding: 0 0 26px 26px; }
-    .dayflow-item:last-child { padding-bottom: 0; }
-    .dayflow-item::before { content: ''; position: absolute; left: -7px; top: 3px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--bg); background: var(--cat-color); }
-    .dayflow-item.cat-people { --cat-color: var(--orange); }
-    .dayflow-item.cat-mixed  { --cat-color: var(--amber); }
-    .dayflow-item.cat-solo   { --cat-color: var(--navy-accent); }
-    .dayflow-time { font-size: 12px; font-weight: 700; color: var(--cat-color); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-    .dayflow-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 3px; }
-    .dayflow-desc { font-size: 14px; color: var(--muted-strong); }
-    .dayflow-item.is-break .dayflow-title { color: var(--navy-accent); }
+    /* ---------- SKILL PILLS (upgraded with dot marker) ---------- */
+    .skills-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .skill-chip { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border-strong); padding: 8px 16px 8px 12px; border-radius: 20px; font-size: 13px; color: var(--white); }
+    .skill-chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex: none; }
 
     .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
     .bar-label { font-size: 13px; color: var(--muted-strong); width: 110px; flex: none; }
@@ -198,6 +172,11 @@
       .hamburger { display: block; }
       nav { padding: 14px 20px; }
       .footer-top { grid-template-columns: 1fr 1fr; }
+      .bar-label { width: 84px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .stat-gauge-fill { transition: none; }
     }
   </style>
 </head>
@@ -245,136 +224,131 @@
       </div>
     </div>
 
-    <!-- ============ 1. GAUGE STAT ROW ============ -->
     <div class="stats-row">
-      <div class="gauge-card" data-pct="80">
-        <div class="gauge-svg-wrap">
-          <svg class="gauge-svg" viewBox="0 0 120 68">
-            <path class="gauge-arc-bg" d="M10,63 A50,50 0 0 1 110,63" />
-            <path class="gauge-arc-fill gauge-fill-orange" d="M10,63 A50,50 0 0 1 110,63" />
-          </svg>
-          <div class="gauge-value">$150k–$250k+</div>
-        </div>
-        <div class="gauge-label">Salary (AUD)</div>
-        <p class="gauge-note">Near the top of Australian professional salaries</p>
+      <div class="stat-box">
+        <div class="num">$150k–$250k+</div>
+        <div class="label">Salary (AUD)</div>
+        <div class="stat-gauge-track"><div class="stat-gauge-fill coral" data-fill="85%"></div></div>
+        <div class="stat-context">Near the top of Australian professional salaries</div>
       </div>
-
-      <div class="gauge-card" data-pct="83">
-        <div class="gauge-svg-wrap">
-          <svg class="gauge-svg" viewBox="0 0 120 68">
-            <path class="gauge-arc-bg" d="M10,63 A50,50 0 0 1 110,63" />
-            <path class="gauge-arc-fill gauge-fill-amber" d="M10,63 A50,50 0 0 1 110,63" />
-          </svg>
-          <div class="gauge-value">5 yrs</div>
-        </div>
-        <div class="gauge-label">Study time</div>
-        <p class="gauge-note">One of the longer study pathways</p>
+      <div class="stat-box">
+        <div class="num">5 yrs</div>
+        <div class="label">Study time</div>
+        <div class="stat-gauge-track"><div class="stat-gauge-fill blue" data-fill="75%"></div></div>
+        <div class="stat-context">One of the longer study pathways</div>
       </div>
-
-      <div class="gauge-card" data-pct="25">
-        <div class="gauge-svg-wrap">
-          <svg class="gauge-svg" viewBox="0 0 120 68">
-            <path class="gauge-arc-bg" d="M10,63 A50,50 0 0 1 110,63" />
-            <path class="gauge-arc-fill gauge-fill-green" d="M10,63 A50,50 0 0 1 110,63" />
-          </svg>
-          <div class="gauge-value">Low</div>
-        </div>
-        <div class="gauge-label">AI impact</div>
-        <p class="gauge-note">Hands-on precision AI can't replicate</p>
+      <div class="stat-box">
+        <div class="num">Low</div>
+        <div class="label">AI impact</div>
+        <div class="stat-gauge-track"><div class="stat-gauge-fill amber" data-fill="25%"></div></div>
+        <div class="stat-context">Hands-on precision AI can't replicate</div>
       </div>
-
-      <div class="gauge-card" data-pct="75">
-        <div class="gauge-svg-wrap">
-          <svg class="gauge-svg" viewBox="0 0 120 68">
-            <path class="gauge-arc-bg" d="M10,63 A50,50 0 0 1 110,63" />
-            <path class="gauge-arc-fill gauge-fill-blue" d="M10,63 A50,50 0 0 1 110,63" />
-          </svg>
-          <div class="gauge-value">75/100</div>
-        </div>
-        <div class="gauge-label">Job stability</div>
-        <p class="gauge-note">Strong, steady demand</p>
+      <div class="stat-box">
+        <div class="num">75/100</div>
+        <div class="label">Job stability</div>
+        <div class="stat-gauge-track"><div class="stat-gauge-fill green" data-fill="75%"></div></div>
+        <div class="stat-context">Strong, steady demand</div>
       </div>
     </div>
 
-    <!-- ============ 4. DAY IN THE LIFE (hourly, colour-coded) ============ -->
     <section class="block">
       <h2>A day in the life</h2>
-      <div class="dayflow-legend">
-        <span class="legend-people"><span class="chip-dot"></span>People-facing</span>
-        <span class="legend-mixed"><span class="chip-dot"></span>Mixed</span>
-        <span class="legend-solo"><span class="chip-dot"></span>Solo / downtime</span>
+      <div class="day-timeline">
+        <div class="day-block energy-low">
+          <div class="day-time">8:00 AM</div>
+          <div class="day-rail"></div>
+          <div class="day-content">
+            <div class="day-title">Open up &amp; review the day's charts</div>
+            <div class="day-desc">Check the appointment list, patient histories and X-rays before the first patient arrives.</div>
+          </div>
+        </div>
+        <div class="day-block energy-high">
+          <div class="day-time">8:30 AM</div>
+          <div class="day-rail"></div>
+          <div class="day-content">
+            <div class="day-title">Morning patient block</div>
+            <div class="day-desc">Back-to-back check-ups, cleans and fillings — most of the morning is chairside with patients.</div>
+          </div>
+        </div>
+        <div class="day-block energy-mid">
+          <div class="day-time">11:00 AM</div>
+          <div class="day-rail"></div>
+          <div class="day-content">
+            <div class="day-title">Case notes &amp; lab liaison</div>
+            <div class="day-desc">Write up notes between patients and call the dental lab about a crown fitting.</div>
+          </div>
+        </div>
+        <div class="day-block energy-low">
+          <div class="day-time">12:30 PM</div>
+          <div class="day-rail"></div>
+          <div class="day-content">
+            <div class="day-title">Lunch break</div>
+            <div class="day-desc">Away from the chair — a proper reset before the afternoon list.</div>
+          </div>
+        </div>
+        <div class="day-block energy-high">
+          <div class="day-time">1:30 PM</div>
+          <div class="day-rail"></div>
+          <div class="day-content">
+            <div class="day-title">Afternoon patient block</div>
+            <div class="day-desc">More complex procedures — extractions and root canals — needing steady focus with each patient.</div>
+          </div>
+        </div>
+        <div class="day-block energy-mid">
+          <div class="day-time">3:30 PM</div>
+          <div class="day-rail"></div>
+          <div class="day-content">
+            <div class="day-title">Treatment planning huddle</div>
+            <div class="day-desc">Run through tomorrow's tricky cases with the dental assistant and hygienist.</div>
+          </div>
+        </div>
+        <div class="day-block energy-low">
+          <div class="day-time">5:00 PM</div>
+          <div class="day-rail"></div>
+          <div class="day-content">
+            <div class="day-title">Admin &amp; close out</div>
+            <div class="day-desc">Billing, supply orders, and sterilising the surgery ready for tomorrow.</div>
+          </div>
+        </div>
       </div>
-      <ul class="dayflow">
-        <li class="dayflow-item cat-solo">
-          <div class="dayflow-time">8:00 AM</div>
-          <div class="dayflow-title">Open up &amp; review the day's charts</div>
-          <div class="dayflow-desc">Check the appointment list, patient histories and X-rays before the first patient arrives.</div>
-        </li>
-        <li class="dayflow-item cat-people">
-          <div class="dayflow-time">8:30 AM</div>
-          <div class="dayflow-title">Morning patient block</div>
-          <div class="dayflow-desc">Back-to-back check-ups, cleans and fillings — most of the morning is chairside with patients.</div>
-        </li>
-        <li class="dayflow-item cat-mixed">
-          <div class="dayflow-time">11:00 AM</div>
-          <div class="dayflow-title">Case notes &amp; lab liaison</div>
-          <div class="dayflow-desc">Write up notes between patients and call the dental lab about a crown fitting.</div>
-        </li>
-        <li class="dayflow-item cat-solo is-break">
-          <div class="dayflow-time">12:30 PM</div>
-          <div class="dayflow-title">Lunch break</div>
-          <div class="dayflow-desc">Away from the chair — a proper reset before the afternoon list.</div>
-        </li>
-        <li class="dayflow-item cat-people">
-          <div class="dayflow-time">1:30 PM</div>
-          <div class="dayflow-title">Afternoon patient block</div>
-          <div class="dayflow-desc">More complex procedures — extractions and root canals — needing steady focus with each patient.</div>
-        </li>
-        <li class="dayflow-item cat-mixed">
-          <div class="dayflow-time">3:30 PM</div>
-          <div class="dayflow-title">Treatment planning huddle</div>
-          <div class="dayflow-desc">Run through tomorrow's tricky cases with the dental assistant and hygienist.</div>
-        </li>
-        <li class="dayflow-item cat-solo">
-          <div class="dayflow-time">5:00 PM</div>
-          <div class="dayflow-title">Admin &amp; close out</div>
-          <div class="dayflow-desc">Billing, supply orders, and sterilising the surgery ready for tomorrow.</div>
-        </li>
-      </ul>
+      <div class="day-legend">
+        <div class="legend-item"><span class="legend-dot" style="background:var(--orange)"></span>People-facing</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--amber)"></span>Mixed</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--blue)"></span>Solo / downtime</div>
+      </div>
     </section>
 
-    <!-- ============ 2. PATHWAY TIMELINE ============ -->
     <section class="block">
       <h2>How to get there (NSW pathway)</h2>
-      <div class="pathway-timeline">
-        <div class="pathway-track"><div class="pathway-track-fill"></div></div>
-
-        <div class="pathway-node">
-          <div class="pathway-dot">1</div>
-          <div class="step-label">HSC</div>
+      <div class="pathway">
+        <div class="pathway-step">
+          <div class="step-node">🧪</div>
+          <div class="step-label">Step 1 — HSC</div>
+          <div class="step-title">Build your foundation</div>
           <div class="step-body">Biology, Chemistry and Mathematics</div>
         </div>
-        <div class="pathway-node">
-          <div class="pathway-dot">2</div>
-          <div class="step-label">Study</div>
+        <div class="pathway-step">
+          <div class="step-node">🎓</div>
+          <div class="step-label">Step 2 — Study</div>
+          <div class="step-title">Dental degree</div>
           <div class="step-body">Bachelor of Dental Surgery or Doctor of Dental Medicine (5 years, or a 4-year postgraduate program)</div>
         </div>
-        <div class="pathway-node">
-          <div class="pathway-dot">3</div>
-          <div class="step-label">Get qualified</div>
+        <div class="pathway-step">
+          <div class="step-node">✅</div>
+          <div class="step-label">Step 3 — Get qualified</div>
+          <div class="step-title">AHPRA registration</div>
           <div class="step-body">Registration with the Dental Board of Australia via AHPRA</div>
         </div>
       </div>
     </section>
 
-    <!-- ============ 3. SKILL PILLS ============ -->
     <section class="block">
       <h2>Skills that matter most</h2>
       <div class="skills-row">
-        <span class="skill-chip"><span class="chip-dot"></span>Manual dexterity</span>
-        <span class="skill-chip"><span class="chip-dot"></span>Attention to detail</span>
-        <span class="skill-chip"><span class="chip-dot"></span>Communication</span>
-        <span class="skill-chip"><span class="chip-dot"></span>Business sense</span>
+        <span class="skill-chip"><span class="dot"></span>Manual dexterity</span>
+        <span class="skill-chip"><span class="dot"></span>Attention to detail</span>
+        <span class="skill-chip"><span class="dot"></span>Communication</span>
+        <span class="skill-chip"><span class="dot"></span>Business sense</span>
       </div>
     </section>
 
@@ -474,75 +448,21 @@
       }
     })();
 
-    // ---- Gauge + timeline scroll-triggered animation ----
+    // Animate the stat gauges in once the page has loaded
     (function () {
-      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var ARC_LEN = 157.08; // approx length of the semicircle path (pi * r=50)
-
-      // Prime all gauge fills to "empty" state
-      document.querySelectorAll('.gauge-arc-fill').forEach(function (el) {
-        el.style.strokeDasharray = ARC_LEN;
-        el.style.strokeDashoffset = reduceMotion ? 0 : ARC_LEN;
-      });
-
-      function animateGauge(card) {
-        var pct = parseFloat(card.dataset.pct) || 0;
-        var fillEl = card.querySelector('.gauge-arc-fill');
-        var offset = ARC_LEN - (ARC_LEN * pct / 100);
-        requestAnimationFrame(function () {
-          fillEl.style.strokeDashoffset = offset;
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var fills = document.querySelectorAll('.stat-gauge-fill');
+      function fillGauges() {
+        fills.forEach(function (el) {
+          var target = el.getAttribute('data-fill') || '0%';
+          if (reduceMotion) {
+            el.style.transition = 'none';
+          }
+          requestAnimationFrame(function () { el.style.width = target; });
         });
       }
-
-      if (reduceMotion) {
-        document.querySelectorAll('.gauge-card').forEach(function (card) {
-          var pct = parseFloat(card.dataset.pct) || 0;
-          card.querySelector('.gauge-arc-fill').style.strokeDashoffset = ARC_LEN - (ARC_LEN * pct / 100);
-        });
-      } else if ('IntersectionObserver' in window) {
-        var gaugeObserver = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              animateGauge(entry.target);
-              gaugeObserver.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.4 });
-        document.querySelectorAll('.gauge-card').forEach(function (card) { gaugeObserver.observe(card); });
-      } else {
-        document.querySelectorAll('.gauge-card').forEach(animateGauge);
-      }
-
-      // Pathway timeline: fill the connector line and light up nodes in sequence
-      var timeline = document.querySelector('.pathway-timeline');
-      if (timeline) {
-        var trackFill = timeline.querySelector('.pathway-track-fill');
-        var nodes = timeline.querySelectorAll('.pathway-node');
-
-        function runTimeline() {
-          if (trackFill) trackFill.style.width = '100%';
-          nodes.forEach(function (node, i) {
-            setTimeout(function () { node.classList.add('lit'); }, reduceMotion ? 0 : i * 260);
-          });
-        }
-
-        if (reduceMotion) {
-          if (trackFill) trackFill.style.width = '100%';
-          nodes.forEach(function (n) { n.classList.add('lit'); });
-        } else if ('IntersectionObserver' in window) {
-          var timelineObserver = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-              if (entry.isIntersecting) {
-                runTimeline();
-                timelineObserver.unobserve(entry.target);
-              }
-            });
-          }, { threshold: 0.3 });
-          timelineObserver.observe(timeline);
-        } else {
-          runTimeline();
-        }
-      }
+      if (document.readyState === 'complete') { fillGauges(); }
+      else { window.addEventListener('load', fillGauges); }
     })();
   </script>
 
