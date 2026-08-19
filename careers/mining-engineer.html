@@ -89,27 +89,53 @@
     h1 { font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; }
     .lede { font-size: 16px; color: var(--muted-strong); max-width: 62ch; }
 
-    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; margin: 36px 0; }
+    /* ---------- STATS ROW (upgraded to gauges) ---------- */
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin: 36px 0; }
     .stat-box { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
     .stat-box .num { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--white); }
-    .stat-box .label { font-size: 12px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
+    .stat-box .label { font-size: 12px; color: var(--muted); margin-top: 4px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
+
+    .stat-gauge-track { height: 6px; background: var(--surface); border-radius: 4px; overflow: hidden; }
+    .stat-gauge-fill { height: 100%; border-radius: 4px; width: 0%; transition: width 1.1s cubic-bezier(.22,1,.36,1); }
+    .stat-gauge-fill.coral { background: linear-gradient(90deg, var(--orange), var(--orange-light)); }
+    .stat-gauge-fill.amber { background: linear-gradient(90deg, var(--amber), #ffd27a); }
+    .stat-gauge-fill.blue  { background: linear-gradient(90deg, var(--blue), #a9c2ff); }
+    .stat-gauge-fill.green { background: linear-gradient(90deg, var(--green), #86e6b3); }
+    .stat-context { font-size: 11.5px; color: var(--muted); margin-top: 8px; line-height: 1.4; }
 
     section.block { margin: 44px 0; }
     .block h2 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 16px; }
 
-    .day-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .day-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; color: var(--muted-strong); background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; }
-    .day-list li::before { content: '→'; color: var(--orange); font-weight: 700; flex: none; }
+    /* ---------- DAY IN THE LIFE (colour-coded timeline) ---------- */
+    .day-timeline { display: flex; flex-direction: column; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .day-block { display: grid; grid-template-columns: 74px 3px 1fr; align-items: stretch; }
+    .day-time { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 12.5px; color: var(--muted-strong); padding: 16px 0 16px 16px; white-space: nowrap; }
+    .day-rail { position: relative; background: var(--border); }
+    .day-rail::before { content: ''; position: absolute; left: 50%; top: 20px; width: 10px; height: 10px; transform: translateX(-50%); border-radius: 50%; border: 2px solid var(--bg-surface); }
+    .day-block.energy-high .day-rail::before { background: var(--orange); }
+    .day-block.energy-mid  .day-rail::before { background: var(--amber); }
+    .day-block.energy-low  .day-rail::before { background: var(--blue); }
+    .day-content { padding: 14px 16px 14px 20px; border-bottom: 1px solid var(--border); }
+    .day-block:last-child .day-content { border-bottom: none; }
+    .day-title { font-weight: 700; font-size: 14px; margin-bottom: 3px; color: var(--white); }
+    .day-desc { font-size: 13px; color: var(--muted-strong); line-height: 1.5; }
+    .day-legend { display: flex; gap: 18px; margin-top: 14px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--muted); font-weight: 600; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
 
-    .pathway { display: flex; flex-direction: column; gap: 0; border-left: 2px solid var(--border-strong); margin-left: 8px; }
-    .pathway-step { position: relative; padding: 0 0 26px 26px; }
+    /* ---------- PATHWAY (with node icons) ---------- */
+    .pathway { display: flex; flex-direction: column; gap: 0; border-left: 2px solid var(--border-strong); margin-left: 15px; }
+    .pathway-step { position: relative; padding: 0 0 28px 32px; }
     .pathway-step:last-child { padding-bottom: 0; }
-    .pathway-step::before { content: ''; position: absolute; left: -7px; top: 2px; width: 12px; height: 12px; border-radius: 50%; background: var(--orange); border: 2px solid var(--bg); }
+    .step-node { position: absolute; left: -17px; top: -4px; width: 30px; height: 30px; border-radius: 50%; background: var(--bg-surface); border: 2px solid var(--orange); display: flex; align-items: center; justify-content: center; font-size: 14px; z-index: 1; }
     .pathway-step .step-label { font-size: 12px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .pathway-step .step-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 4px; }
     .pathway-step .step-body { font-size: 15px; color: var(--muted-strong); }
 
+    /* ---------- SKILL PILLS (with dot marker) ---------- */
     .skills-row { display: flex; gap: 8px; flex-wrap: wrap; }
-    .skill-chip { background: var(--surface); border: 1px solid var(--border-strong); padding: 8px 16px; border-radius: 20px; font-size: 13px; color: var(--white); }
+    .skill-chip { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border-strong); padding: 8px 16px 8px 12px; border-radius: 20px; font-size: 13px; color: var(--white); }
+    .skill-chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex: none; }
 
     .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
     .bar-label { font-size: 13px; color: var(--muted-strong); width: 110px; flex: none; }
@@ -120,6 +146,8 @@
     .bar-fill.high { background: var(--orange); }
     .bar-value { font-size: 13px; color: var(--white); width: 70px; text-align: right; flex: none; }
     .ai-note { font-size: 14px; color: var(--muted-strong); margin-top: 14px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+    .ai-note p + p { margin-top: 10px; }
+    .ai-note strong { color: var(--white); }
 
     .cta-band { margin-top: 56px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 20px; padding: 36px; text-align: center; }
     .cta-band h2 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 10px; }
@@ -146,6 +174,11 @@
       .hamburger { display: block; }
       nav { padding: 14px 20px; }
       .footer-top { grid-template-columns: 1fr 1fr; }
+      .bar-label { width: 84px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .stat-gauge-fill { transition: none; }
     }
   </style>
 </head>
@@ -194,36 +227,118 @@
     </div>
 
     <div class="stats-row">
-      <div class="stat-box"><div class="num">$95k–$180k</div><div class="label">Salary (AUD)</div></div>
-      <div class="stat-box"><div class="num">4 yrs</div><div class="label">Study time</div></div>
-      <div class="stat-box"><div class="num">Low</div><div class="label">AI impact</div></div>
-      <div class="stat-box"><div class="num">80/100</div><div class="label">Job stability</div></div>
+      <div class="stat-box">
+        <div class="num">$95k–$180k</div>
+        <div class="label">Salary (AUD)</div>
+        <div class="stat-gauge-track"><div class="stat-gauge-fill coral" data-fill="75%"></div></div>
+        <div class="stat-context">High end for engineering degrees</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">4 yrs</div>
+        <div class="label">Study time</div>
+        <div class="stat-gauge-track"><div class="stat-gauge-fill blue" data-fill="60%"></div></div>
+        <div class="stat-context">Full engineering degree, no shortcuts</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">Low</div>
+        <div class="label">AI impact</div>
+        <div class="stat-gauge-track"><div class="stat-gauge-fill amber" data-fill="22%"></div></div>
+        <div class="stat-context">Physical judgement AI can't replace</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">80/100</div>
+        <div class="label">Job stability</div>
+        <div class="stat-gauge-track"><div class="stat-gauge-fill green" data-fill="80%"></div></div>
+        <div class="stat-context">Resource sector keeps demand steady</div>
+      </div>
     </div>
 
     <section class="block">
       <h2>A day in the life</h2>
-      <ul class="day-list">
-        <li>Design and plan mine layouts, shafts and extraction sequences</li>
-        <li>Monitor ground stability, ventilation and site safety systems</li>
-        <li>Work with geologists to assess ore bodies and plan resource recovery</li>
-        <li>Coordinate with surveyors, technicians and site operators</li>
-        <li>Prepare technical reports and production forecasts</li>
-      </ul>
+      <div class="day-timeline">
+        <div class="day-block energy-high">
+          <div class="day-time">6:00 AM</div>
+          <div class="day-rail"></div>
+          <div class="day-content">
+            <div class="day-title">Pre-shift safety briefing</div>
+            <div class="day-desc">Run through the day's hazards and ground conditions with the crew before anyone heads underground or onto the pit — a missed detail here can cost someone their life.</div>
+          </div>
+        </div>
+        <div class="day-block energy-mid">
+          <div class="day-time">7:00 AM</div>
+          <div class="day-rail"></div>
+          <div class="day-content">
+            <div class="day-title">Site walk &amp; ground inspection</div>
+            <div class="day-desc">Walk the active faces with the shift supervisor, checking ventilation, rock stability and equipment before signing off that it's safe to keep working.</div>
+          </div>
+        </div>
+        <div class="day-block energy-mid">
+          <div class="day-time">9:00 AM</div>
+          <div class="day-rail"></div>
+          <div class="day-content">
+            <div class="day-title">Mine planning &amp; design</div>
+            <div class="day-desc">Back at the office, adjust the extraction sequence and shaft design in CAD software, working through how to reach the next ore body without compromising ground stability.</div>
+          </div>
+        </div>
+        <div class="day-block energy-high">
+          <div class="day-time">11:00 AM</div>
+          <div class="day-rail"></div>
+          <div class="day-content">
+            <div class="day-title">Meet with geologists</div>
+            <div class="day-desc">Sit down with the geology team to review the latest drill results and decide where resource recovery actually makes sense.</div>
+          </div>
+        </div>
+        <div class="day-block energy-low">
+          <div class="day-time">12:30 PM</div>
+          <div class="day-rail"></div>
+          <div class="day-content">
+            <div class="day-title">Lunch break</div>
+            <div class="day-desc">A proper break away from the site, even on the busiest production days.</div>
+          </div>
+        </div>
+        <div class="day-block energy-mid">
+          <div class="day-time">1:30 PM</div>
+          <div class="day-rail"></div>
+          <div class="day-content">
+            <div class="day-title">Coordinate with surveyors &amp; operators</div>
+            <div class="day-desc">Check survey data against the plan and brief site operators and technicians on the next blast or dig sequence.</div>
+          </div>
+        </div>
+        <div class="day-block energy-low">
+          <div class="day-time">3:30 PM</div>
+          <div class="day-rail"></div>
+          <div class="day-content">
+            <div class="day-title">Reports &amp; production forecasts</div>
+            <div class="day-desc">Pull together technical reports and production forecasts for management, translating the day's numbers into what they mean for next month's output.</div>
+          </div>
+        </div>
+      </div>
+      <div class="day-legend">
+        <div class="legend-item"><span class="legend-dot" style="background:var(--orange)"></span>People-facing</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--amber)"></span>Mixed</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--blue)"></span>Solo / downtime</div>
+      </div>
     </section>
 
     <section class="block">
       <h2>How to get there (NSW pathway)</h2>
       <div class="pathway">
         <div class="pathway-step">
+          <div class="step-node">📚</div>
           <div class="step-label">Step 1 — HSC</div>
+          <div class="step-title">Build your foundation</div>
           <div class="step-body">Mathematics Advanced or Extension 1, Physics and Chemistry recommended</div>
         </div>
         <div class="pathway-step">
+          <div class="step-node">🎓</div>
           <div class="step-label">Step 2 — Study</div>
+          <div class="step-title">Bachelor of Engineering (Mining)</div>
           <div class="step-body">Bachelor of Engineering (Mining), accredited by Engineers Australia — 4 years full-time (e.g. UNSW, University of Wollongong)</div>
         </div>
         <div class="pathway-step">
+          <div class="step-node">✅</div>
           <div class="step-label">Step 3 — Get qualified</div>
+          <div class="step-title">Register &amp; get certified</div>
           <div class="step-body">Register as a Professional Engineer with NSW Fair Trading; supervisory roles require a Certificate of Competence (e.g. Mining Engineering Manager) from the NSW Resources Regulator, which requires the degree plus verified site experience and passing written and oral exams</div>
         </div>
       </div>
@@ -232,10 +347,10 @@
     <section class="block">
       <h2>Skills that matter most</h2>
       <div class="skills-row">
-        <span class="skill-chip">Technical problem-solving</span>
-        <span class="skill-chip">Spatial reasoning</span>
-        <span class="skill-chip">Safety leadership</span>
-        <span class="skill-chip">Communication</span>
+        <span class="skill-chip"><span class="dot"></span>Technical problem-solving</span>
+        <span class="skill-chip"><span class="dot"></span>Spatial reasoning</span>
+        <span class="skill-chip"><span class="dot"></span>Safety leadership</span>
+        <span class="skill-chip"><span class="dot"></span>Communication</span>
       </div>
     </section>
 
@@ -256,7 +371,10 @@
         <div class="bar-track"><div class="bar-fill med" style="width:45%"></div></div>
         <span class="bar-value">45/100</span>
       </div>
-      <p class="ai-note">Low AI exposure — mine design, ground safety judgement and on-site decision-making rely on physical inspection and accountability that AI can support with data but not replace. AI is increasingly used for ore-body modelling and predictive maintenance, but statutory safety sign-off stays human.</p>
+      <div class="ai-note">
+        <p><strong>Where AI already helps:</strong> AI is increasingly used for ore-body modelling, predictive maintenance and crunching sensor data from across the site, cutting down the guesswork in planning where to dig next.</p>
+        <p><strong>What still needs a person:</strong> Statutory safety sign-off, on-site judgement about ground stability, and accountability for a crew's safety underground all stay with a qualified engineer — no algorithm can absorb that legal and moral responsibility. Mining engineers who do well pair AI's modelling power with their own physical inspection and hard-won site experience.</p>
+      </div>
     </section>
 
     <div class="cta-band">
@@ -333,6 +451,23 @@
         if (theme === 'light') { icon.textContent = '☀️'; label.textContent = 'Light'; }
         else { icon.textContent = '🌙'; label.textContent = 'Dark'; }
       }
+    })();
+
+    // Animate the stat gauges in once the page has loaded
+    (function () {
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var fills = document.querySelectorAll('.stat-gauge-fill');
+      function fillGauges() {
+        fills.forEach(function (el) {
+          var target = el.getAttribute('data-fill') || '0%';
+          if (reduceMotion) {
+            el.style.transition = 'none';
+          }
+          requestAnimationFrame(function () { el.style.width = target; });
+        });
+      }
+      if (document.readyState === 'complete') { fillGauges(); }
+      else { window.addEventListener('load', fillGauges); }
     })();
   </script>
 
