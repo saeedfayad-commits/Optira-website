@@ -55,6 +55,133 @@
     },
     "aiNote": "Medium AI exposure — software already automates a lot of routine data entry and reconciliation, so the job is shifting toward advice, judgement and interpreting numbers for clients rather than crunching them by hand."
   },
+  "baker": {
+    "slug": "baker",
+    "title": "Baker",
+    "cluster": "Food & Trades",
+    "clusterEmoji": "🍞",
+    "iconEmoji": "🍞",
+    "iconClass": "amber",
+    "lede": "Mix, prepare and bake bread, pastries and cakes for retail and wholesale bakeries, cafés and hotels.",
+    "salary": "$50k–$80k",
+    "studyTime": "3–4 yrs",
+    "aiImpact": "Low",
+    "jobStability": "65/100",
+    "dayInLife": [
+      "Mix and prepare dough and batters",
+      "Bake bread, pastries and cakes to a schedule",
+      "Maintain food safety and hygiene standards",
+      "Manage stock and ingredient ordering",
+      "Decorate and finish products for sale"
+    ],
+    "dayTimeline": [
+      {
+        "time": "3:00 AM",
+        "title": "Start the bake",
+        "desc": "Fire up the ovens and begin mixing dough and batters for the first batches of the day.",
+        "energy": "high"
+      },
+      {
+        "time": "5:00 AM",
+        "title": "Bake to schedule",
+        "desc": "Move bread, pastries and cakes through the ovens in sequence, timing each batch precisely.",
+        "energy": "high"
+      },
+      {
+        "time": "7:00 AM",
+        "title": "Decorate & finish",
+        "desc": "Ice, glaze and finish products so they're ready for the display case before opening.",
+        "energy": "mid"
+      },
+      {
+        "time": "8:30 AM",
+        "title": "Morning rush",
+        "desc": "Serve early customers and hand off wholesale orders to cafés and hotels as the shop opens.",
+        "energy": "high"
+      },
+      {
+        "time": "10:00 AM",
+        "title": "Clean down & hygiene checks",
+        "desc": "Maintain food safety and hygiene standards across benches, equipment and the kitchen floor.",
+        "energy": "mid"
+      },
+      {
+        "time": "11:00 AM",
+        "title": "Stock & ordering",
+        "desc": "Check ingredient levels and place orders so tomorrow's bake is fully stocked.",
+        "energy": "low"
+      },
+      {
+        "time": "12:00 PM",
+        "title": "Finish for the day",
+        "desc": "Most bakery shifts wrap up by early afternoon after the pre-dawn start — the trade-off for those 3am mornings.",
+        "energy": "low"
+      }
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "title": "No specific subjects required",
+        "body": "Not required; Food Technology or Hospitality VET subjects are useful"
+      },
+      {
+        "label": "Step 2 — Study",
+        "title": "Certificate III in Baking",
+        "body": "Through TAFE NSW, completed as an apprenticeship (around 2–3 years)"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "title": "Apprenticeship & food safety certificate",
+        "body": "Complete the apprenticeship and hold a Food Safety Supervisor certificate to work in NSW"
+      }
+    ],
+    "skills": [
+      "Time management",
+      "Attention to detail",
+      "Physical stamina",
+      "Food safety knowledge"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "low",
+        "width": 32,
+        "value": "Low"
+      },
+      "Job stability": {
+        "level_class": "med",
+        "width": 65,
+        "value": "65/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 55,
+        "value": "55/100"
+      }
+    },
+    "aiNote": "Low-to-medium AI exposure — the physical craft of baking is hard to automate at small-bakery scale, though large-scale commercial bakeries increasingly use automated production lines. Skilled artisan and made-to-order baking stays largely human.",
+    "statContext": {
+      "salary": {
+        "gaugeColor": "coral",
+        "width": 35,
+        "text": "Trade wage, rising with experience and ownership"
+      },
+      "studyTime": {
+        "gaugeColor": "blue",
+        "width": 55,
+        "text": "A paid apprenticeship through TAFE NSW"
+      },
+      "aiImpact": {
+        "gaugeColor": "amber",
+        "width": 30,
+        "text": "Hard to automate at small-bakery scale"
+      },
+      "jobStability": {
+        "gaugeColor": "green",
+        "width": 65,
+        "text": "Steady demand across bakeries, cafés and hotels"
+      }
+    }
+  },
   "butcher": {
     "slug": "butcher",
     "title": "Butcher",
