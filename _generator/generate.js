@@ -15,6 +15,28 @@
  * That's it — no HTML to write by hand, and the grid and the profile
  * page can never fall out of sync with each other again, because they
  * are both generated from the same entry.
+ *
+ * SCHEMA NOTES (added alongside the original fields — nothing below
+ * is required, so every career written before this update still
+ * generates fine without changes):
+ *
+ *   dayTimeline: [{ time, title, desc, energy }]
+ *     Optional. Powers the hourly "day in the life" timeline (with
+ *     coloured energy dots — energy is "high" / "mid" / "low").
+ *     If a career has no dayTimeline, one is synthesized from the
+ *     plain dayInLife list (no times, "mid" energy for every row) so
+ *     older entries still render, just without the richer detail.
+ *
+ *   pathway[].title
+ *     Optional short headline shown above a pathway step's body text
+ *     (e.g. "Certificate III in Baking"). Steps without a title just
+ *     skip that line.
+ *
+ *   statContext: { salary, studyTime, aiImpact, jobStability }
+ *     Optional. Each key can set { gaugeColor, width, text } to
+ *     control the caption line under that stat's gauge bar. Any
+ *     missing key/field falls back to a sensible default (gauge
+ *     colour matches the stat, width 50%, no caption text).
  */
 
 const fs = require("fs");
@@ -29,6 +51,19 @@ const CAREERS_OUT_DIR = path.join(ROOT, "careers");
 
 const GRID_START = "<!-- CAREERS_GRID_START -->";
 const GRID_END = "<!-- CAREERS_GRID_END -->";
+
+// Default gauge colour + width for each stat box, used whenever a
+// career doesn't supply statContext for that stat.
+const STAT_DEFAULTS = {
+  salary: { color: "coral", width: 50 },
+  studyTime: { color: "blue", width: 50 },
+  aiImpact: { color: "amber", width: 50 },
+  jobStability: { color: "green", width: 50 },
+};
+
+// Icons cycled through pathway steps in order. Falls back to a
+// generic icon if a career somehow has more than 5 steps.
+const STEP_ICONS = ["📚", "🎓", "✅", "🔎", "🏁"];
 
 function esc(str) {
   // Escape for safe use inside HTML text content.
@@ -46,24 +81,91 @@ function fill(template, values) {
   return out;
 }
 
-function buildDayList(items) {
-  return items.map((i) => `        <li>${esc(i)}</li>`).join("\n");
+function buildStatsRow(career) {
+  const ctx = career.statContext || {};
+
+  function block(key, num, label) {
+    const d = STAT_DEFAULTS[key];
+    const c = ctx[key] || {};
+    const color = c.gaugeColor || d.color;
+    const width = c.width != null ? c.width : d.width;
+    const text = c.text || "";
+    const contextLine = text
+      ? `\n        <div class="stat-context">${esc(text)}</div>`
+      : "";
+    return `      <div class="stat-box">
+        <div class="num">${esc(num)}</div>
+        <div class="label">${esc(label)}</div>
+        <div class="stat-gauge-track"><div class="stat-gauge-fill ${color}" data-fill="${width}%"></div></div>${contextLine}
+      </div>`;
+  }
+
+  return [
+    block("salary", career.salary, "Salary (AUD)"),
+    block("studyTime", career.studyTime, "Study time"),
+    block("aiImpact", career.aiImpact, "AI impact"),
+    block("jobStability", career.jobStability, "Job stability"),
+  ].join("\n");
+}
+
+function buildDayTimeline(career) {
+  let items = career.dayTimeline;
+
+  if (!items || !items.length) {
+    // Fallback for careers that only have the old flat dayInLife
+    // list: synthesize a timeline with no times and "mid" energy so
+    // the page still renders using the new markup.
+    items = (career.dayInLife || []).map((desc) => ({
+      time: "",
+      title: desc,
+      desc: "",
+      energy: "mid",
+    }));
+  }
+
+  return items
+    .map((item) => {
+      const energy = ["high", "mid", "low"].includes(item.energy)
+        ? item.energy
+        : "mid";
+      const descLine = item.desc
+        ? `\n            <div class="day-desc">${esc(item.desc)}</div>`
+        : "";
+      return `        <div class="day-block energy-${energy}">
+          <div class="day-time">${esc(item.time || "")}</div>
+          <div class="day-rail"></div>
+          <div class="day-content">
+            <div class="day-title">${esc(item.title || "")}</div>${descLine}
+          </div>
+        </div>`;
+    })
+    .join("\n");
 }
 
 function buildPathway(steps) {
   return steps
-    .map(
-      (s) => `        <div class="pathway-step">
-          <div class="step-label">${esc(s.label)}</div>
+    .map((s, i) => {
+      const icon = STEP_ICONS[i] || "🔎";
+      const titleLine = s.title
+        ? `\n          <div class="step-title">${esc(s.title)}</div>`
+        : "";
+      return `        <div class="pathway-step">
+          <div class="step-node">${icon}</div>
+          <div class="step-label">${esc(s.label)}</div>${titleLine}
           <div class="step-body">${esc(s.body)}</div>
-        </div>`
-    )
+        </div>`;
+    })
     .join("\n");
 }
 
 function buildSkillChips(skills) {
   return skills
-    .map((s) => `        <span class="skill-chip">${esc(s)}</span>`)
+    .map(
+      (s) =>
+        `        <span class="skill-chip"><span class="dot"></span>${esc(
+          s
+        )}</span>`
+    )
     .join("\n");
 }
 
@@ -105,11 +207,8 @@ function generateCareerPage(career, template) {
     ICON_CLASS: career.iconClass,
     ICON_EMOJI: career.iconEmoji,
     LEDE: esc(career.lede),
-    SALARY: esc(career.salary),
-    STUDY_TIME: esc(career.studyTime),
-    AI_IMPACT: esc(career.aiImpact),
-    JOB_STABILITY: esc(career.jobStability),
-    DAY_LIST_ITEMS: buildDayList(career.dayInLife),
+    STATS_ROW_BLOCKS: buildStatsRow(career),
+    DAY_TIMELINE_BLOCKS: buildDayTimeline(career),
     PATHWAY_STEPS: buildPathway(career.pathway),
     SKILL_CHIPS: buildSkillChips(career.skills),
     OUTLOOK_BARS: buildOutlookBars(career.outlook),
