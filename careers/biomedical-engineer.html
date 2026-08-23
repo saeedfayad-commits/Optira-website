@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biomedical Engineer | Optira</title>
+<meta name="description" content="What it's really like to work as a Biomedical Engineer in NSW — salary, day-to-day tasks, the study pathway, and how AI is likely to change the job.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ============ Sunrise design tokens ============ */
+  :root{
+    --navy: #0B1E3D;
+    --navy-soft: #16305C;
+    --coral: #FF6B57;
+    --coral-soft: #FFE4DE;
+    --amber: #F5A623;
+    --amber-soft: #FFF2DA;
+    --bg: #FBF9F6;
+    --surface: #FFFFFF;
+    --surface-alt: #F4F1EC;
+    --border: #E7E2D9;
+    --text: #16213A;
+    --text-muted: #5B6478;
+    --text-inverse: #FBF9F6;
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --shadow-card: 0 1px 2px rgba(11,30,61,0.04), 0 10px 30px -12px rgba(11,30,61,0.12);
+    --font-display: 'Syne', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+
+  html[data-theme="dark"]{
+    --navy: #0B1E3D;
+    --navy-soft: #101C33;
+    --coral: #FF7B68;
+    --coral-soft: #2A1B22;
+    --amber: #FFB74D;
+    --amber-soft: #2A2214;
+    --bg: #0A1526;
+    --surface: #101E36;
+    --surface-alt: #14243F;
+    --border: #223051;
+    --text: #EEF1F7;
+    --text-muted: #A6B0C6;
+    --text-inverse: #0A1526;
+    --shadow-card: 0 1px 2px rgba(0,0,0,0.2), 0 10px 30px -12px rgba(0,0,0,0.5);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    transition:background .25s ease, color .25s ease;
+  }
+  h1,h2,h3,.font-display{ font-family:var(--font-display); letter-spacing:-0.01em; }
+  a{ color:inherit; }
+  img{ max-width:100%; }
+  .wrap{ max-width:920px; margin:0 auto; padding:0 24px; }
+
+  /* ============ Top bar ============ */
+  .topbar{
+    position:sticky; top:0; z-index:40;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .topbar-inner{
+    max-width:920px; margin:0 auto; padding:16px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .brand{
+    font-family:var(--font-display); font-weight:800; font-size:1.1rem;
+    text-decoration:none; color:var(--navy);
+    display:flex; align-items:center; gap:8px;
+  }
+  html[data-theme="dark"] .brand{ color:var(--text); }
+  .brand .dot{ width:8px; height:8px; border-radius:50%; background:var(--coral); }
+  .topbar-actions{ display:flex; align-items:center; gap:12px; }
+  .back-link{
+    font-size:0.9rem; font-weight:600; text-decoration:none;
+    color:var(--text-muted); display:flex; align-items:center; gap:6px;
+  }
+  .back-link:hover{ color:var(--coral); }
+  .theme-toggle{
+    width:38px; height:38px; border-radius:50%;
+    border:1px solid var(--border); background:var(--surface);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:16px;
+  }
+  .theme-toggle:focus-visible, a:focus-visible, button:focus-visible{
+    outline:2px solid var(--coral); outline-offset:2px;
+  }
+
+  /* ============ Hero ============ */
+  .hero{ padding:56px 0 8px; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--amber-soft); color:#8A5A00;
+    border-radius:999px; padding:6px 14px;
+    font-size:0.82rem; font-weight:700; letter-spacing:0.02em;
+  }
+  html[data-theme="dark"] .eyebrow{ color:var(--amber); }
+  .hero h1{
+    font-size:clamp(2.1rem, 5vw, 3.1rem);
+    line-height:1.05; margin:20px 0 14px; font-weight:800;
+  }
+  .hero .tagline{
+    font-size:1.15rem; color:var(--text-muted); max-width:640px; margin:0 0 32px;
+  }
+
+  /* Quick stats */
+  .stats-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:12px;
+    margin-bottom:8px;
+  }
+  .stat-card{
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius-md); padding:18px 14px;
+    text-align:center; box-shadow:var(--shadow-card);
+  }
+  .stat-card .value{
+    font-family:var(--font-display); font-weight:800; font-size:1.4rem; color:var(--navy);
+  }
+  html[data-theme="dark"] .stat-card .value{ color:var(--text); }
+  .stat-card .label{ font-size:0.78rem; color:var(--text-muted); margin-top:4px; }
+
+  @media (max-width:640px){ .stats-grid{ grid-template-columns:repeat(2, 1fr); } }
+
+  /* ============ Sections ============ */
+  section{ padding:48px 0; border-top:1px solid var(--border); }
+  section:first-of-type{ border-top:none; }
+  .section-label{
+    font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--coral); margin-bottom:10px;
+  }
+  section h2{
+    font-size:1.6rem; font-weight:700; margin:0 0 18px;
+  }
+  section > p.intro{ color:var(--text-muted); margin:-8px 0 20px; max-width:640px; }
+
+  /* Salary table */
+  .salary-table{ width:100%; border-collapse:collapse; }
+  .salary-table th{
+    text-align:left; font-size:0.82rem; text-transform:uppercase; letter-spacing:0.04em;
+    color:var(--text-muted); padding:10px 14px; border-bottom:1px solid var(--border);
+  }
+  .salary-table td{
+    padding:14px; border-bottom:1px solid var(--border); font-size:0.98rem;
+  }
+  .salary-table tr:last-child td{ border-bottom:none; }
+  .salary-table td.amount{ font-weight:700; color:var(--navy); white-space:nowrap; }
+  html[data-theme="dark"] .salary-table td.amount{ color:var(--amber); }
+
+  /* Day in the life */
+  .task-list{ list-style:none; margin:0 0 28px; padding:0; display:grid; gap:12px; }
+  .task-list li{
+    display:flex; gap:12px; align-items:flex-start;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius-sm); padding:14px 16px;
+  }
+  .task-list li::before{
+    content:"";
+    flex:0 0 8px; width:8px; height:8px; border-radius:50%;
+    background:var(--coral); margin-top:8px;
+  }
+  blockquote.composite{
+    position:relative;
+    margin:0; padding:26px 28px;
+    background:var(--navy); color:#F4F1EC;
+    border-radius:var(--radius-lg);
+    font-family:var(--font-display); font-weight:600;
+    font-size:1.15rem; line-height:1.5;
+  }
+  blockquote.composite::before{
+    content:"\201C"; font-family:var(--font-display); font-size:3.5rem;
+    color:var(--coral); position:absolute; top:6px; left:20px; line-height:1;
+  }
+  blockquote.composite p{ margin:0 0 14px; padding-left:28px; }
+  blockquote.composite cite{
+    display:block; padding-left:28px; font-family:var(--font-body); font-style:normal;
+    font-weight:500; font-size:0.82rem; color:#B9C3DA;
+  }
+
+  /* Pathway */
+  .pathway{ list-style:none; margin:0; padding:0; counter-reset:step; }
+  .pathway li{
+    counter-increment:step;
+    position:relative;
+    padding:4px 0 28px 52px;
+    border-left:2px solid var(--border);
+    margin-left:19px;
+  }
+  .pathway li:last-child{ border-left-color:transparent; padding-bottom:0; }
+  .pathway li::before{
+    content:counter(step);
+    position:absolute; left:-19px; top:0;
+    width:38px; height:38px; border-radius:50%;
+    background:var(--coral); color:#fff;
+    font-family:var(--font-display); font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 0 4px var(--bg);
+  }
+  .pathway h3{ margin:2px 0 6px; font-size:1.05rem; }
+  .pathway p{ margin:0; color:var(--text-muted); }
+
+  /* Is this you */
+  .fit-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .fit-card{
+    border-radius:var(--radius-md); padding:22px; border:1px solid var(--border);
+  }
+  .fit-card.love{ background:var(--amber-soft); }
+  .fit-card.tough{ background:var(--surface-alt); }
+  .fit-card h3{
+    margin:0 0 14px; font-size:1rem; display:flex; align-items:center; gap:8px;
+  }
+  .fit-card ul{ margin:0; padding-left:20px; }
+  .fit-card li{ margin-bottom:8px; }
+  @media (max-width:640px){ .fit-grid{ grid-template-columns:1fr; } }
+
+  /* Skills */
+  .chip-row{ display:flex; flex-wrap:wrap; gap:10px; }
+  .chip{
+    background:var(--surface); border:1px solid var(--border);
+    padding:9px 16px; border-radius:999px; font-weight:600; font-size:0.9rem;
+  }
+  .chip:nth-child(1){ border-color:var(--coral); }
+
+  /* Outlook */
+  .outlook-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-bottom:22px;
+  }
+  .outlook-card{
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius-md); padding:20px 14px; text-align:center;
+    box-shadow:var(--shadow-card);
+  }
+  .outlook-card .value{ font-family:var(--font-display); font-weight:800; font-size:1.3rem; color:var(--navy); }
+  html[data-theme="dark"] .outlook-card .value{ color:var(--text); }
+  .outlook-card .label{ font-size:0.78rem; color:var(--text-muted); margin-top:4px; }
+  .outlook-explain{
+    background:var(--surface-alt); border-radius:var(--radius-md); padding:18px 20px;
+    color:var(--text); font-size:0.98rem;
+  }
+  @media (max-width:640px){ .outlook-grid{ grid-template-columns:1fr; } }
+
+  /* Related careers */
+  .related-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:14px; }
+  .related-card{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius-md); padding:16px 18px; text-decoration:none; color:var(--text);
+    transition:transform .15s ease, border-color .15s ease;
+  }
+  .related-card:hover{ border-color:var(--coral); transform:translateY(-2px); }
+  .related-card .name{ font-weight:700; display:flex; gap:8px; align-items:center; }
+  .related-card .meta{ font-size:0.82rem; color:var(--text-muted); margin-top:2px; }
+  .related-card .arrow{ color:var(--coral); font-weight:700; }
+  .soon-tag{
+    font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em;
+    background:var(--amber-soft); color:#8A5A00; padding:3px 8px; border-radius:6px;
+  }
+  html[data-theme="dark"] .soon-tag{ color:var(--amber); }
+  @media (max-width:640px){ .related-grid{ grid-template-columns:1fr; } }
+
+  /* Disclaimer / footer */
+  .disclaimer{
+    background:var(--surface-alt); border-radius:var(--radius-md);
+    padding:20px; font-size:0.85rem; color:var(--text-muted);
+  }
+  .disclaimer p{ margin:0 0 8px; }
+  .disclaimer p:last-child{ margin-bottom:0; font-style:italic; }
+
+  footer{
+    padding:40px 0 60px; text-align:center; color:var(--text-muted); font-size:0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html"><span class="dot"></span>Optira</a>
+    <div class="topbar-actions">
+      <a class="back-link" href="../careers.html">&larr; All careers</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- 1. Header -->
+  <section class="hero" style="border-top:none;">
+    <span class="eyebrow">⚙️ Science &amp; Engineering</span>
+    <h1>Biomedical Engineer</h1>
+    <p class="tagline">Design, test and maintain the medical devices and equipment that diagnose, treat and monitor patients — from artificial joints to hospital imaging machines.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card"><div class="value">$70k&ndash;$130k</div><div class="label">Salary (AUD)</div></div>
+      <div class="stat-card"><div class="value">4 yrs</div><div class="label">Study time</div></div>
+      <div class="stat-card"><div class="value">Low&ndash;Med</div><div class="label">AI impact</div></div>
+      <div class="stat-card"><div class="value">80/100</div><div class="label">Job stability</div></div>
+    </div>
+  </section>
+
+  <!-- 2. What affects the salary -->
+  <section id="salary">
+    <div class="section-label">Pay breakdown</div>
+    <h2>What affects the salary</h2>
+    <p class="intro">Pay rises steadily with experience and specialisation, and tends to be higher in the private medical device industry (e.g. implants, diagnostics) than in public hospital clinical engineering roles.</p>
+    <table class="salary-table">
+      <thead>
+        <tr><th>Stage</th><th>Typical salary</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Graduate / Year 1</td><td class="amount">~$65k</td></tr>
+        <tr><td>4&ndash;8 years' experience</td><td class="amount">$90k&ndash;$110k</td></tr>
+        <tr><td>Public hospital clinical/biomedical engineering</td><td class="amount">$73k&ndash;$90k <span style="font-weight:400;color:var(--text-muted);">(pro rata, varies by state award)</span></td></tr>
+        <tr><td>Senior / medical device &amp; regulatory specialists</td><td class="amount">$110k&ndash;$150k+</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 3. A day in the life -->
+  <section id="day-in-the-life">
+    <div class="section-label">On the job</div>
+    <h2>A day in the life</h2>
+    <ul class="task-list">
+      <li>Design, test and maintain medical devices and equipment, from surgical tools to imaging machines</li>
+      <li>Ensure hospital and clinical equipment meets safety and regulatory standards</li>
+      <li>Work with doctors, nurses and technicians to solve equipment or device problems</li>
+      <li>Research and develop new medical technologies, implants or materials</li>
+    </ul>
+
+    <blockquote class="composite">
+      <p>You're solving problems that directly affect whether a machine works when a patient needs it. It's meticulous, sometimes slow work, but there's nothing like fixing something and knowing it matters for someone's treatment.</p>
+      <cite>— composite quote based on common experiences shared by NSW professionals in this field</cite>
+    </blockquote>
+  </section>
+
+  <!-- 4. How to get there -->
+  <section id="pathway">
+    <div class="section-label">NSW pathway</div>
+    <h2>How to get there</h2>
+    <ol class="pathway">
+      <li>
+        <h3>HSC</h3>
+        <p>Mathematics (Advanced or Extension 1), Physics and Chemistry are the standard recommended prerequisites for engineering degrees.</p>
+      </li>
+      <li>
+        <h3>Study</h3>
+        <p>Bachelor of Engineering (Honours) majoring in Biomedical Engineering, 4 years, accredited by Engineers Australia.</p>
+      </li>
+      <li>
+        <h3>Get qualified</h3>
+        <p>No licence is required to practise, but graduating from an Engineers Australia&ndash;accredited degree matters for employment and skilled migration. Many engineers later pursue Chartered status (CPEng) with Engineers Australia for career progression.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 5. Is this you -->
+  <section id="fit">
+    <div class="section-label">Self check</div>
+    <h2>Is this you?</h2>
+    <div class="fit-grid">
+      <div class="fit-card love">
+        <h3>💡 You might love this if</h3>
+        <ul>
+          <li>You enjoy both engineering and biology/anatomy</li>
+          <li>You like solving hands-on, practical problems</li>
+          <li>You want work with a direct impact on patients</li>
+          <li>You enjoy technical, lab-based work</li>
+        </ul>
+      </div>
+      <div class="fit-card tough">
+        <h3>⚠️ It might be tough if</h3>
+        <ul>
+          <li>You dislike strict compliance and documentation</li>
+          <li>You want fast-paced, unstructured creative work</li>
+          <li>You're uncomfortable in clinical/hospital settings</li>
+          <li>You want to earn well before finishing a 4-year degree</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Skills -->
+  <section id="skills">
+    <div class="section-label">Top skills</div>
+    <h2>Skills that matter most</h2>
+    <div class="chip-row">
+      <span class="chip">Problem-solving</span>
+      <span class="chip">Attention to detail</span>
+      <span class="chip">Technical/engineering skills</span>
+      <span class="chip">Communication with clinicians</span>
+    </div>
+  </section>
+
+  <!-- 7. Outlook -->
+  <section id="outlook">
+    <div class="section-label">Future outlook</div>
+    <h2>Outlook</h2>
+    <div class="outlook-grid">
+      <div class="outlook-card"><div class="value">Low&ndash;Medium</div><div class="label">AI impact</div></div>
+      <div class="outlook-card"><div class="value">80/100</div><div class="label">Job stability</div></div>
+      <div class="outlook-card"><div class="value">55/100</div><div class="label">Flexibility</div></div>
+    </div>
+    <div class="outlook-explain">
+      Low-to-moderate AI exposure — hands-on device design, testing and regulatory sign-off still need human judgement and accountability, though AI tools are increasingly used for modelling, data analysis and design simulation.
+    </div>
+  </section>
+
+  <!-- 8. Related careers -->
+  <section id="related">
+    <div class="section-label">Explore more</div>
+    <h2>Related careers</h2>
+    <div class="related-grid">
+      <a class="related-card" href="../careers.html">
+        <div>
+          <div class="name">⚙️ Mechanical Engineer</div>
+          <div class="meta">Profile coming soon</div>
+        </div>
+        <span class="soon-tag">Soon</span>
+      </a>
+      <a class="related-card" href="../careers.html">
+        <div>
+          <div class="name">🏥 Doctor (GP)</div>
+          <div class="meta">Profile coming soon</div>
+        </div>
+        <span class="soon-tag">Soon</span>
+      </a>
+      <a class="related-card" href="../careers.html">
+        <div>
+          <div class="name">💊 Pharmacist</div>
+          <div class="meta">Profile coming soon</div>
+        </div>
+        <span class="soon-tag">Soon</span>
+      </a>
+      <a class="related-card" href="../careers.html">
+        <div>
+          <div class="name">🧪 Medical Scientist</div>
+          <div class="meta">Profile coming soon</div>
+        </div>
+        <span class="soon-tag">Soon</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 9. Data source / disclaimer -->
+  <section id="sources">
+    <div class="disclaimer">
+      <p><strong>Data source:</strong> Salary and pathway figures are drawn from Jobs and Skills Australia's occupation profile for Biomedical Engineers (ANZSCO 233913), Engineers Australia's accreditation requirements, and university career guidance (University of Queensland). Actual pay varies by employer, sector (hospital vs. private medical device industry) and location.</p>
+      <p>Optira provides general career information only. It does not replace professional career advice, school counselling, or independent research.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Optira &middot; Career exploration for NSW students</div>
+</footer>
+
+<script>
+  (function(){
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const stored = localStorage.getItem('optira-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = stored || (prefersDark ? 'dark' : 'light');
+    root.setAttribute('data-theme', initial);
+    toggle.textContent = initial === 'dark' ? '☀️' : '🌙';
+
+    toggle.addEventListener('click', function(){
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('optira-theme', next);
+      toggle.textContent = next === 'dark' ? '☀️' : '🌙';
+    });
+  })();
+</script>
+
+</body>
+</html>
