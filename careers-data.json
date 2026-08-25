@@ -1029,5 +1029,567 @@
       }
     },
     "aiNote": "Low AI exposure — mine design, ground safety judgement and on-site decision-making rely on physical inspection and accountability that AI can support with data but not replace. AI is increasingly used for ore-body modelling and predictive maintenance, but statutory safety sign-off stays human."
+  },
+  "obstetrician-gynaecologist": {
+    "slug": "obstetrician-gynaecologist",
+    "title": "Obstetrician & Gynaecologist",
+    "cluster": "Health & Wellbeing",
+    "clusterEmoji": "🏥",
+    "iconEmoji": "🏥",
+    "iconClass": "coral",
+    "lede": "Specialist doctor caring for women's reproductive health, from pregnancy and childbirth to gynaecological conditions and surgery.",
+    "salary": "$170k–$450k+",
+    "studyTime": "11–13 yrs",
+    "aiImpact": "Low",
+    "jobStability": "85/100",
+    "statContext": {
+      "salary": {
+        "width": 90,
+        "text": "Among the highest-earning specialist pathways"
+      },
+      "studyTime": {
+        "width": 95,
+        "text": "One of the longest training pathways of any career"
+      },
+      "aiImpact": {
+        "width": 25,
+        "text": "Hands-on clinical and surgical work"
+      },
+      "jobStability": {
+        "width": 85,
+        "text": "High, consistent demand for specialists"
+      }
+    },
+    "dayTimeline": [
+      {
+        "time": "7:00 AM",
+        "title": "Morning ward round",
+        "desc": "Check in on postnatal and antenatal patients on the ward, reviewing overnight notes with the midwifery team.",
+        "energy": "mid"
+      },
+      {
+        "time": "8:30 AM",
+        "title": "Antenatal clinic",
+        "desc": "Conduct antenatal check-ups for a full clinic of expectant mothers, tracking pregnancy progress and answering questions.",
+        "energy": "high"
+      },
+      {
+        "time": "11:00 AM",
+        "title": "Theatre — gynaecological surgery",
+        "desc": "Perform a scheduled procedure with the surgical team, from minor day surgery to more complex operations.",
+        "energy": "high"
+      },
+      {
+        "time": "1:00 PM",
+        "title": "Lunch break",
+        "desc": "A short break when the schedule allows — though obstetric emergencies can interrupt at any time.",
+        "energy": "low"
+      },
+      {
+        "time": "2:00 PM",
+        "title": "Patient consultations",
+        "desc": "Diagnose and treat reproductive health conditions, and counsel patients on fertility and family planning.",
+        "energy": "mid"
+      },
+      {
+        "time": "4:30 PM",
+        "title": "On-call handover",
+        "desc": "Brief the on-call team on any patients likely to need attention overnight before wrapping up for the day.",
+        "energy": "mid"
+      },
+      {
+        "time": "Overnight (on-call)",
+        "title": "Emergency obstetric care",
+        "desc": "Called in for a complicated delivery or obstetric emergency — the 2am callouts are part of the job, and the hours can be unpredictable.",
+        "energy": "high"
+      }
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "title": "Build your foundation",
+        "body": "Biology, Chemistry and Mathematics"
+      },
+      {
+        "label": "Step 2 — Study",
+        "title": "Medicine, then specialist training",
+        "body": "Bachelor or postgraduate Doctor of Medicine (4–6 years) plus internship, then RANZCOG specialist training (6 years)"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "title": "AHPRA registration & RANZCOG Fellowship",
+        "body": "Registration with the Medical Board of Australia via AHPRA, plus Fellowship of RANZCOG"
+      }
+    ],
+    "skills": [
+      "Clinical judgement",
+      "Surgical precision",
+      "Communication",
+      "Resilience"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "low",
+        "width": 25,
+        "value": "Low"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 85,
+        "value": "85/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 40,
+        "value": "40/100"
+      }
+    },
+    "aiNote": "Low AI exposure — obstetric and surgical care depends on hands-on clinical judgement and real-time decision-making. AI may assist with imaging analysis or administrative work, but delivery and surgery remain human-led."
+  },
+  "teachers-aide": {
+    "slug": "teachers-aide",
+    "title": "Teacher's Aide",
+    "cluster": "Education & Community",
+    "clusterEmoji": "📘",
+    "iconEmoji": "📘",
+    "iconClass": "blue",
+    "lede": "Support classroom teachers and help students with additional learning needs get the most out of school, one-on-one and in small groups.",
+    "salary": "$55k–$75k",
+    "studyTime": "0.5 yr",
+    "aiImpact": "Low",
+    "jobStability": "75/100",
+    "statContext": {
+      "salary": {
+        "width": 35,
+        "text": "Many roles are part-time or casual"
+      },
+      "studyTime": {
+        "width": 10,
+        "text": "One of the fastest entry points into a school"
+      },
+      "aiImpact": {
+        "width": 25,
+        "text": "Built on hands-on human interaction"
+      },
+      "jobStability": {
+        "width": 75,
+        "text": "Steady demand across NSW schools"
+      }
+    },
+    "dayTimeline": [
+      {
+        "time": "8:30 AM",
+        "title": "Morning setup",
+        "desc": "Help the classroom teacher prepare, adapt and set up learning materials and resources for the day ahead.",
+        "energy": "mid"
+      },
+      {
+        "time": "9:00 AM",
+        "title": "Small group support",
+        "desc": "Work one-on-one or in small groups with students who have additional or diverse learning needs.",
+        "energy": "high"
+      },
+      {
+        "time": "10:30 AM",
+        "title": "In-class support",
+        "desc": "Assist the classroom teacher during lessons, helping students stay on task and understand instructions.",
+        "energy": "mid"
+      },
+      {
+        "time": "11:30 AM",
+        "title": "Playground duty",
+        "desc": "Supervise students during recess or lunchtime, keeping an eye on wellbeing and stepping in where needed.",
+        "energy": "high"
+      },
+      {
+        "time": "1:00 PM",
+        "title": "Lunch break",
+        "desc": "A break away from the classroom before the afternoon session starts.",
+        "energy": "low"
+      },
+      {
+        "time": "1:30 PM",
+        "title": "Afternoon small group work",
+        "desc": "Continue one-on-one support sessions, adapting materials to each student's needs — some days it's chaotic, some days it clicks.",
+        "energy": "high"
+      },
+      {
+        "time": "3:00 PM",
+        "title": "Record & report",
+        "desc": "Record and report on student progress and behaviour to the classroom teacher before heading home.",
+        "energy": "mid"
+      }
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "title": "No specific subjects required",
+        "body": "English and people-focused subjects like PDHPE or Community and Family Studies are useful preparation"
+      },
+      {
+        "label": "Step 2 — Study",
+        "title": "Certificate III in School Based Education Support",
+        "body": "Certificate III in School Based Education Support (CHC30221), around 6 months, including a supervised placement in an NSW school"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "title": "Working with Children Check & DoE recruitment",
+        "body": "No formal registration body; entry is via a Working with Children Check and application through the NSW Department of Education's merit-based recruitment system"
+      }
+    ],
+    "skills": [
+      "Patience",
+      "Communication",
+      "Empathy",
+      "Adaptability"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "low",
+        "width": 25,
+        "value": "Low"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 75,
+        "value": "75/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 80,
+        "value": "80/100"
+      }
+    },
+    "aiNote": "Low AI exposure — the role is built on real-time human interaction, care and behaviour management that AI tools can't replicate. AI may help generate classroom resources, but the hands-on support of students stays a human job."
+  },
+  "sound-engineer": {
+    "slug": "sound-engineer",
+    "title": "Sound Engineer",
+    "cluster": "Creative & Media",
+    "clusterEmoji": "🎧",
+    "iconEmoji": "🎧",
+    "iconClass": "ember",
+    "lede": "Record, mix and shape the sound behind music, live shows, film and broadcast — turning raw audio into a polished final product.",
+    "salary": "$55k–$90k",
+    "studyTime": "0–2 yrs",
+    "aiImpact": "Medium",
+    "jobStability": "55/100",
+    "statContext": {
+      "salary": {
+        "width": 40,
+        "text": "Varies heavily by sector and freelance mix"
+      },
+      "studyTime": {
+        "width": 15,
+        "text": "No formal qualification required to start"
+      },
+      "aiImpact": {
+        "width": 55,
+        "text": "AI-assisted mixing tools are emerging"
+      },
+      "jobStability": {
+        "width": 55,
+        "text": "Freelance and project-based work is common"
+      }
+    },
+    "dayTimeline": [
+      {
+        "time": "6:00 AM",
+        "title": "Load-in & setup",
+        "desc": "Arrive early to set up, test and position microphones, mixing desks and recording equipment for the day's event or session.",
+        "energy": "mid"
+      },
+      {
+        "time": "9:00 AM",
+        "title": "Studio recording session",
+        "desc": "Record and edit audio for music, TV or radio, working closely with artists and producers to get the sound they're after.",
+        "energy": "high"
+      },
+      {
+        "time": "12:00 PM",
+        "title": "Sound check",
+        "desc": "Balance levels and troubleshoot technical issues ahead of a live performance or production.",
+        "energy": "mid"
+      },
+      {
+        "time": "1:00 PM",
+        "title": "Lunch break",
+        "desc": "A quick break between sessions before the pace picks up again.",
+        "energy": "low"
+      },
+      {
+        "time": "2:00 PM",
+        "title": "Mixing & post-production",
+        "desc": "Mix and shape recorded audio, layering tracks and refining the balance until it's polished.",
+        "energy": "mid"
+      },
+      {
+        "time": "7:00 PM",
+        "title": "Live show",
+        "desc": "Operate the mixing desk during a live performance, adjusting levels on the fly and troubleshooting on the spot.",
+        "energy": "high"
+      },
+      {
+        "time": "11:30 PM",
+        "title": "Pack down",
+        "desc": "Break down and pack away equipment after the show wraps — sometimes well past midnight.",
+        "energy": "low"
+      }
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "title": "No subjects required",
+        "body": "Music, Music Technology or Industrial Technology (Audio) can help build relevant skills"
+      },
+      {
+        "label": "Step 2 — Study",
+        "title": "Certificate IV in Music (Sound Production)",
+        "body": "No formal qualification is required to start, but a Certificate IV (CUA40920) or a diploma/degree in audio engineering builds technical skills and industry contacts (roughly 6 months to 2 years)"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "title": "Build a portfolio & industry network",
+        "body": "There's no registration body; entry is largely through a demo reel/portfolio, TAFE or private audio school training, traineeships, and industry networking"
+      }
+    ],
+    "skills": [
+      "Technical/audio equipment skills",
+      "Critical listening & attention to detail",
+      "Communication",
+      "Adaptability"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "med",
+        "width": 55,
+        "value": "Medium"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 55,
+        "value": "55/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 70,
+        "value": "70/100"
+      }
+    },
+    "aiNote": "Moderate AI exposure — AI-assisted mixing and mastering tools are automating some routine post-production tasks, but live sound work and the creative judgement of working directly with artists and productions still need a person in the room."
+  },
+  "nutritionist": {
+    "slug": "nutritionist",
+    "title": "Nutritionist",
+    "cluster": "Health & Wellbeing",
+    "clusterEmoji": "🥗",
+    "iconEmoji": "🥗",
+    "iconClass": "green",
+    "lede": "Apply nutrition science to help individuals and communities eat well, through research, education and public health work.",
+    "salary": "$65k–$100k",
+    "studyTime": "3–4 yrs",
+    "aiImpact": "Med",
+    "jobStability": "60/100",
+    "statContext": {
+      "salary": {
+        "width": 45,
+        "text": "Varies by private, community or government sector"
+      },
+      "studyTime": {
+        "width": 35,
+        "text": "A standard undergraduate degree"
+      },
+      "aiImpact": {
+        "width": 55,
+        "text": "Reshaping the writing & research side"
+      },
+      "jobStability": {
+        "width": 60,
+        "text": "Government & NFP roles can be competitive"
+      }
+    },
+    "dayTimeline": [
+      {
+        "time": "8:30 AM",
+        "title": "Morning research & planning",
+        "desc": "Research and develop nutrition programs and resources based on the latest evidence.",
+        "energy": "mid"
+      },
+      {
+        "time": "10:00 AM",
+        "title": "Policy work",
+        "desc": "Advise on public health nutrition policy, contributing evidence-based recommendations.",
+        "energy": "mid"
+      },
+      {
+        "time": "11:30 AM",
+        "title": "Community education session",
+        "desc": "Deliver a nutrition education session to a community group or school.",
+        "energy": "high"
+      },
+      {
+        "time": "1:00 PM",
+        "title": "Lunch break",
+        "desc": "A proper break away from the desk before the afternoon session.",
+        "energy": "low"
+      },
+      {
+        "time": "2:00 PM",
+        "title": "Report writing",
+        "desc": "Write reports, guidelines or health content, translating research into practical advice.",
+        "energy": "mid"
+      },
+      {
+        "time": "3:30 PM",
+        "title": "Stakeholder consultation",
+        "desc": "Consult with food industry or not-for-profit organisations on nutrition initiatives.",
+        "energy": "high"
+      },
+      {
+        "time": "4:30 PM",
+        "title": "Wrap up",
+        "desc": "Tidy up notes and set priorities for tomorrow's research or community work.",
+        "energy": "low"
+      }
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "title": "Build your foundation",
+        "body": "Biology, Chemistry and Food Technology are useful"
+      },
+      {
+        "label": "Step 2 — Study",
+        "title": "Bachelor of Nutrition Science",
+        "body": "Bachelor of Nutrition Science (3–4 years full-time)"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "title": "Voluntary Nutrition Society registration",
+        "body": "Voluntary registration with the Nutrition Society of Australia; unlike 'dietitian', the title 'nutritionist' isn't restricted to a single accreditation"
+      }
+    ],
+    "skills": [
+      "Research",
+      "Communication",
+      "Scientific literacy",
+      "Program design"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "med",
+        "width": 55,
+        "value": "Med"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 60,
+        "value": "60/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 75,
+        "value": "75/100"
+      }
+    },
+    "aiNote": "Medium AI exposure — AI tools are increasingly used for nutrition content generation and data analysis, which may reshape parts of the writing and research side of the role, though program design and stakeholder engagement stay human-led."
+  },
+  "biomedical-engineer": {
+    "slug": "biomedical-engineer",
+    "title": "Biomedical Engineer",
+    "cluster": "Science & Engineering",
+    "clusterEmoji": "⚙️",
+    "iconEmoji": "⚙️",
+    "iconClass": "amber",
+    "lede": "Design, test and maintain the medical devices and equipment that diagnose, treat and monitor patients — from artificial joints to hospital imaging machines.",
+    "salary": "$70k–$130k",
+    "studyTime": "4 yrs",
+    "aiImpact": "Low–Med",
+    "jobStability": "80/100",
+    "statContext": {
+      "salary": {
+        "width": 50,
+        "text": "Higher in private medical device industry roles"
+      },
+      "studyTime": {
+        "width": 40,
+        "text": "Standard accredited engineering degree"
+      },
+      "aiImpact": {
+        "width": 40,
+        "text": "Design and testing still need human sign-off"
+      },
+      "jobStability": {
+        "width": 80,
+        "text": "Steady demand across hospitals and device makers"
+      }
+    },
+    "dayTimeline": [
+      {
+        "time": "8:30 AM",
+        "title": "Design & test",
+        "desc": "Design, test and maintain medical devices and equipment, from surgical tools to imaging machines.",
+        "energy": "mid"
+      },
+      {
+        "time": "10:30 AM",
+        "title": "Compliance & standards",
+        "desc": "Ensure hospital and clinical equipment meets safety and regulatory standards.",
+        "energy": "mid"
+      },
+      {
+        "time": "1:00 PM",
+        "title": "Clinical collaboration",
+        "desc": "Work with doctors, nurses and technicians to solve equipment or device problems.",
+        "energy": "high"
+      },
+      {
+        "time": "3:00 PM",
+        "title": "Research & development",
+        "desc": "Research and develop new medical technologies, implants or materials.",
+        "energy": "low"
+      }
+    ],
+    "pathway": [
+      {
+        "label": "Step 1 — HSC",
+        "title": "Build your foundation",
+        "body": "Mathematics (Advanced or Extension 1), Physics and Chemistry are the standard recommended prerequisites for engineering degrees"
+      },
+      {
+        "label": "Step 2 — Study",
+        "title": "Bachelor of Engineering (Biomedical)",
+        "body": "Bachelor of Engineering (Honours) majoring in Biomedical Engineering, 4 years, accredited by Engineers Australia"
+      },
+      {
+        "label": "Step 3 — Get qualified",
+        "title": "Engineers Australia accreditation & CPEng",
+        "body": "No licence is required to practise, but graduating from an Engineers Australia–accredited degree matters for employment and skilled migration; many later pursue Chartered status (CPEng)"
+      }
+    ],
+    "skills": [
+      "Problem-solving",
+      "Attention to detail",
+      "Technical/engineering skills",
+      "Communication with clinicians"
+    ],
+    "outlook": {
+      "AI impact": {
+        "level_class": "med",
+        "width": 40,
+        "value": "Low–Medium"
+      },
+      "Job stability": {
+        "level_class": "low",
+        "width": 80,
+        "value": "80/100"
+      },
+      "Flexibility": {
+        "level_class": "med",
+        "width": 55,
+        "value": "55/100"
+      }
+    },
+    "aiNote": "Low-to-moderate AI exposure — hands-on device design, testing and regulatory sign-off still need human judgement and accountability, though AI tools are increasingly used for modelling, data analysis and design simulation."
   }
 }
